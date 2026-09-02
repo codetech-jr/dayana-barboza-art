@@ -44,34 +44,36 @@ export function DenimGallery({ dict, locale }: DenimGalleryProps) {
   return (
     <section id="gallery" className="py-section bg-dba-white">
       <div className="max-w-6xl mx-auto px-6">
-        {/* ── Header ── */}
-        <Eyebrow>{dict.gallery.eyebrow}</Eyebrow>
+        {/* ── Header: Centered on mobile, left-aligned on desktop ── */}
+        <div className="flex flex-col items-center md:items-start text-center md:text-left">
+          <Eyebrow>{dict.gallery.eyebrow}</Eyebrow>
 
-        <h2
-          className="
-            mt-5 font-display font-semibold text-dba-ink
-            text-[length:var(--dba-type-h2)]
-            leading-[var(--dba-leading-tight)]
-          "
-        >
-          {dict.gallery.title.split('\n').map((line, i) => (
-            <span key={i}>
-              {i > 0 && <br />}
-              {line}
-            </span>
-          ))}
-        </h2>
+          <h2
+            className="
+              mt-5 font-display font-semibold text-dba-ink
+              text-[length:var(--dba-type-h2)]
+              leading-[var(--dba-leading-tight)]
+            "
+          >
+            {dict.gallery.title.split('\n').map((line, i) => (
+              <span key={i}>
+                {i > 0 && <br />}
+                {line}
+              </span>
+            ))}
+          </h2>
 
-        <p
-          className="
-            mt-4 font-body text-dba-muted
-            text-[length:var(--dba-type-body)]
-            leading-[var(--dba-leading-body)]
-            max-w-[var(--dba-measure)]
-          "
-        >
-          {dict.gallery.subtitle}
-        </p>
+          <p
+            className="
+              mt-4 font-body text-dba-muted
+              text-[length:var(--dba-type-body)]
+              leading-[var(--dba-leading-body)]
+              max-w-[var(--dba-measure)]
+            "
+          >
+            {dict.gallery.subtitle}
+          </p>
+        </div>
 
         {/* ── Filter pills: horizontal scroll on mobile ── */}
         <div

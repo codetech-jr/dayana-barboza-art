@@ -44,8 +44,8 @@ export function About({ dict, locale }: AboutProps) {
             />
           </div>
 
-          {/* ── Biography text ── */}
-          <div className="flex flex-col justify-center">
+          {/* ── Biography text: Centered on mobile, left-aligned on desktop ── */}
+          <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left">
             <Eyebrow>{dict.about.eyebrow}</Eyebrow>
 
             <h2
@@ -80,7 +80,7 @@ export function About({ dict, locale }: AboutProps) {
             </div>
 
             {/* ── Technique badges — minimalist top-border blocks ── */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10 w-full text-center md:text-left">
               {TECHNIQUE_KEYS.map((key) => (
                 <div key={key} className="border-t border-dba-rule-strong pt-4">
                   <h4 className="font-body text-sm font-medium text-dba-accent uppercase tracking-wider">

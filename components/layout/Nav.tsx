@@ -192,7 +192,7 @@ export function Nav({ dict, locale }: NavProps) {
         className={`
           md:hidden
           fixed inset-0 w-full min-h-[100dvh] z-[60]
-          bg-white/95 backdrop-blur-xl
+          bg-dba-cream/98 backdrop-blur-2xl
           transition-all duration-350 ease-[var(--dba-ease-out)]
           ${menuOpen
             ? 'opacity-100 scale-100 pointer-events-auto'
@@ -245,7 +245,7 @@ export function Nav({ dict, locale }: NavProps) {
         </div>
 
         {/* Centered navigation links */}
-        <div className="flex flex-col items-center justify-center gap-8 h-full w-full px-6">
+        <nav className="flex flex-col items-center justify-center gap-8 h-full w-full px-6" aria-label="Menú móvil">
           {NAV_LINKS.map((key, i) => {
             const href = `/${locale}${ROUTE_MAP[key]}`;
             const isActive = pathname === href || pathname.startsWith(`${href}/`);
@@ -311,7 +311,7 @@ export function Nav({ dict, locale }: NavProps) {
           >
             {dict.nav.cta}
           </a>
-        </div>
+        </nav>
       </div>
     </>
   );

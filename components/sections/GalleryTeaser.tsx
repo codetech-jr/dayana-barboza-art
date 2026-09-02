@@ -28,8 +28,8 @@ export function GalleryTeaser({ dict, locale }: GalleryTeaserProps) {
   return (
     <section className="py-section bg-dba-white" aria-labelledby="featured-pieces-heading">
       <div className="max-w-6xl mx-auto px-6">
-        {/* ── Section Header ── */}
-        <div className="max-w-3xl">
+        {/* ── Section Header: Centered on mobile, left-aligned on desktop ── */}
+        <div className="max-w-3xl flex flex-col items-center md:items-start text-center md:text-left mx-auto md:mx-0">
           <Eyebrow>{dict.gallery.eyebrow}</Eyebrow>
 
           <h2

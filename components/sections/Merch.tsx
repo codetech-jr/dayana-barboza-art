@@ -34,28 +34,31 @@ export function Merch({ dict, locale }: MerchProps) {
   return (
     <section id="merch" className="bg-dba-white py-section">
       <div className="max-w-4xl mx-auto px-6">
-        <Eyebrow>{dict.merch.eyebrow}</Eyebrow>
+        {/* ── Header: Centered on mobile, left-aligned on desktop ── */}
+        <div className="flex flex-col items-center md:items-start text-center md:text-left">
+          <Eyebrow>{dict.merch.eyebrow}</Eyebrow>
 
-        <h2
-          className="
-            mt-5 font-display font-semibold text-dba-ink
-            text-[length:var(--dba-type-h2)]
-            leading-[var(--dba-leading-tight)]
-          "
-        >
-          {dict.merch.title}
-        </h2>
+          <h2
+            className="
+              mt-5 font-display font-semibold text-dba-ink
+              text-[length:var(--dba-type-h2)]
+              leading-[var(--dba-leading-tight)]
+            "
+          >
+            {dict.merch.title}
+          </h2>
 
-        <p
-          className="
-            mt-4 font-body text-dba-muted
-            text-[length:var(--dba-type-body)]
-            leading-[var(--dba-leading-body)]
-            max-w-[var(--dba-measure)]
-          "
-        >
-          {dict.merch.subtitle}
-        </p>
+          <p
+            className="
+              mt-4 font-body text-dba-muted
+              text-[length:var(--dba-type-body)]
+              leading-[var(--dba-leading-body)]
+              max-w-[var(--dba-measure)]
+            "
+          >
+            {dict.merch.subtitle}
+          </p>
+        </div>
 
         {/* ── Product grid: 1 col mobile, 2 col tablet+ ── */}
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6">

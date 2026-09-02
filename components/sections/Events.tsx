@@ -41,28 +41,31 @@ export function Events({ dict, locale }: EventsProps) {
   return (
     <section id="events" className="bg-dba-cream py-section">
       <div className="max-w-4xl mx-auto px-6">
-        <Eyebrow>{dict.events.eyebrow}</Eyebrow>
+        {/* ── Header: Centered on mobile, left-aligned on desktop ── */}
+        <div className="flex flex-col items-center md:items-start text-center md:text-left">
+          <Eyebrow>{dict.events.eyebrow}</Eyebrow>
 
-        <h2
-          className="
-            mt-5 font-display font-semibold text-dba-ink
-            text-[length:var(--dba-type-h2)]
-            leading-[var(--dba-leading-tight)]
-          "
-        >
-          {dict.events.title}
-        </h2>
+          <h2
+            className="
+              mt-5 font-display font-semibold text-dba-ink
+              text-[length:var(--dba-type-h2)]
+              leading-[var(--dba-leading-tight)]
+            "
+          >
+            {dict.events.title}
+          </h2>
 
-        <p
-          className="
-            mt-4 font-body text-dba-muted
-            text-[length:var(--dba-type-body)]
-            leading-[var(--dba-leading-body)]
-            max-w-[var(--dba-measure)]
-          "
-        >
-          {dict.events.subtitle}
-        </p>
+          <p
+            className="
+              mt-4 font-body text-dba-muted
+              text-[length:var(--dba-type-body)]
+              leading-[var(--dba-leading-body)]
+              max-w-[var(--dba-measure)]
+            "
+          >
+            {dict.events.subtitle}
+          </p>
+        </div>
 
         {/* ── Photographic Showcase: Real Workshop & Art Party ── */}
         <div className="mt-10 overflow-hidden rounded-2xl shadow-sm border border-dba-rule/60 bg-dba-paper">
@@ -95,14 +98,14 @@ export function Events({ dict, locale }: EventsProps) {
           ))}
         </ul>
 
-        {/* ── CTAs ── */}
-        <div className="mt-12 flex flex-col sm:flex-row gap-4">
+        {/* ── CTAs: Centered on mobile, row on desktop ── */}
+        <div className="mt-12 flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4 w-full sm:w-auto">
           <a
             href={buildWhatsAppUrl('eventDates', locale)}
             target="_blank"
             rel="noopener noreferrer"
             className="
-              inline-flex items-center justify-center
+              w-full sm:w-auto inline-flex items-center justify-center
               rounded-full bg-dba-accent px-8 py-4
               font-body text-sm font-medium text-dba-white
               transition-all duration-500
@@ -119,7 +122,7 @@ export function Events({ dict, locale }: EventsProps) {
             target="_blank"
             rel="noopener noreferrer"
             className="
-              inline-flex items-center justify-center
+              w-full sm:w-auto inline-flex items-center justify-center
               rounded-full bg-transparent px-8 py-4
               border border-dba-rule-strong
               font-body text-sm font-medium text-dba-ink
@@ -134,7 +137,7 @@ export function Events({ dict, locale }: EventsProps) {
           </a>
         </div>
 
-        <p className="mt-4 font-body text-xs text-dba-faint">
+        <p className="mt-4 font-body text-xs text-dba-faint text-center md:text-left">
           {dict.events.microcopy}
         </p>
       </div>

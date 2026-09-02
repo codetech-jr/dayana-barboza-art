@@ -52,8 +52,8 @@ export function Hero({ dict, locale }: HeroProps) {
         aria-hidden="true"
       />
 
-      {/* ── Content ── */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 pb-16 md:pb-24">
+      {/* ── Content: Centered on mobile, left-aligned on md+ ── */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 pb-16 md:pb-24 flex flex-col items-center md:items-start text-center md:text-left">
         <Eyebrow className="!text-[oklch(91%_0_0/0.7)]">
           {dict.hero.eyebrow}
         </Eyebrow>
@@ -91,14 +91,14 @@ export function Hero({ dict, locale }: HeroProps) {
           ))}
         </p>
 
-        {/* ── CTAs: full-width stacked mobile, row desktop ── */}
-        <div className="mt-10 flex flex-col sm:flex-row gap-4">
+        {/* ── CTAs: centered on mobile, row on desktop ── */}
+        <div className="mt-10 flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4 w-full sm:w-auto">
           <a
             href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
             className="
-              inline-flex items-center justify-center gap-3
+              w-full sm:w-auto inline-flex items-center justify-center gap-3
               rounded-full font-body text-sm font-medium tracking-wide
               bg-dba-accent text-dba-white
               px-8 py-4
@@ -114,7 +114,7 @@ export function Hero({ dict, locale }: HeroProps) {
           <Link
             href={`/${locale}/gallery`}
             className="
-              inline-flex items-center justify-center
+              w-full sm:w-auto inline-flex items-center justify-center
               rounded-full font-body text-sm font-medium
               bg-transparent
               text-[oklch(91%_0_0/0.85)]
