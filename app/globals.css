@@ -76,41 +76,6 @@ body {
   font-family: var(--font-body);
 }
 
-/* ─── Gallery Card: Hover vs Touch UX ─────────────────── */
-
-[data-gallery-overlay] {
-  transition: opacity 500ms var(--dba-ease-out), transform 500ms var(--dba-ease-out);
-}
-
-[data-gallery-image] {
-  transition: transform 700ms var(--dba-ease);
-}
-
-/* Desktop: overlay hidden by default, reveals on hover */
-@media (hover: hover) {
-  [data-gallery-overlay] {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-
-  .group:hover [data-gallery-overlay] {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .group:hover [data-gallery-image] {
-    transform: scale(1.05);
-  }
-}
-
-/* Touch devices: overlay always visible — no flickering CTAs */
-@media (hover: none) {
-  [data-gallery-overlay] {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* ─── Scrollbar Hide (filter pills) ───────────────────── */
 
 .scrollbar-none {
