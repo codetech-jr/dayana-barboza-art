@@ -1,26 +1,124 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * ═══════════════════════════════════════════════════════════
+ *  DAYANA BARBOZA ART — Design Tokens
+ *  Source of truth: DESIGN_SYSTEM_DBA.md
+ *  Rule: OKLCH only. No hex. No pure black. No pure white.
+ * ═══════════════════════════════════════════════════════════
+ */
+
+/* ─── Tailwind v4 Theme: Colors, Fonts, Spacing ─── */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Surfaces */
+  --color-dba-white: oklch(100% 0 0);
+  --color-dba-cream: oklch(97% 0.012 80);
+  --color-dba-paper: oklch(94% 0.014 80);
+
+  /* Ink */
+  --color-dba-ink: oklch(15% 0.01 80);
+  --color-dba-muted: oklch(45% 0.008 80);
+  --color-dba-faint: oklch(65% 0.005 80);
+
+  /* Accent — Terroso / Siena quemado */
+  --color-dba-accent: oklch(55% 0.12 38);
+  --color-dba-accent-hover: oklch(60% 0.14 38);
+  --color-dba-accent-active: oklch(50% 0.10 38);
+
+  /* Borders */
+  --color-dba-rule: oklch(85% 0.008 80 / 0.6);
+  --color-dba-rule-strong: oklch(70% 0.012 80 / 0.9);
+
+  /* Font Families (resolved by next/font CSS variables) */
+  --font-display: var(--font-playfair), Georgia, serif;
+  --font-body: var(--font-dm-sans), system-ui, sans-serif;
+
+  /* Section Spacing */
+  --spacing-section: 96px;
+  --spacing-section-lg: 140px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ─── Typography Scale (CSS Custom Properties) ──────────── */
+
+:root {
+  --dba-type-hero: clamp(3.2rem, 7vw, 6rem);
+  --dba-type-h2: clamp(2rem, 4vw, 3.2rem);
+  --dba-type-h3: clamp(1.3rem, 2vw, 1.6rem);
+  --dba-type-body: 1.05rem;
+  --dba-type-caption: 0.82rem;
+  --dba-type-eyebrow: 0.68rem;
+
+  --dba-leading-tight: 1.05;
+  --dba-leading-body: 1.75;
+
+  --dba-measure: 68ch;
+
+  /* Easing */
+  --dba-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --dba-ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --dba-ease-out: cubic-bezier(0, 0.55, 0.45, 1);
+
+  /* Spacing scale */
+  --dba-space-xs: 8px;
+  --dba-space-sm: 16px;
+  --dba-space-md: 32px;
+  --dba-space-lg: 64px;
+  --dba-space-xl: 96px;
+  --dba-space-2xl: 140px;
+}
+
+/* ─── Base Resets ──────────────────────────────────────── */
+
+body {
+  background: var(--color-dba-white);
+  color: var(--color-dba-ink);
+  font-family: var(--font-body);
+}
+
+/* ─── Gallery Card: Hover vs Touch UX ─────────────────── */
+
+[data-gallery-overlay] {
+  transition: opacity 500ms var(--dba-ease-out), transform 500ms var(--dba-ease-out);
+}
+
+[data-gallery-image] {
+  transition: transform 700ms var(--dba-ease);
+}
+
+/* Desktop: overlay hidden by default, reveals on hover */
+@media (hover: hover) {
+  [data-gallery-overlay] {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  .group:hover [data-gallery-overlay] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .group:hover [data-gallery-image] {
+    transform: scale(1.05);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Touch devices: overlay always visible — no flickering CTAs */
+@media (hover: none) {
+  [data-gallery-overlay] {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
+/* ─── Scrollbar Hide (filter pills) ───────────────────── */
+
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+

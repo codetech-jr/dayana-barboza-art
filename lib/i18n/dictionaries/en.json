@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "title": "Dayana Barboza Art — Hyperrealist Hand-Painted Denim Jackets",
+    "description": "Hyperrealist art on denim. One-of-a-kind hand-painted jackets, Art Parties, and limited edition merch. Every piece exists only once. Get yours."
+  },
+  "nav": {
+    "gallery": "Gallery",
+    "about": "About",
+    "events": "Events",
+    "merch": "Merch",
+    "cta": "Message me"
+  },
+  "hero": {
+    "eyebrow": "Art that lives on you.",
+    "title": "Your story,\npainted by hand.",
+    "subtitle": "Denim jackets hand-painted with hyperrealist art.\nEvery piece, one of a kind. Every design, yours.",
+    "ctaPrimary": "I want my one-of-a-kind jacket",
+    "ctaSecondary": "See the gallery"
+  },
+  "about": {
+    "eyebrow": "The artist behind the art",
+    "title": "Dayana Barboza.\nArt as an act of living.",
+    "bio": {
+      "hook": "I started painting at home. No gallery, no academy, no one's permission. With acrylic, with fabric, with the conviction that art doesn't need an institutional frame to be real.",
+      "technique": "Hyperrealism on textile is a discipline that demands obsessive patience: layers of specialized acrylic over denim, pigments that withstand washing, portraits that capture not just a face but a state of mind. It's not sublimation. It's not print. It's paint. It's time. It's art.",
+      "manifesto": "I believe in art that's worn, that moves, that reaches places a canvas never could. I believe in the woman who decides her back is a canvas. And I believe in stories that deserve to be told out loud — and on fabric."
+    },
+    "techniques": {
+      "acrylic": {
+        "title": "Textile acrylic",
+        "description": "Pigments formulated for denim fiber. Permanent adhesion."
+      },
+      "durability": {
+        "title": "Real durability",
+        "description": "Withstands washing and time. Guaranteed."
+      },
+      "exclusive": {
+        "title": "Exclusive design",
+        "description": "No duplicates. Each piece exists only once."
+      }
+    }
+  },
+  "gallery": {
+    "eyebrow": "Wearable art · Current collection",
+    "title": "Pieces that are never\nsold twice.",
+    "subtitle": "Every jacket is hand-painted to order. What you see in the gallery is inspiration, not inventory.",
+    "filters": {
+      "all": "All",
+      "portraits": "Portraits",
+      "cinema": "Film & Culture",
+      "nature": "Nature",
+      "custom": "Custom"
+    },
+    "cardCta": "I want something like this",
+    "ctaPrimary": "I want a quote for my design",
+    "microcopy": "Schedule available: response within 24 hours.",
+    "ctaSecondary": "What's the design process like?"
+  },
+  "events": {
+    "eyebrow": "Experiences · Beyond art",
+    "title": "A night you'll\nnever forget.",
+    "subtitle": "Private or group Art Parties. Textile technique classes. Moments where art stops being a museum affair and becomes your experience.",
+    "inclusions": [
+      "Materials and jacket included",
+      "Step-by-step guidance by Dayana",
+      "Intimate setting (groups up to 8)",
+      "Photo of your finished piece",
+      "Welcome drink included"
+    ],
+    "ctaPrimary": "See available dates",
+    "ctaSecondary": "Book a private date",
+    "microcopy": "Private groups available for birthdays, celebrations, and corporate events. Ask about availability."
+  },
+  "merch": {
+    "eyebrow": "Merch · Wear art without borders",
+    "title": "Art also lives\nin cotton.",
+    "subtitle": "T-shirts with original art by Dayana Barboza. Limited editions. No restocks.",
+    "ctaPrimary": "Check sizes and availability",
+    "microcopy": "No shopping cart. No waiting. Direct, personalized attention."
+  },
+  "footer": {
+    "eyebrow": "What shall we create today?",
+    "buttons": {
+      "jacket": "I want a quote for a custom jacket",
+      "party": "I want to book an Art Party",
+      "idea": "I have an idea and want your take"
+    },
+    "socialProof": "Responding from Virginia to the world.",
+    "signature": "Dayana Barboza Art — Art you live, wear, and never forget."
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "title": "Dayana Barboza Art — Chaquetas Denim Hiperrealistas Pintadas a Mano",
+    "description": "Arte hiperrealista sobre denim. Chaquetas únicas pintadas a mano, Art Parties y merch de edición limitada. Cada pieza existe una sola vez. Cotiza la tuya."
+  },
+  "nav": {
+    "gallery": "Galería",
+    "about": "Sobre Mí",
+    "events": "Eventos",
+    "merch": "Merch",
+    "cta": "Escríbeme"
+  },
+  "hero": {
+    "eyebrow": "Arte que vive en tu ropa.",
+    "title": "Tu historia,\npintada a mano.",
+    "subtitle": "Chaquetas denim intervenidas con pintura hiperrealista.\nCada pieza, única. Cada diseño, tuyo.",
+    "ctaPrimary": "Quiero mi chaqueta única",
+    "ctaSecondary": "Ver la galería"
+  },
+  "about": {
+    "eyebrow": "La artista detrás del arte",
+    "title": "Dayana Barboza.\nEl arte como acto de vivir.",
+    "bio": {
+      "hook": "Empecé a pintar en mi hogar. Sin galería, sin academia, sin permiso de nadie. Con acrílico, con tela, con la convicción de que el arte no necesita un marco institucional para ser real.",
+      "technique": "El hiperrealismo en textil es una disciplina que exige paciencia obsesiva: capas de acrílico especial sobre denim, pigmentos que resisten el lavado, retratos que capturan no solo un rostro sino un estado de ánimo. No es sublimación. No es impresión. Es pintura. Es tiempo. Es arte.",
+      "manifesto": "Creo en el arte que se usa, que se mueve, que llega a lugares que un lienzo nunca alcanzaría. Creo en la mujer que decide que su espalda es un lienzo. Y creo en las historias que merecen ser contadas en voz alta — y en tela."
+    },
+    "techniques": {
+      "acrylic": {
+        "title": "Acrílico textil",
+        "description": "Pigmentos formulados para fibra de denim. Adherencia permanente."
+      },
+      "durability": {
+        "title": "Durabilidad real",
+        "description": "Resiste el lavado y el tiempo. Garantizado."
+      },
+      "exclusive": {
+        "title": "Diseño exclusivo",
+        "description": "Sin duplicados. Cada pieza, solo existe una vez."
+      }
+    }
+  },
+  "gallery": {
+    "eyebrow": "Arte wearable · Colección actual",
+    "title": "Piezas que no\nse venden dos veces.",
+    "subtitle": "Cada chaqueta es intervenida a mano sobre pedido. Lo que ves en la galería es inspiración, no inventario.",
+    "filters": {
+      "all": "Todos",
+      "portraits": "Retratos",
+      "cinema": "Cine & Cultura",
+      "nature": "Naturaleza",
+      "custom": "A pedido"
+    },
+    "cardCta": "Quiero algo así",
+    "ctaPrimary": "Quiero cotizar mi diseño",
+    "microcopy": "Agenda disponible: respuesta en menos de 24 horas.",
+    "ctaSecondary": "¿Cómo es el proceso de diseño?"
+  },
+  "events": {
+    "eyebrow": "Experiencias · No solo arte",
+    "title": "Una noche que\nno se olvida.",
+    "subtitle": "Art Parties privadas o grupales. Clases de técnica textil. Momentos donde el arte deja de ser cosa de museos y se convierte en tu experiencia.",
+    "inclusions": [
+      "Materiales y chaqueta incluidos",
+      "Guía paso a paso por Dayana",
+      "Ambiente íntimo (grupos de hasta 8 personas)",
+      "Foto de tu obra al finalizar",
+      "Copa o bebida de bienvenida"
+    ],
+    "ctaPrimary": "Ver fechas disponibles",
+    "ctaSecondary": "Reservar una fecha privada",
+    "microcopy": "Grupos privados disponibles para cumpleaños, despedidas y corporativos. Pregunta por disponibilidad."
+  },
+  "merch": {
+    "eyebrow": "Merch · Para vestir el arte sin fronteras",
+    "title": "El arte también\nvive en algodón.",
+    "subtitle": "T-shirts con arte original de Dayana Barboza. Ediciones limitadas. Sin reposición.",
+    "ctaPrimary": "Consultar tallas y disponibilidad",
+    "microcopy": "Sin carrito de compras. Sin esperas. Atención directa y personalizada."
+  },
+  "footer": {
+    "eyebrow": "¿Qué creamos hoy?",
+    "buttons": {
+      "jacket": "Quiero cotizar una chaqueta custom",
+      "party": "Quiero agendar un Art Party",
+      "idea": "Tengo una idea y quiero tu opinión"
+    },
+    "socialProof": "Respondiendo desde Virginia y para todo el mundo.",
+    "signature": "Dayana Barboza Art — Arte que se vive, se lleva y no se olvida."
+  }
+}

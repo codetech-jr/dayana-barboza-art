@@ -1,0 +1,260 @@
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import type { Dictionary } from '@/lib/types/dictionary';
+import type { Locale } from '@/lib/i18n/config';
+
+interface NavProps {
+  dict: Dictionary;
+  locale: Locale;
+}
+
+export const NAV_LINKS = ['gallery', 'about', 'events', 'merch'] as const;
+export type NavLinkKey = (typeof NAV_LINKS)[number];
+
+/**
+ * Route mapping per nav key:
+ * - gallery -> /[locale]/gallery
+ * - about   -> /[locale]/about
+ * - events  -> /[locale]/experiences
+ * - merch   -> /[locale]/merch
+ */
+export const ROUTE_MAP: Record<NavLinkKey, string> = {
+  gallery: '/gallery',
+  about: '/about',
+  events: '/experiences',
+  merch: '/merch',
+};
+
+/**
+ * DBA Sticky Navigation — Multi-Page Glassmorphism Pill.
+ *
+ * Mobile: Logo + hamburger with spring morph.
+ * Desktop: Logo + sub-route Links + CTA + Language switcher (ES/EN).
+ *
+ * Employs next/link for seamless MPA client-side transitions
+ * while preserving active segment detection and bilingual routing.
+ */
+export function Nav({ dict, locale }: NavProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const alternateLocale: Locale = locale === 'es' ? 'en' : 'es';
+  // Replaces the locale prefix seamlessly: e.g. /es/gallery -> /en/gallery
+  const alternateHref = pathname.replace(`/${locale}`, `/${alternateLocale}`);
+
+  return (
+    <header
+      className="
+        fixed top-4 inset-x-0 z-50
+        mx-auto w-[calc(100%-2rem)] max-w-5xl
+        rounded-full
+        border border-dba-rule
+        bg-[oklch(100%_0_0/0.7)]
+        backdrop-blur-[16px] backdrop-saturate-[1.4]
+        px-5 py-3
+        md:px-8
+        transition-shadow duration-500
+      "
+    >
+      <nav className="flex items-center justify-between" aria-label="Main navigation">
+        {/* ── Logo ── */}
+        <Link
+          href={`/${locale}`}
+          className="font-display text-lg font-semibold text-dba-ink tracking-wide select-none transition-opacity hover:opacity-85"
+          aria-label="Dayana Barboza Art — Home"
+        >
+          Dayana Barboza
+          <span className="text-dba-accent"> Art</span>
+        </Link>
+
+        {/* ── Desktop Route Links ── */}
+        <ul className="hidden md:flex items-center gap-6" role="list">
+          {NAV_LINKS.map((key) => {
+            const href = `/${locale}${ROUTE_MAP[key]}`;
+            const isActive = pathname === href || pathname.startsWith(`${href}/`);
+
+            return (
+              <li key={key}>
+                <Link
+                  href={href}
+                  className={`
+                    font-body text-sm transition-colors duration-300
+                    focus-visible:outline-2 focus-visible:outline-offset-4
+                    focus-visible:outline-dba-accent
+                    ${isActive
+                      ? 'text-dba-accent font-medium'
+                      : 'text-dba-ink hover:text-dba-accent'
+                    }
+                  `}
+                >
+                  {dict.nav[key]}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* ── Desktop Right: CTA + Switcher ── */}
+        <div className="hidden md:flex items-center gap-4">
+          {/* Language Switcher */}
+          <Link
+            href={alternateHref}
+            className="
+              rounded-full border border-dba-rule px-3 py-1.5
+              text-xs font-body font-medium uppercase tracking-widest
+              text-dba-muted
+              transition-all duration-300
+              hover:border-dba-accent hover:text-dba-accent
+              focus-visible:outline-2 focus-visible:outline-offset-2
+              focus-visible:outline-dba-accent
+            "
+            aria-label={`Switch to ${alternateLocale === 'es' ? 'Español' : 'English'}`}
+          >
+            {alternateLocale.toUpperCase()}
+          </Link>
+
+          {/* Nav CTA */}
+          <a
+            href="#footer"
+            className="
+              rounded-full bg-dba-accent px-5 py-2
+              text-sm font-body font-medium text-dba-white
+              transition-all duration-300
+              hover:bg-dba-accent-hover
+              focus-visible:outline-2 focus-visible:outline-offset-4
+              focus-visible:outline-dba-accent
+              active:scale-[0.97]
+            "
+          >
+            {dict.nav.cta}
+          </a>
+        </div>
+
+        {/* ── Mobile Hamburger ── */}
+        <button
+          type="button"
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="
+            md:hidden relative z-50
+            flex flex-col justify-center items-center
+            w-10 h-10 rounded-full
+            focus-visible:outline-2 focus-visible:outline-offset-2
+            focus-visible:outline-dba-accent
+          "
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          style={{ WebkitTapHighlightColor: 'transparent' }}
+        >
+          <span
+            className={`
+              block h-[1.5px] w-5 bg-dba-ink rounded-full
+              transition-all duration-400 ease-[var(--dba-ease)]
+              ${menuOpen ? 'rotate-45 translate-y-[5px]' : ''}
+            `}
+          />
+          <span
+            className={`
+              block h-[1.5px] w-5 bg-dba-ink rounded-full mt-[3.5px]
+              transition-all duration-200
+              ${menuOpen ? 'opacity-0 scale-x-0' : ''}
+            `}
+          />
+          <span
+            className={`
+              block h-[1.5px] w-5 bg-dba-ink rounded-full mt-[3.5px]
+              transition-all duration-400 ease-[var(--dba-ease)]
+              ${menuOpen ? '-rotate-45 -translate-y-[5px]' : ''}
+            `}
+          />
+        </button>
+      </nav>
+
+      {/* ── Mobile Menu Overlay ── */}
+      <div
+        id="mobile-menu"
+        className={`
+          md:hidden
+          fixed inset-0 z-40
+          flex flex-col items-center justify-center gap-8
+          bg-[oklch(100%_0_0/0.92)]
+          backdrop-blur-[24px]
+          transition-all duration-350 ease-[var(--dba-ease-out)]
+          ${menuOpen
+            ? 'opacity-100 scale-100 pointer-events-auto'
+            : 'opacity-0 scale-95 pointer-events-none'
+          }
+        `}
+        aria-hidden={!menuOpen}
+      >
+        {NAV_LINKS.map((key, i) => {
+          const href = `/${locale}${ROUTE_MAP[key]}`;
+          const isActive = pathname === href || pathname.startsWith(`${href}/`);
+
+          return (
+            <Link
+              key={key}
+              href={href}
+              onClick={() => setMenuOpen(false)}
+              className={`
+                font-body text-xl transition-all duration-300
+                ${isActive
+                  ? 'text-dba-accent font-medium'
+                  : 'text-dba-ink hover:text-dba-accent'
+                }
+              `}
+              style={{
+                transitionDelay: menuOpen ? `${i * 60}ms` : '0ms',
+                opacity: menuOpen ? 1 : 0,
+                transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
+              }}
+            >
+              {dict.nav[key]}
+            </Link>
+          );
+        })}
+
+        {/* Mobile Language Switcher */}
+        <Link
+          href={alternateHref}
+          onClick={() => setMenuOpen(false)}
+          className="
+            mt-4 rounded-full border border-dba-rule px-6 py-2
+            text-sm font-body font-medium uppercase tracking-widest
+            text-dba-muted transition-colors duration-300
+            hover:border-dba-accent hover:text-dba-accent
+          "
+          style={{
+            transitionDelay: menuOpen ? `${NAV_LINKS.length * 60}ms` : '0ms',
+            opacity: menuOpen ? 1 : 0,
+            transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
+          }}
+        >
+          {alternateLocale === 'es' ? 'Español' : 'English'}
+        </Link>
+
+        {/* Mobile CTA */}
+        <a
+          href="#footer"
+          onClick={() => setMenuOpen(false)}
+          className="
+            rounded-full bg-dba-accent px-8 py-3
+            text-sm font-body font-medium text-dba-white
+            transition-all duration-300
+            hover:bg-dba-accent-hover
+          "
+          style={{
+            transitionDelay: menuOpen ? `${(NAV_LINKS.length + 1) * 60}ms` : '0ms',
+            opacity: menuOpen ? 1 : 0,
+            transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
+          }}
+        >
+          {dict.nav.cta}
+        </a>
+      </div>
+    </header>
+  );
+}

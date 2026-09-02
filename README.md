@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎨 Dayana Barboza Art — Hyperrealistic Denim Wearable Art
 
-## Getting Started
+Plataforma web editorial y catálogo de alta conversión (CRO) para **Dayana Barboza**, artista visual venezolana radicada en Virginia especializada en pintura hiperrealista sobre chaquetas denim y experiencias exclusivas de Art Parties.
 
-First, run the development server:
+![Next.js 16](https://img.shields.io/badge/Next.js_16-black?style=flat&logo=next.js)
+![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat&logo=framer&logoColor=white)
+![SSG](https://img.shields.io/badge/Static_Export-SSG-success)
+
+---
+
+## 🌟 Características Principales
+
+- **Arquitectura Multi-Página (MPA)**:
+  - `/[locale]` — Hero inmersivo cinematográfico de borde a borde + Teaser de Obras + Contacto Directo.
+  - `/[locale]/gallery` — Catálogo completo con filtros dinámicos (Retratos, Cine, Naturaleza, Personalizadas).
+  - `/[locale]/about` — Manifiesto y biografía editorial con fotografía de taller.
+  - `/[locale]/experiences` — Art Parties, fechas disponibles y reservas privadas.
+  - `/[locale]/merch` — Cápsulas de arte textil en edición limitada.
+- **Galería Modal / Lightbox de Alta Definición**:
+  - Zoom a escala milimétrica para apreciar los trazos y textura textil.
+  - Zero Layout Shift con renderizado determinístico (`object-contain`).
+  - Navegación completa por teclado (`←`, `→`, `Escape`) y carrusel de miniaturas.
+  - **Fusión CRO WhatsApp Directa**: Botón contextual que pre-carga el mensaje con el nombre exacto de la pieza seleccionada (`'lightboxQuote'`).
+- **Sistema de Diseño Editorial en OKLCH**:
+  - Paleta curada: Denim Indigo, Terracota Accent, Papel y Crema cálidos.
+  - Tipografía editorial: *Playfair Display* (títulos) + *DM Sans* (cuerpo).
+  - Glassmorphism desacoplado flotante (`fixed top-4 inset-x-0`).
+- **Internacionalización (i18n)**:
+  - Rutas dinámicas bilingües (`/es` y `/en`) con diccionarios tipados de cero dependencias.
+  - Detección y proxy inteligente mediante `proxy.ts` (Next.js 16).
+- **SEO & Performance Vercel-Ready**:
+  - Títulos y descripciones estratégicas por página con `generateMetadata()`.
+  - Tarjetas OpenGraph y Twitter en alta resolución.
+  - Activos optimizados en formato `.webp` con precargas y tamaños responsivos.
+  - 100% páginas SSG compiladas en menos de 2 segundos.
+
+---
+
+## 🚀 Inicio Rápido
 
 ```bash
+# 1. Instalar dependencias
+npm install
+
+# 2. Iniciar servidor de desarrollo
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# 3. Compilar para producción (Vercel / Edge)
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador para explorar la experiencia.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Stack Tecnológico
 
-## Learn More
+- **Framework**: Next.js 16 (App Router con Turbopack)
+- **Estilos**: Tailwind CSS v4 (CSS-first `@theme inline`)
+- **Animaciones**: Framer Motion
+- **Optimización de Medios**: Next/Image + WebP
+- **Canal de Conversión**: WhatsApp Business API pre-cargado
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© 2026 Dayana Barboza Art. Todos los derechos reservados.
