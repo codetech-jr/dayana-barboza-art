@@ -57,7 +57,7 @@ export default async function AboutPage({
   const dict = await getDictionary(locale as Locale);
 
   return (
-    <main className="pt-28 md:pt-32">
+    <main className="pt-[110px] lg:pt-[130px]">
       <About dict={dict} locale={locale} />
       <FooterContact dict={dict} locale={locale} />
     </main>

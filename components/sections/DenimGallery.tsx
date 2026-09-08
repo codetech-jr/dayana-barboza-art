@@ -46,7 +46,7 @@ export function DenimGallery({ dict, locale }: DenimGalleryProps) {
     : GALLERY_PIECES.filter((piece) => piece.category === activeFilter);
 
   return (
-    <section id="gallery" className="py-section bg-dba-white">
+    <section id="gallery" className="pt-4 lg:pt-6 pb-section bg-dba-white">
       <div className="max-w-6xl mx-auto px-6">
         {/* ── Header: Centered on mobile, left-aligned on desktop ── */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left">

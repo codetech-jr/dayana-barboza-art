@@ -32,7 +32,7 @@ const MERCH_MOCKS = [
  */
 export function Merch({ dict, locale }: MerchProps) {
   return (
-    <section id="merch" className="bg-dba-white py-section">
+    <section id="merch" className="bg-dba-white pt-4 lg:pt-6 pb-section">
       <div className="max-w-4xl mx-auto px-6">
         {/* ── Header: Centered on mobile, left-aligned on desktop ── */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left">

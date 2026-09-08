@@ -23,7 +23,7 @@ export function About({ dict, locale }: AboutProps) {
   return (
     <section
       id="about"
-      className="bg-dba-cream py-section"
+      className="bg-dba-cream pt-4 lg:pt-6 pb-section"
     >
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">

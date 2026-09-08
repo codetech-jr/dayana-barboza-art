@@ -39,7 +39,7 @@ function CheckIcon() {
  */
 export function Events({ dict, locale }: EventsProps) {
   return (
-    <section id="events" className="bg-dba-cream py-section">
+    <section id="events" className="bg-dba-cream pt-4 lg:pt-6 pb-section">
       <div className="max-w-4xl mx-auto px-6">
         {/* ── Header: Centered on mobile, left-aligned on desktop ── */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left">

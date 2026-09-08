@@ -4,7 +4,8 @@ import { isValidLocale } from '@/lib/i18n/config';
 import type { Locale } from '@/lib/i18n/config';
 import { notFound } from 'next/navigation';
 import { Hero } from '@/components/sections/Hero';
-import { GalleryTeaser } from '@/components/sections/GalleryTeaser';
+import { FeaturedWorks } from '@/components/ui/FeaturedWorks';
+import { Testimonials } from '@/components/sections/Testimonials';
 import { FooterContact } from '@/components/sections/FooterContact';
 
 export async function generateMetadata({
@@ -31,13 +32,11 @@ export async function generateMetadata({
 /**
  * Landing Page (Index) — Home Portal.
  *
- * Streamlined MPA entrance:
+ * High-converting editorial entrance:
  * 1. Hero: Impactful visual statement & primary hook.
- * 2. GalleryTeaser: Curated preview of 3 custom jacket works.
- * 3. FooterContact: Direct conversational conversion hub (Hick's law).
- *
- * Heavy sections (About, Full DenimGallery, Experiences, Merch)
- * live independently in their respective sub-routes.
+ * 2. FeaturedWorks: Immediate visual proof with 3 stellar works & ghost pill link.
+ * 3. Testimonials: Authentic social proof masonry with Virginia/D.C. collectors.
+ * 4. FooterContact: Direct conversational conversion hub (Hick's law).
  */
 export default async function HomePage({
   params,
@@ -53,7 +52,8 @@ export default async function HomePage({
   return (
     <main>
       <Hero dict={dict} locale={locale} />
-      <GalleryTeaser dict={dict} locale={locale} />
+      <FeaturedWorks dict={dict} locale={locale} />
+      <Testimonials locale={locale} />
       <FooterContact dict={dict} locale={locale} />
     </main>
   );
