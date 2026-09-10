@@ -65,17 +65,20 @@ export function Hero({ dict, locale }: HeroProps) {
       {/* ── Content: Centered on mobile, left-aligned on md+ ── */}
       {/* pt-28 = 112px → clears the fixed nav pill (top-4 + ~64px height + shadow) on mobile/short viewports */}
       <div className="relative z-10 w-full max-w-5xl mx-auto px-6 pt-28 md:pt-0 pb-16 md:pb-24 flex flex-col items-center md:items-start text-center md:text-left">
-        <Eyebrow className="!text-[oklch(91%_0_0/0.7)]">
+        {/* ── Eyebrow: Legibility enhanced with drop-shadow and higher opacity ── */}
+        <Eyebrow className="!text-white/95 !font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
           {dict.hero.eyebrow}
         </Eyebrow>
 
         <h1
           className="
-            mt-6 font-display italic font-normal
-            text-[oklch(91%_0_0)]
-            leading-[var(--dba-leading-tight)]
+            mt-4 md:mt-6
+            font-display font-medium text-white
             text-[length:var(--dba-type-hero)]
+            leading-[var(--dba-leading-tight)]
             tracking-[-0.03em]
+            max-w-4xl
+            drop-shadow-lg
           "
         >
           {dict.hero.title.split('\n').map((line, i) => (
