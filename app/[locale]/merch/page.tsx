@@ -3,8 +3,10 @@ import { notFound } from 'next/navigation';
 import { getDictionary } from '@/lib/i18n/getDictionary';
 import { isValidLocale } from '@/lib/i18n/config';
 import type { Locale } from '@/lib/i18n/config';
-import { Merch } from '@/components/sections/Merch';
+import { CapsuleMerch } from '@/components/sections/CapsuleMerch';
 import { FooterContact } from '@/components/sections/FooterContact';
+
+import { ScrollReveal } from '@/components/ui/ScrollReveal';
 
 export async function generateMetadata({
   params,
@@ -57,9 +59,13 @@ export default async function MerchPage({
   const dict = await getDictionary(locale as Locale);
 
   return (
-    <main className="pt-[110px] lg:pt-[130px]">
-      <Merch dict={dict} locale={locale} />
-      <FooterContact dict={dict} locale={locale} />
+    <main className="min-h-dvh pt-28 md:pt-36 lg:pt-40">
+      <ScrollReveal threshold={0}>
+        <CapsuleMerch locale={locale} />
+      </ScrollReveal>
+      <ScrollReveal>
+        <FooterContact dict={dict} locale={locale} />
+      </ScrollReveal>
     </main>
   );
 }

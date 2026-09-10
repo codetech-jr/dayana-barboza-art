@@ -59,6 +59,18 @@ const TRIGGER_MESSAGES = {
     es: 'Hola Dayana, quiero saber más sobre el proceso de diseño.',
     en: "Hi Dayana, I'd like to know more about the design process.",
   },
+  artPartySession: {
+    es: 'Hola Dayana, quiero reservar una sesión privada de Art Party.',
+    en: "Hi Dayana, I'd like to book a private Art Party session.",
+  },
+  artPartyWaitlist: {
+    es: 'Hola Dayana, me gustaría unirme a la lista de espera para el próximo Art Party.',
+    en: "Hi Dayana, I'd like to join the waitlist for the next Art Party.",
+  },
+  capsuleConcierge: {
+    es: 'Hola Dayana, quiero consultar talla y disponibilidad de una pieza de la Capsule Collection.',
+    en: "Hi Dayana, I'd like to check size and availability for a Capsule Collection piece.",
+  },
 } as const satisfies Record<string, Record<Locale, string>>;
 
 /** Union of all valid trigger names. */

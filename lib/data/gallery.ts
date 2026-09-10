@@ -6,12 +6,17 @@ import type { Locale } from '@/lib/i18n/config';
 // ─────────────────────────────────────────────────────────
 
 export type GalleryCategory = 'portraits' | 'cinema' | 'nature' | 'custom';
+export type PieceStatus = 'available' | 'sold';
 
 export interface GalleryPiece {
   readonly id: string;
   readonly title: Record<Locale, string>;
   readonly category: GalleryCategory;
   readonly imageUrl: string;
+  /** Scarcity badge: 'available' shows "1 OF 1", 'sold' shows "SOLD OUT". */
+  readonly status: PieceStatus;
+  /** If true, piece gets a large 2-col or 2-row tile in the Bento grid. */
+  readonly featured?: boolean;
 }
 
 /**
@@ -41,24 +46,29 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Retrato de Frida', en: 'Frida Portrait' },
     category: 'portraits',
     imageUrl: '/gallery/portrait/1.webp',
+    status: 'sold',
+    featured: true,
   },
   {
     id: 'portrait-gaze',
     title: { es: 'Mirada en Denim', en: 'Denim Gaze' },
     category: 'portraits',
     imageUrl: '/gallery/portrait/2.webp',
+    status: 'available',
   },
   {
     id: 'portrait-iconic',
     title: { es: 'Retrato Ícono Hiperrealista', en: 'Hyperrealistic Icon Portrait' },
     category: 'portraits',
     imageUrl: '/gallery/portrait/3.webp',
+    status: 'available',
   },
   {
     id: 'portrait-expression',
     title: { es: 'Expresión & Color Textil', en: 'Textile Expression & Color' },
     category: 'portraits',
     imageUrl: '/gallery/portrait/4.webp',
+    status: 'sold',
   },
 
   // ─── CINEMA (Movie Inspo) ───
@@ -67,30 +77,36 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Al Pacino — Scarface', en: 'Al Pacino — Scarface' },
     category: 'cinema',
     imageUrl: '/gallery/movie-inspo/1.webp',
+    status: 'sold',
+    featured: true,
   },
   {
     id: 'cinema-pop-art',
     title: { es: 'Marilyn Pop & Cinema', en: 'Marilyn Pop & Cinema' },
     category: 'cinema',
     imageUrl: '/gallery/movie-inspo/2.webp',
+    status: 'available',
   },
   {
     id: 'cinema-classic',
     title: { es: 'Clásico del Cine en Denim', en: 'Denim Cinema Classic' },
     category: 'cinema',
     imageUrl: '/gallery/movie-inspo/3.webp',
+    status: 'available',
   },
   {
     id: 'cinema-hollywood',
     title: { es: 'Leyendas de Hollywood', en: 'Hollywood Legends' },
     category: 'cinema',
     imageUrl: '/gallery/movie-inspo/4.webp',
+    status: 'sold',
   },
   {
     id: 'cinema-noir',
     title: { es: 'Film Noir Tribute', en: 'Film Noir Tribute' },
     category: 'cinema',
     imageUrl: '/gallery/movie-inspo/5.webp',
+    status: 'available',
   },
 
   // ─── NATURE ───
@@ -99,12 +115,15 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Tucán Tropical Amazónico', en: 'Amazonian Tropical Toucan' },
     category: 'nature',
     imageUrl: '/gallery/nature/1.webp',
+    status: 'available',
+    featured: true,
   },
   {
     id: 'nature-flora-fauna',
     title: { es: 'Fauna Salvaje & Selva', en: 'Wild Fauna & Jungle' },
     category: 'nature',
     imageUrl: '/gallery/nature/2.webp',
+    status: 'available',
   },
 
   // ─── CUSTOM (Too Chic & Bordadas) ───
@@ -113,29 +132,34 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Too Chic Signature', en: 'Too Chic Signature' },
     category: 'custom',
     imageUrl: '/gallery/too-chic/1.webp',
+    status: 'available',
   },
   {
     id: 'custom-too-chic-2',
     title: { es: 'Alta Costura Denim', en: 'Haute Couture Denim' },
     category: 'custom',
     imageUrl: '/gallery/too-chic/2.webp',
+    status: 'sold',
   },
   {
     id: 'custom-embroidered-1',
     title: { es: 'Chaqueta Intervenida & Bordada', en: 'Embroidered Custom Jacket' },
     category: 'custom',
     imageUrl: '/gallery/bordadas/1.webp',
+    status: 'available',
   },
   {
     id: 'custom-embroidered-2',
     title: { es: 'Relieve Textil & Cristales', en: 'Textile Relief & Crystals' },
     category: 'custom',
     imageUrl: '/gallery/bordadas/2.webp',
+    status: 'available',
   },
   {
     id: 'custom-embroidered-3',
     title: { es: 'Artesanía Fina en Denim', en: 'Fine Craftsmanship Denim' },
     category: 'custom',
     imageUrl: '/gallery/bordadas/3.webp',
+    status: 'sold',
   },
 ];

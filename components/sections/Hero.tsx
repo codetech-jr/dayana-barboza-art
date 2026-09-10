@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Eyebrow } from '@/components/ui';
+import { Eyebrow, Button } from '@/components/ui';
 import { buildWhatsAppUrl } from '@/lib/whatsapp';
 import { HERO_IMAGE_URL, BLUR_PLACEHOLDER } from '@/lib/data/gallery';
 import type { Dictionary } from '@/lib/types/dictionary';
@@ -42,18 +42,29 @@ export function Hero({ dict, locale }: HeroProps) {
         sizes="100vw"
       />
 
-      {/* ── Enhanced gradient overlay: +15% dark base & lifted midtones for text impact ── */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(to top, oklch(15% 0.01 80 / 0.98) 0%, oklch(15% 0.01 80 / 0.82) 35%, oklch(15% 0.01 80 / 0.48) 65%, transparent 100%)',
-        }}
-        aria-hidden="true"
-      />
+      {/* ── Gradient system: vertical base + lateral text protection ── */}
+      <div className="absolute inset-0" aria-hidden="true">
+        {/* Layer 1: Vertical — protects bottom text zone */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to top, oklch(15% 0.01 80 / 0.95) 0%, oklch(15% 0.01 80 / 0.75) 30%, oklch(15% 0.01 80 / 0.35) 60%, transparent 100%)',
+          }}
+        />
+        {/* Layer 2: Lateral — left-side veil for headline legibility */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to right, oklch(15% 0.01 80 / 0.55) 0%, oklch(15% 0.01 80 / 0.25) 40%, transparent 65%)',
+          }}
+        />
+      </div>
 
       {/* ── Content: Centered on mobile, left-aligned on md+ ── */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 pb-16 md:pb-24 flex flex-col items-center md:items-start text-center md:text-left">
+      {/* pt-28 = 112px → clears the fixed nav pill (top-4 + ~64px height + shadow) on mobile/short viewports */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 pt-28 md:pt-0 pb-16 md:pb-24 flex flex-col items-center md:items-start text-center md:text-left">
         <Eyebrow className="!text-[oklch(91%_0_0/0.7)]">
           {dict.hero.eyebrow}
         </Eyebrow>
@@ -64,6 +75,7 @@ export function Hero({ dict, locale }: HeroProps) {
             text-[oklch(91%_0_0)]
             leading-[var(--dba-leading-tight)]
             text-[length:var(--dba-type-hero)]
+            tracking-[-0.03em]
           "
         >
           {dict.hero.title.split('\n').map((line, i) => (
@@ -93,24 +105,13 @@ export function Hero({ dict, locale }: HeroProps) {
 
         {/* ── CTAs: centered on mobile, row on desktop ── */}
         <div className="mt-10 flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4 w-full sm:w-auto">
-          <a
+          <Button
             href={whatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              w-full sm:w-auto inline-flex items-center justify-center gap-3
-              rounded-full font-body text-sm font-medium tracking-wide
-              bg-dba-accent text-dba-white
-              px-8 py-4
-              transition-all duration-500
-              hover:bg-dba-accent-hover hover:shadow-[0_12px_40px_oklch(55%_0.12_38/0.3)]
-              active:scale-[0.98] active:bg-dba-accent-active
-              focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-dba-accent
-              select-none
-            "
+            variant="primary"
+            className="w-full sm:w-auto"
           >
-            {dict.hero.ctaPrimary} →
-          </a>
+            {dict.hero.ctaPrimary}
+          </Button>
           <Link
             href={`/${locale}/gallery`}
             className="

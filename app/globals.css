@@ -37,19 +37,20 @@
   /* Section Spacing */
   --spacing-section: 96px;
   --spacing-section-lg: 140px;
+  --spacing-section-sm: 64px;
 }
 
 /* ─── Typography Scale (CSS Custom Properties) ──────────── */
 
 :root {
-  --dba-type-hero: clamp(3.2rem, 7vw, 6rem);
+  --dba-type-hero: clamp(3rem, 7.5vw, 5.8rem);
   --dba-type-h2: clamp(2rem, 4vw, 3.2rem);
   --dba-type-h3: clamp(1.3rem, 2vw, 1.6rem);
   --dba-type-body: 1.05rem;
   --dba-type-caption: 0.82rem;
   --dba-type-eyebrow: 0.68rem;
 
-  --dba-leading-tight: 1.05;
+  --dba-leading-tight: 1.0;
   --dba-leading-body: 1.75;
 
   --dba-measure: 68ch;
@@ -87,3 +88,35 @@ body {
   display: none;
 }
 
+/* ─── Infinite Marquee Ticker (Radical Honesty Strip) ─── */
+
+@keyframes ticker {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-ticker {
+  animation: ticker 35s linear infinite;
+  will-change: transform;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Accessibility: Respect Reduced Motion ───────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

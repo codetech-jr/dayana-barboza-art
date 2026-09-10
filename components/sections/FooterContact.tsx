@@ -75,9 +75,40 @@ export function FooterContact({ dict, locale }: FooterContactProps) {
         </p>
 
         {/* ── Signature ── */}
-        <p className="mt-6 text-center font-body text-xs text-dba-faint tracking-wide">
+        <p className="mt-12 text-center font-body text-xs text-dba-faint tracking-wide uppercase">
           {dict.footer.signature}
         </p>
+
+        {/* ── Minimalist Social & Contact Links ── */}
+        <nav
+          className="
+            mt-6 pt-6 border-t border-dba-rule-strong/50
+            flex flex-wrap items-center justify-center gap-6 md:gap-10
+          "
+          aria-label="Footer links"
+        >
+          {[
+            { label: 'Instagram', href: 'https://instagram.com/dayanabarboza.art' },
+            { label: 'TikTok', href: 'https://tiktok.com/@dayanabarboza.art' },
+            { label: locale === 'es' ? 'Contacto' : 'Contact', href: buildWhatsAppUrl('footerIdea', locale) },
+          ].map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="
+                font-body text-xs font-medium text-dba-muted uppercase tracking-[0.15em]
+                transition-colors duration-300 ease-[var(--dba-ease)]
+                hover:text-dba-accent
+                focus-visible:outline-2 focus-visible:outline-offset-2
+                focus-visible:outline-dba-accent
+              "
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
       </div>
     </footer>
   );

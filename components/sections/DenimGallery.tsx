@@ -2,12 +2,13 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Eyebrow, GalleryLightbox } from '@/components/ui';
+import { Eyebrow, Button, GalleryLightbox } from '@/components/ui';
 import { buildWhatsAppUrl } from '@/lib/whatsapp';
 import {
   GALLERY_PIECES,
   BLUR_PLACEHOLDER,
   type GalleryCategory,
+  type GalleryPiece,
 } from '@/lib/data/gallery';
 import type { Dictionary } from '@/lib/types/dictionary';
 import type { Locale } from '@/lib/i18n/config';
@@ -29,13 +30,63 @@ function getFilterLabel(key: FilterKey, dict: Dictionary): string {
 }
 
 /**
- * DenimGallery — High-res showcase & CRO conversion beast.
+ * ScarcityBadge — Apple/Vercel-style neutral glassmorphism.
+ * No radioactive neon colors. Clean terracotta status dot matching brand identity.
+ */
+function ScarcityBadge({ piece, locale }: { piece: GalleryPiece; locale: Locale }) {
+  if (piece.status === 'sold') {
+    return (
+      <span
+        className="
+          absolute top-4 left-4 z-10
+          inline-flex items-center gap-2
+          rounded-full px-3.5 py-1.5
+          text-[10px] font-body font-semibold uppercase tracking-[0.14em]
+          bg-black/80 backdrop-blur-md border border-white/10 text-white/90
+          select-none shadow-sm
+        "
+      >
+        <span className="w-1.5 h-1.5 rounded-full bg-white/40" aria-hidden="true" />
+        {locale === 'es' ? 'Vendida' : 'Sold'}
+      </span>
+    );
+  }
+
+  return (
+    <span
+      className="
+        absolute top-4 left-4 z-10
+        inline-flex items-center gap-2
+        rounded-full px-3.5 py-1.5
+        text-[10px] font-body font-semibold uppercase tracking-[0.14em]
+        bg-black/40 backdrop-blur-md border border-white/20 text-white
+        select-none shadow-sm
+      "
+    >
+      <span className="w-1.5 h-1.5 rounded-full bg-dba-accent" aria-hidden="true" />
+      1 of 1 · {locale === 'es' ? 'Disponible' : 'Available'}
+    </span>
+  );
+}
+
+/**
+ * Aspect ratio variation for organic masonry vertical rhythm in CSS columns.
+ */
+function getAspectRatio(index: number): string {
+  const mod = index % 4;
+  if (mod === 0) return 'aspect-[3/4]';
+  if (mod === 1) return 'aspect-[4/5]';
+  if (mod === 2) return 'aspect-square';
+  return 'aspect-[3/4]';
+}
+
+/**
+ * DenimGallery — Fluid CSS Columns Masonry Gallery with Apple-tier Glassmorphism badges.
  *
- * Features:
- * - Interactive filter pills (zero layout shift).
- * - Full-screen High-Resolution Lightbox with Framer Motion transitions.
- * - Millimeter detail zoom for hyperrealistic textile brushstrokes.
- * - Direct WhatsApp conversion button embedded inside the Lightbox.
+ * Refactored to address visual feedback:
+ * - CSS Columns (`columns-1 sm:columns-2 lg:columns-3 gap-6`) for seamless organic cascade without white space gaps.
+ * - Glassmorphism Badges (`bg-black/40 backdrop-blur-md border border-white/20`) with brand terracotta dot.
+ * - Clean Bottom Vignette Gradient (`from-black/80 via-black/40 to-transparent`) for AAA text contrast without muddying artwork.
  */
 export function DenimGallery({ dict, locale }: DenimGalleryProps) {
   const [activeFilter, setActiveFilter] = useState<FilterKey>('all');
@@ -46,9 +97,9 @@ export function DenimGallery({ dict, locale }: DenimGalleryProps) {
     : GALLERY_PIECES.filter((piece) => piece.category === activeFilter);
 
   return (
-    <section id="gallery" className="pt-4 lg:pt-6 pb-section bg-dba-white">
+    <section id="gallery" className="pt-4 lg:pt-6 pb-[var(--spacing-section)] bg-dba-white">
       <div className="max-w-6xl mx-auto px-6">
-        {/* ── Header: Centered on mobile, left-aligned on desktop ── */}
+        {/* ── Header ── */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
           <Eyebrow>{dict.gallery.eyebrow}</Eyebrow>
 
@@ -117,17 +168,27 @@ export function DenimGallery({ dict, locale }: DenimGalleryProps) {
           ))}
         </div>
 
-        {/* ── Gallery grid: 100% pristine saturation & clarity (Pinterest / Instagram editorial) ── */}
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* ── Organic CSS Columns Masonry Gallery Layout ── */}
+        <div
+          className="
+            mt-8
+            columns-1 sm:columns-2 lg:columns-3
+            gap-6
+          "
+        >
           {filteredPieces.map((piece, i) => (
             <article
               key={piece.id}
               onClick={() => setSelectedLightboxIndex(i)}
-              className="
-                group relative aspect-[3/4] overflow-hidden rounded-2xl bg-dba-cream
-                cursor-pointer shadow-sm
-                transition-all duration-300
-              "
+              className={`
+                break-inside-avoid mb-6
+                group relative overflow-hidden rounded-2xl bg-dba-cream
+                cursor-pointer
+                transition-all duration-500 ease-[var(--dba-ease)]
+                hover:shadow-[0_12px_40px_rgba(0,0,0,0.15)]
+                ${getAspectRatio(i)}
+                ${piece.status === 'sold' ? 'grayscale-[0.2]' : ''}
+              `}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
@@ -138,42 +199,69 @@ export function DenimGallery({ dict, locale }: DenimGalleryProps) {
               }}
               aria-label={`${piece.title[locale]} — ${locale === 'es' ? 'Ver en alta resolución' : 'View in high resolution'}`}
             >
-              {/* ── Pristine Image with subtle desktop hover zoom ── */}
+              {/* ── Scarcity Badge ── */}
+              <ScarcityBadge piece={piece} locale={locale} />
+
+              {/* ── High Quality Image — slow luxury zoom on hover ── */}
               <Image
                 src={piece.imageUrl}
                 alt={`${piece.title[locale]} — ${dict.gallery.filters[piece.category]}`}
                 fill
+                priority={i < 4}
                 placeholder="blur"
                 blurDataURL={BLUR_PLACEHOLDER}
                 className="
-                  object-cover transition-transform duration-500 ease-[var(--dba-ease)]
-                  group-hover:scale-105
+                  object-cover
+                  transition-transform duration-700 ease-[var(--dba-ease)]
+                  group-hover:scale-[1.05]
                 "
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
+
+              {/* ── Bottom Vignette: emerges on hover with text slide-up ── */}
+              <div
+                className="
+                  absolute inset-x-0 bottom-0 pt-20 pb-5 px-5
+                  bg-gradient-to-t from-black/80 via-black/40 to-transparent
+                  flex flex-col justify-end pointer-events-none
+                  opacity-0 group-hover:opacity-100
+                  translate-y-2 group-hover:translate-y-0
+                  transition-all duration-500 ease-[var(--dba-ease)]
+                "
+              >
+                <p
+                  className="
+                    font-display font-medium text-white
+                    text-base md:text-lg leading-snug
+                    translate-y-3 group-hover:translate-y-0
+                    transition-transform duration-500 ease-[var(--dba-ease)] delay-75
+                  "
+                >
+                  {piece.title[locale]}
+                </p>
+                <p
+                  className="
+                    font-body text-white/70
+                    text-xs uppercase tracking-wider mt-1
+                    translate-y-3 group-hover:translate-y-0
+                    transition-transform duration-500 ease-[var(--dba-ease)] delay-150
+                  "
+                >
+                  {dict.gallery.filters[piece.category]}
+                </p>
+              </div>
             </article>
           ))}
         </div>
 
         {/* ── Section CTA ── */}
         <div className="mt-12 flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4">
-          <a
+          <Button
             href={buildWhatsAppUrl('galleryQuote', locale)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              inline-flex items-center justify-center
-              rounded-full bg-dba-accent px-8 py-4
-              font-body text-sm font-medium text-dba-white
-              transition-all duration-500
-              hover:bg-dba-accent-hover hover:shadow-[0_12px_40px_oklch(55%_0.12_38/0.3)]
-              active:scale-[0.98]
-              focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-dba-accent
-              select-none
-            "
+            variant="primary"
           >
-            {dict.gallery.ctaPrimary} →
-          </a>
+            {dict.gallery.ctaPrimary}
+          </Button>
         </div>
 
         <p className="mt-4 font-body text-xs text-dba-faint text-center md:text-left">

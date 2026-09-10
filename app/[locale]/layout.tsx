@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Playfair_Display, DM_Sans } from 'next/font/google';
 import { getDictionary } from '@/lib/i18n/getDictionary';
 import { LOCALES, isValidLocale } from '@/lib/i18n/config';
-import type { Locale } from '@/lib/i18n/config';
 import { notFound } from 'next/navigation';
 import { Nav } from '@/components/layout/Nav';
 import { WhatsAppFAB } from '@/components/layout/WhatsAppFAB';

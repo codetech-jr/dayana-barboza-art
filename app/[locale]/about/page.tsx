@@ -6,6 +6,8 @@ import type { Locale } from '@/lib/i18n/config';
 import { About } from '@/components/sections/About';
 import { FooterContact } from '@/components/sections/FooterContact';
 
+import { ScrollReveal } from '@/components/ui/ScrollReveal';
+
 export async function generateMetadata({
   params,
 }: {
@@ -57,9 +59,13 @@ export default async function AboutPage({
   const dict = await getDictionary(locale as Locale);
 
   return (
-    <main className="pt-[110px] lg:pt-[130px]">
-      <About dict={dict} locale={locale} />
-      <FooterContact dict={dict} locale={locale} />
+    <main className="bg-dba-cream min-h-dvh pt-28 md:pt-36 lg:pt-40">
+      <ScrollReveal threshold={0}>
+        <About dict={dict} locale={locale} />
+      </ScrollReveal>
+      <ScrollReveal>
+        <FooterContact dict={dict} locale={locale} />
+      </ScrollReveal>
     </main>
   );
 }
