@@ -13,17 +13,25 @@
   "hero": {
     "eyebrow": "Art that lives on you.",
     "title": "Your story,\npainted by hand.",
-    "subtitle": "Denim jackets hand-painted with hyperrealist art.\nEvery piece, one of a kind. Every design, yours.",
-    "ctaPrimary": "I want my one-of-a-kind jacket",
-    "ctaSecondary": "See the gallery"
+    "subtitle": "Hand-painted denim jackets. Each piece is unique and special.",
+    "ctaPrimary": "I want a quote for my design",
+    "ctaSecondary": "See the gallery",
+    "ticker": "• Born at home • Collected in: • Richmond, VA • Bogotá • New York • Madrid •"
   },
   "about": {
-    "eyebrow": "The artist behind the art",
-    "title": "Dayana Barboza.\nArt as an act of living.",
+    "eyebrow": "Dayana Barboza. Art as a lifestyle.",
+    "title": "Dayana Barboza.\nArt as a lifestyle.",
     "bio": {
-      "hook": "I started painting at home. No gallery, no academy, no one's permission. With acrylic, with fabric, with the conviction that art doesn't need an institutional frame to be real.",
-      "technique": "Hyperrealism on textile is a discipline that demands obsessive patience: layers of specialized acrylic over denim, pigments that withstand washing, portraits that capture not just a face but a state of mind. It's not sublimation. It's not print. It's paint. It's time. It's art.",
-      "manifesto": "I believe in art that's worn, that moves, that reaches places a canvas never could. I believe in the woman who decides her back is a canvas. And I believe in stories that deserve to be told out loud — and on fabric."
+      "hook": "I started painting jackets simply with the intention of making a special gift, without thinking about techniques or materials—I just wanted to give something made with my own hands. From that spark, Amazing Project was born: a journey that began without feeling completely prepared, without art degrees, without experience.",
+      "paragraphs": [
+        "I started painting jackets simply with the intention of making a special gift, without thinking about techniques or materials—I just wanted to give something made with my own hands. From that spark, Amazing Project was born: a journey that began without feeling completely prepared, without art degrees, without experience.",
+        "Five years have passed since then, and it still takes me by surprise when people call me an artist. But time has taught me that art needs neither academies, nor galleries, nor accolades. What art truly needs is patience, discipline, and countless attempts.",
+        "Art also demands continuous learning, and great wisdom to navigate both the rush of inspiration and the weight of frustration.",
+        "Art is an uninhibited form of expression, and its beauty lives in the eyes of whoever beholds it.",
+        "Art is so generous that it gives you permission to call yourself an Artist."
+      ],
+      "quote": "I believe in the woman who chooses to build her dream, who dares to take risks and try. And I believe there are beautiful stories that deserve to be painted.",
+      "manifesto": "I believe in the woman who chooses to build her dream, who dares to take risks and try. And I believe there are beautiful stories that deserve to be painted."
     },
     "techniques": {
       "acrylic": {
@@ -41,9 +49,9 @@
     }
   },
   "gallery": {
-    "eyebrow": "Wearable art · Current collection",
-    "title": "Pieces that are never\nsold twice.",
-    "subtitle": "Every jacket is hand-painted to order. What you see in the gallery is inspiration, not inventory.",
+    "eyebrow": "Wearable art",
+    "title": "Art pieces you can wear",
+    "subtitle": "Each piece is unique and special. This gallery is for inspiration to create your own custom design",
     "filters": {
       "all": "All",
       "portraits": "Portraits",
@@ -54,7 +62,11 @@
     "cardCta": "I want something like this",
     "ctaPrimary": "I want a quote for my design",
     "microcopy": "Schedule available: response within 24 hours.",
-    "ctaSecondary": "What's the design process like?"
+    "ctaSecondary": "What's the design process like?",
+    "badges": {
+      "sold": "• SOLD",
+      "available": "• 1 OF 1 - AVAILABLE"
+    }
   },
   "events": {
     "eyebrow": "Experiences · Beyond art",

@@ -9,19 +9,22 @@ interface AboutProps {
   locale: Locale;
 }
 
-const TECHNIQUE_KEYS = ['acrylic', 'durability', 'exclusive'] as const;
-
 /**
  * About / Sobre Mí — Editorial Biography & Manifesto Section.
  *
  * Server Component (zero JS footprint).
  * Features:
- * - 50/50 editorial split layout on desktop (Portrait 3:4 ratio + Narrative column)
- * - High-impact fashion-editorial Pull-Quote styling for the artist manifesto
- * - Minimalist technique badges anchored at the base
+ * - 50/50 editorial split layout on desktop (Sticky Portrait 3:4 ratio + Narrative column)
+ * - 5-paragraph refined biography narrative with emphatic closing punchline
+ * - High-impact fashion-editorial Pull-Quote styling for the artist quote
  */
 export function About({ dict, locale }: AboutProps) {
   const isEs = locale === 'es';
+
+  // Support both 5-paragraph array and fallback string
+  const paragraphs = dict.about.bio.paragraphs && dict.about.bio.paragraphs.length > 0
+    ? dict.about.bio.paragraphs
+    : [dict.about.bio.hook, dict.about.bio.technique].filter(Boolean) as string[];
 
   return (
     <section
@@ -31,8 +34,8 @@ export function About({ dict, locale }: AboutProps) {
     >
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
-          {/* ── Left Column: Editorial Portrait (3:4 ratio) ── */}
-          <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-dba-paper shadow-[0_12px_36px_oklch(15%_0.01_80/0.06)] border border-dba-rule/60">
+          {/* ── Left Column: Editorial Portrait (3:4 ratio, sticky on desktop) ── */}
+          <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-dba-paper shadow-[0_12px_36px_oklch(15%_0.01_80/0.06)] border border-dba-rule/60 md:sticky md:top-28">
             <Image
               src={ABOUT_IMAGE_URL}
               alt={
@@ -51,7 +54,11 @@ export function About({ dict, locale }: AboutProps) {
 
           {/* ── Right Column: Biography & Pull-Quote ── */}
           <div className="flex flex-col justify-center items-start text-left">
-            <Eyebrow>{dict.about.eyebrow}</Eyebrow>
+            <Eyebrow>
+              {dict.about.eyebrow.includes('Dayana')
+                ? (isEs ? 'La artista detrás del arte' : 'The artist behind the art')
+                : dict.about.eyebrow}
+            </Eyebrow>
 
             {/* Semantic H1 on the dedicated About page */}
             <h1
@@ -70,17 +77,30 @@ export function About({ dict, locale }: AboutProps) {
               ))}
             </h1>
 
-            {/* ── Bio Narrative Prose (Hook + Technique) ── */}
+            {/* ── Bio Narrative Prose (5 Formatted Paragraphs) ── */}
             <div
               className="
                 mt-8 space-y-5 font-body text-dba-muted
                 text-base md:text-[1.05rem]
-                leading-[1.8]
+                leading-[1.85]
                 max-w-[var(--dba-measure)]
               "
             >
-              <p>{dict.about.bio.hook}</p>
-              <p>{dict.about.bio.technique}</p>
+              {paragraphs.map((paragraph, index) => {
+                const isLast = index === paragraphs.length - 1;
+                return (
+                  <p
+                    key={index}
+                    className={
+                      isLast
+                        ? 'font-medium text-dba-ink text-lg md:text-[1.15rem] leading-[1.6] pt-2'
+                        : ''
+                    }
+                  >
+                    {paragraph}
+                  </p>
+                );
+              })}
             </div>
 
             {/* ── High-End Editorial Pull-Quote (Vogue / Kinfolk tier) ── */}
@@ -110,30 +130,16 @@ export function About({ dict, locale }: AboutProps) {
                   leading-[1.42] tracking-[-0.015em]
                 "
               >
-                {dict.about.bio.manifesto}
+                {dict.about.bio.quote || dict.about.bio.manifesto}
               </p>
 
               <footer className="mt-5 flex items-center gap-3">
                 <span className="w-8 h-px bg-dba-accent/60" aria-hidden="true" />
                 <cite className="not-italic font-body text-dba-muted font-medium text-[11px] uppercase tracking-[0.22em]">
-                  {isEs ? 'Manifiesto · Dayana Barboza' : 'Manifesto · Dayana Barboza'}
+                  {isEs ? 'Dayana Barboza' : 'Dayana Barboza'}
                 </cite>
               </footer>
             </blockquote>
-
-            {/* ── Technique Badges (Minimalist Top-Border Blocks) ── */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-2 w-full text-left">
-              {TECHNIQUE_KEYS.map((key) => (
-                <div key={key} className="border-t border-dba-rule-strong pt-4">
-                  <h2 className="font-body text-xs md:text-sm font-medium text-dba-accent uppercase tracking-wider">
-                    {dict.about.techniques[key].title}
-                  </h2>
-                  <p className="font-body text-xs text-dba-muted mt-1.5 leading-relaxed">
-                    {dict.about.techniques[key].description}
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>

@@ -6,15 +6,18 @@ import type { Locale } from '@/lib/i18n/config';
 // ─────────────────────────────────────────────────────────
 
 export type GalleryCategory = 'portraits' | 'cinema' | 'nature' | 'custom';
-export type PieceStatus = 'available' | 'sold';
+export type Availability = 'sold' | 'available';
+export type PieceStatus = Availability;
 
 export interface GalleryPiece {
   readonly id: string;
   readonly title: Record<Locale, string>;
   readonly category: GalleryCategory;
   readonly imageUrl: string;
-  /** Scarcity badge: 'available' shows "1 OF 1", 'sold' shows "SOLD OUT". */
-  readonly status: PieceStatus;
+  /** Scarcity badge availability: 'sold' | 'available'. */
+  readonly availability: Availability;
+  /** Backward-compatible status alias. */
+  readonly status: Availability;
   /** If true, piece gets a large 2-col or 2-row tile in the Bento grid. */
   readonly featured?: boolean;
 }
@@ -28,7 +31,7 @@ export const BLUR_PLACEHOLDER = `data:image/svg+xml;base64,${Buffer.from(SHIMMER
 /** Official hero image — high-res original artwork. */
 export const HERO_IMAGE_URL = '/gallery/movie-inspo/1.webp';
 
-/** Official about portrait / workshop photo. */
+/** Official about portrait / workshop photo (configurable placeholder). */
 export const ABOUT_IMAGE_URL = '/gallery/portrait/1.webp';
 
 /**
@@ -38,6 +41,8 @@ export const ABOUT_IMAGE_URL = '/gallery/portrait/1.webp';
  * - movie-inspo/ -> category: 'cinema'
  * - nature/      -> category: 'nature'
  * - too-chic/ & bordadas/ -> category: 'custom'
+ *
+ * Current distribution: 50% available (8 pieces), 50% sold (8 pieces).
  */
 export const GALLERY_PIECES: GalleryPiece[] = [
   // ─── PORTRAITS ───
@@ -46,6 +51,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Retrato de Frida', en: 'Frida Portrait' },
     category: 'portraits',
     imageUrl: '/gallery/portrait/1.webp',
+    availability: 'sold',
     status: 'sold',
     featured: true,
   },
@@ -54,6 +60,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Mirada en Denim', en: 'Denim Gaze' },
     category: 'portraits',
     imageUrl: '/gallery/portrait/2.webp',
+    availability: 'available',
     status: 'available',
   },
   {
@@ -61,6 +68,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Retrato Ícono Hiperrealista', en: 'Hyperrealistic Icon Portrait' },
     category: 'portraits',
     imageUrl: '/gallery/portrait/3.webp',
+    availability: 'available',
     status: 'available',
   },
   {
@@ -68,6 +76,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Expresión & Color Textil', en: 'Textile Expression & Color' },
     category: 'portraits',
     imageUrl: '/gallery/portrait/4.webp',
+    availability: 'sold',
     status: 'sold',
   },
 
@@ -77,6 +86,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Al Pacino — Scarface', en: 'Al Pacino — Scarface' },
     category: 'cinema',
     imageUrl: '/gallery/movie-inspo/1.webp',
+    availability: 'sold',
     status: 'sold',
     featured: true,
   },
@@ -85,6 +95,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Marilyn Pop & Cinema', en: 'Marilyn Pop & Cinema' },
     category: 'cinema',
     imageUrl: '/gallery/movie-inspo/2.webp',
+    availability: 'available',
     status: 'available',
   },
   {
@@ -92,6 +103,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Clásico del Cine en Denim', en: 'Denim Cinema Classic' },
     category: 'cinema',
     imageUrl: '/gallery/movie-inspo/3.webp',
+    availability: 'available',
     status: 'available',
   },
   {
@@ -99,6 +111,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Leyendas de Hollywood', en: 'Hollywood Legends' },
     category: 'cinema',
     imageUrl: '/gallery/movie-inspo/4.webp',
+    availability: 'sold',
     status: 'sold',
   },
   {
@@ -106,6 +119,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Film Noir Tribute', en: 'Film Noir Tribute' },
     category: 'cinema',
     imageUrl: '/gallery/movie-inspo/5.webp',
+    availability: 'available',
     status: 'available',
   },
 
@@ -115,6 +129,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Tucán Tropical Amazónico', en: 'Amazonian Tropical Toucan' },
     category: 'nature',
     imageUrl: '/gallery/nature/1.webp',
+    availability: 'available',
     status: 'available',
     featured: true,
   },
@@ -123,7 +138,8 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Fauna Salvaje & Selva', en: 'Wild Fauna & Jungle' },
     category: 'nature',
     imageUrl: '/gallery/nature/2.webp',
-    status: 'available',
+    availability: 'sold',
+    status: 'sold',
   },
 
   // ─── CUSTOM (Too Chic & Bordadas) ───
@@ -132,6 +148,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Too Chic Signature', en: 'Too Chic Signature' },
     category: 'custom',
     imageUrl: '/gallery/too-chic/1.webp',
+    availability: 'available',
     status: 'available',
   },
   {
@@ -139,6 +156,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Alta Costura Denim', en: 'Haute Couture Denim' },
     category: 'custom',
     imageUrl: '/gallery/too-chic/2.webp',
+    availability: 'sold',
     status: 'sold',
   },
   {
@@ -146,6 +164,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Chaqueta Intervenida & Bordada', en: 'Embroidered Custom Jacket' },
     category: 'custom',
     imageUrl: '/gallery/bordadas/1.webp',
+    availability: 'available',
     status: 'available',
   },
   {
@@ -153,13 +172,15 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Relieve Textil & Cristales', en: 'Textile Relief & Crystals' },
     category: 'custom',
     imageUrl: '/gallery/bordadas/2.webp',
-    status: 'available',
+    availability: 'sold',
+    status: 'sold',
   },
   {
     id: 'custom-embroidered-3',
     title: { es: 'Artesanía Fina en Denim', en: 'Fine Craftsmanship Denim' },
     category: 'custom',
     imageUrl: '/gallery/bordadas/3.webp',
+    availability: 'sold',
     status: 'sold',
   },
 ];

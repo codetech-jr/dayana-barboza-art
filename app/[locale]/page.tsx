@@ -64,7 +64,7 @@ export default async function HomePage({
     <main>
       <Hero dict={dict} locale={locale} />
 
-      <AuthorityStrip locale={locale} />
+      <AuthorityStrip locale={locale} dict={dict} />
 
       <ScrollReveal>
         <FeaturedWorks dict={dict} locale={locale} />

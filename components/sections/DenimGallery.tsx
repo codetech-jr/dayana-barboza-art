@@ -30,24 +30,35 @@ function getFilterLabel(key: FilterKey, dict: Dictionary): string {
 }
 
 /**
- * ScarcityBadge — Apple/Vercel-style neutral glassmorphism.
- * No radioactive neon colors. Clean terracotta status dot matching brand identity.
+ * ScarcityBadge — Tier-1 Status Label (Apple/Editorial Glassmorphism).
+ * Position absolute top-4 left-4 z-20 style pill (rounded-full).
+ * - Sold: Dark translucent glass with "• VENDIDA" / "• SOLD"
+ * - Available: Elegant glass with "• 1 OF 1 - DISPONIBLE" / "• 1 OF 1 - AVAILABLE"
  */
-function ScarcityBadge({ piece, locale }: { piece: GalleryPiece; locale: Locale }) {
-  if (piece.status === 'sold') {
+function ScarcityBadge({
+  piece,
+  locale,
+  dict,
+}: {
+  piece: GalleryPiece;
+  locale: Locale;
+  dict: Dictionary;
+}) {
+  const isSold = piece.availability === 'sold' || piece.status === 'sold';
+
+  if (isSold) {
     return (
       <span
         className="
-          absolute top-4 left-4 z-10
-          inline-flex items-center gap-2
+          absolute top-4 left-4 z-20
+          inline-flex items-center
           rounded-full px-3.5 py-1.5
-          text-[10px] font-body font-semibold uppercase tracking-[0.14em]
-          bg-black/80 backdrop-blur-md border border-white/10 text-white/90
+          text-[10px] font-body font-semibold uppercase tracking-[0.16em]
+          bg-black/75 backdrop-blur-md border border-white/10 text-white/90
           select-none shadow-sm
         "
       >
-        <span className="w-1.5 h-1.5 rounded-full bg-white/40" aria-hidden="true" />
-        {locale === 'es' ? 'Vendida' : 'Sold'}
+        {dict.gallery.badges?.sold || (locale === 'es' ? '• VENDIDA' : '• SOLD')}
       </span>
     );
   }
@@ -55,16 +66,15 @@ function ScarcityBadge({ piece, locale }: { piece: GalleryPiece; locale: Locale 
   return (
     <span
       className="
-        absolute top-4 left-4 z-10
-        inline-flex items-center gap-2
+        absolute top-4 left-4 z-20
+        inline-flex items-center
         rounded-full px-3.5 py-1.5
-        text-[10px] font-body font-semibold uppercase tracking-[0.14em]
-        bg-black/40 backdrop-blur-md border border-white/20 text-white
+        text-[10px] font-body font-semibold uppercase tracking-[0.18em]
+        bg-black/45 backdrop-blur-md border border-white/20 text-white
         select-none shadow-sm
       "
     >
-      <span className="w-1.5 h-1.5 rounded-full bg-dba-accent" aria-hidden="true" />
-      1 of 1 · {locale === 'es' ? 'Disponible' : 'Available'}
+      {dict.gallery.badges?.available || (locale === 'es' ? '• 1 OF 1 - DISPONIBLE' : '• 1 OF 1 - AVAILABLE')}
     </span>
   );
 }
@@ -130,6 +140,34 @@ export function DenimGallery({ dict, locale }: DenimGalleryProps) {
           </p>
         </div>
 
+        {/* ── Atributos Técnicos (Módulo Estético Reubicado según Feedback) ── */}
+        <div className="mt-10 pt-8 border-t border-dba-rule-strong/50 grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 text-left">
+          <div className="border-t sm:border-t-0 border-dba-rule/40 pt-3 sm:pt-0">
+            <h3 className="font-body text-xs md:text-sm font-semibold text-dba-accent uppercase tracking-[0.16em]">
+              {dict.about.techniques.acrylic.title}
+            </h3>
+            <p className="font-body text-xs text-dba-muted mt-1.5 leading-relaxed">
+              {dict.about.techniques.acrylic.description}
+            </p>
+          </div>
+          <div className="border-t sm:border-t-0 border-dba-rule/40 pt-3 sm:pt-0">
+            <h3 className="font-body text-xs md:text-sm font-semibold text-dba-accent uppercase tracking-[0.16em]">
+              {dict.about.techniques.durability.title}
+            </h3>
+            <p className="font-body text-xs text-dba-muted mt-1.5 leading-relaxed">
+              {dict.about.techniques.durability.description}
+            </p>
+          </div>
+          <div className="border-t sm:border-t-0 border-dba-rule/40 pt-3 sm:pt-0">
+            <h3 className="font-body text-xs md:text-sm font-semibold text-dba-accent uppercase tracking-[0.16em]">
+              {dict.about.techniques.exclusive.title}
+            </h3>
+            <p className="font-body text-xs text-dba-muted mt-1.5 leading-relaxed">
+              {dict.about.techniques.exclusive.description}
+            </p>
+          </div>
+        </div>
+
         {/* ── Filter pills: horizontal scroll on mobile ── */}
         <div
           className="
@@ -187,7 +225,7 @@ export function DenimGallery({ dict, locale }: DenimGalleryProps) {
                 transition-all duration-500 ease-[var(--dba-ease)]
                 hover:shadow-[0_12px_40px_rgba(0,0,0,0.15)]
                 ${getAspectRatio(i)}
-                ${piece.status === 'sold' ? 'grayscale-[0.2]' : ''}
+                ${(piece.availability === 'sold' || piece.status === 'sold') ? 'grayscale-[0.2]' : ''}
               `}
               role="button"
               tabIndex={0}
@@ -200,7 +238,7 @@ export function DenimGallery({ dict, locale }: DenimGalleryProps) {
               aria-label={`${piece.title[locale]} — ${locale === 'es' ? 'Ver en alta resolución' : 'View in high resolution'}`}
             >
               {/* ── Scarcity Badge ── */}
-              <ScarcityBadge piece={piece} locale={locale} />
+              <ScarcityBadge piece={piece} locale={locale} dict={dict} />
 
               {/* ── High Quality Image — slow luxury zoom on hover ── */}
               <Image

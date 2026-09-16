@@ -28,14 +28,17 @@ export interface Dictionary {
     readonly subtitle: string;
     readonly ctaPrimary: string;
     readonly ctaSecondary: string;
+    readonly ticker?: string;
   };
   readonly about: {
     readonly eyebrow: string;
     readonly title: string;
     readonly bio: {
       readonly hook: string;
-      readonly technique: string;
+      readonly technique?: string;
       readonly manifesto: string;
+      readonly paragraphs?: readonly string[];
+      readonly quote?: string;
     };
     readonly techniques: {
       readonly acrylic: TechniqueBlock;
@@ -58,6 +61,10 @@ export interface Dictionary {
     readonly ctaPrimary: string;
     readonly microcopy: string;
     readonly ctaSecondary: string;
+    readonly badges?: {
+      readonly sold: string;
+      readonly available: string;
+    };
   };
   readonly events: {
     readonly eyebrow: string;

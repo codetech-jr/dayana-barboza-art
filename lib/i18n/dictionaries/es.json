@@ -13,17 +13,25 @@
   "hero": {
     "eyebrow": "Arte que vive en tu ropa.",
     "title": "Tu historia,\npintada a mano.",
-    "subtitle": "Chaquetas denim intervenidas con pintura hiperrealista.\nCada pieza, única. Cada diseño, tuyo.",
-    "ctaPrimary": "Quiero mi chaqueta única",
-    "ctaSecondary": "Ver la galería"
+    "subtitle": "Chaquetas de denim pintadas a mano. Cada pieza es única y especial.",
+    "ctaPrimary": "Quiero cotizar mi diseño",
+    "ctaSecondary": "Ver la galería",
+    "ticker": "• Nacido en casa • Coleccionado en: • Richmond, VA • Bogotá • New York • Madrid •"
   },
   "about": {
-    "eyebrow": "La artista detrás del arte",
-    "title": "Dayana Barboza.\nEl arte como acto de vivir.",
+    "eyebrow": "Dayana Barboza. El arte como estilo de vida.",
+    "title": "Dayana Barboza.\nEl arte como estilo de vida.",
     "bio": {
-      "hook": "Empecé a pintar en mi hogar. Sin galería, sin academia, sin permiso de nadie. Con acrílico, con tela, con la convicción de que el arte no necesita un marco institucional para ser real.",
-      "technique": "El hiperrealismo en textil es una disciplina que exige paciencia obsesiva: capas de acrílico especial sobre denim, pigmentos que resisten el lavado, retratos que capturan no solo un rostro sino un estado de ánimo. No es sublimación. No es impresión. Es pintura. Es tiempo. Es arte.",
-      "manifesto": "Creo en el arte que se usa, que se mueve, que llega a lugares que un lienzo nunca alcanzaría. Creo en la mujer que decide que su espalda es un lienzo. Y creo en las historias que merecen ser contadas en voz alta — y en tela."
+      "hook": "Empecé a pintar chaquetas solo con la intención de hacer un regalo especial, sin pensar en técnicas ni materiales, solo quería regalar algo hecho con mis manos. De allí nació Amazing Project, un proyecto que comenzó sin sentirme completamente preparada, sin títulos de arte, sin experiencia.",
+      "paragraphs": [
+        "Empecé a pintar chaquetas solo con la intención de hacer un regalo especial, sin pensar en técnicas ni materiales, solo quería regalar algo hecho con mis manos. De allí nació Amazing Project, un proyecto que comenzó sin sentirme completamente preparada, sin títulos de arte, sin experiencia.",
+        "Ya han pasado 5 años desde entonces y aún me asusta cuando me llaman artista, pero el tiempo me ha enseñado que el arte no necesita ni academias, ni galerías, ni reconocimientos. Lo que el arte sí necesita es paciencia, disciplina y demasiados intentos.",
+        "El arte también necesita aprendizaje continuo, mucha sabiduría para manejar el exceso de inspiración y el exceso de frustración.",
+        "El arte es una expresión libre y su belleza depende de los ojos del que lo mira.",
+        "El arte es tan hermoso que te da permiso de llamarte Artista."
+      ],
+      "quote": "Creo en la mujer que decide emprender, que decide arriesgarse e intentarlo. Y creo que hay historias hermosas que merecen ser pintadas.",
+      "manifesto": "Creo en la mujer que decide emprender, que decide arriesgarse e intentarlo. Y creo que hay historias hermosas que merecen ser pintadas."
     },
     "techniques": {
       "acrylic": {
@@ -41,9 +49,9 @@
     }
   },
   "gallery": {
-    "eyebrow": "Arte wearable · Colección actual",
-    "title": "Piezas que no\nse venden dos veces.",
-    "subtitle": "Cada chaqueta es intervenida a mano sobre pedido. Lo que ves en la galería es inspiración, no inventario.",
+    "eyebrow": "Arte que se viste",
+    "title": "Piezas de arte que se pueden vestir",
+    "subtitle": "Cada pieza es única y especial. Esta galería es de inspiración para crear tu propio diseño",
     "filters": {
       "all": "Todos",
       "portraits": "Retratos",
@@ -54,7 +62,11 @@
     "cardCta": "Quiero algo así",
     "ctaPrimary": "Quiero cotizar mi diseño",
     "microcopy": "Agenda disponible: respuesta en menos de 24 horas.",
-    "ctaSecondary": "¿Cómo es el proceso de diseño?"
+    "ctaSecondary": "¿Cómo es el proceso de diseño?",
+    "badges": {
+      "sold": "• VENDIDA",
+      "available": "• 1 OF 1 - DISPONIBLE"
+    }
   },
   "events": {
     "eyebrow": "Experiencias · No solo arte",
