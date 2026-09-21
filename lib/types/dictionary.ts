@@ -78,9 +78,34 @@ export interface Dictionary {
   readonly merch: {
     readonly eyebrow: string;
     readonly title: string;
-    readonly subtitle: string;
+    readonly subtitle?: string;
     readonly ctaPrimary: string;
     readonly microcopy: string;
+    readonly placeholder?: string;
+    readonly placeholderNote?: string;
+  };
+  readonly creativeProcess: {
+    readonly eyebrow: string;
+    readonly title: string;
+    readonly steps: readonly {
+      readonly number: string;
+      readonly title: string;
+      readonly description: string;
+    }[];
+  };
+  readonly clientStories?: {
+    readonly eyebrow: string;
+    readonly title: string;
+    readonly subtitle: string;
+    readonly featured: {
+      readonly provenance: string;
+      readonly quote: string;
+      readonly author: string;
+      readonly role: string;
+      readonly image: string;
+      readonly images?: readonly string[];
+      readonly imageAlt?: string;
+    };
   };
   readonly footer: {
     readonly eyebrow: string;

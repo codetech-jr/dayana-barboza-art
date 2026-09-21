@@ -12,3 +12,4 @@ export { StudioSocials } from './StudioSocials';
 export { ClientStories } from './ClientStories';
 export { ArtPartiesExperience } from './ArtPartiesExperience';
 export { CapsuleMerch } from './CapsuleMerch';
+export { CreativeProcess } from './CreativeProcess';

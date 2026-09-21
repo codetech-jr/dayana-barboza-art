@@ -133,13 +133,26 @@ export function About({ dict, locale }: AboutProps) {
                 {dict.about.bio.quote || dict.about.bio.manifesto}
               </p>
 
-              <footer className="mt-5 flex items-center gap-3">
-                <span className="w-8 h-px bg-dba-accent/60" aria-hidden="true" />
-                <cite className="not-italic font-body text-dba-muted font-medium text-[11px] uppercase tracking-[0.22em]">
-                  {isEs ? 'Dayana Barboza' : 'Dayana Barboza'}
+              <footer className="mt-5 text-right">
+                <cite className="not-italic font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em] text-dba-muted font-medium">
+                  — DAYANA BARBOZA
                 </cite>
               </footer>
             </blockquote>
+
+            {/* ── Studio / Creative Umbrella Footnote ── */}
+            <div className="flex items-center gap-3 pt-1">
+              <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-dba-muted">
+                {isEs ? 'Estudio creativo:' : 'Creative studio:'}
+              </span>
+              <Image
+                src="/logos/logo-2.png"
+                alt="Amazing Project"
+                width={120}
+                height={28}
+                className="h-5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity duration-300"
+              />
+            </div>
           </div>
         </div>
       </div>

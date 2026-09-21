@@ -1,7 +1,5 @@
-import Image from 'next/image';
 import { Eyebrow } from '@/components/ui';
 import { buildWhatsAppUrl } from '@/lib/whatsapp';
-import { BLUR_PLACEHOLDER } from '@/lib/data/gallery';
 import type { Dictionary } from '@/lib/types/dictionary';
 import type { Locale } from '@/lib/i18n/config';
 
@@ -10,35 +8,36 @@ interface MerchProps {
   locale: Locale;
 }
 
-/** Mock merchandise items — curated local assets. */
-const MERCH_MOCKS = [
-  {
-    id: 'merch-too-chic',
-    title: { es: 'Cápsula Too Chic Art', en: 'Too Chic Art Capsule' },
-    imageUrl: '/gallery/too-chic/1.webp',
-  },
-  {
-    id: 'merch-bordada',
-    title: { es: 'Edición Textil Especial', en: 'Special Textile Edition' },
-    imageUrl: '/gallery/bordadas/1.webp',
-  },
-] as const;
-
 /**
- * Merch — Simple 1×2 t-shirt grid.
+ * Merch — "El arte de vestir casual"
  *
- * Server Component. White background.
- * Basic product cards with WhatsApp availability CTA.
+ * Stand-by editorial mode requested by client (Mockup 04).
+ * Pure Server Component. Clean 2-card placeholder grid with
+ * centered description box and concierge touchpoint.
  */
 export function Merch({ dict, locale }: MerchProps) {
+  const isEs = locale === 'es';
+
+  const placeholderText =
+    dict.merch.placeholder ||
+    (isEs
+      ? 'FOTOS DE FRANELAS LUEGO TE LAS MANDO'
+      : 'T-SHIRT PHOTOS COMING SOON');
+
+  const placeholderNote =
+    dict.merch.placeholderNote ||
+    (isEs
+      ? 'LUEGO ESCRIBIREMOS UNA DESCRIPCION DE LAS T-SHIRT AQUI. MÁS ADELANTE TE ENVIARE ESO'
+      : 'T-shirt descriptions will be added here soon. Coming up next.');
+
   return (
     <section id="merch" className="bg-dba-white pt-4 lg:pt-6 pb-section">
       <div className="max-w-4xl mx-auto px-6">
-        {/* ── Header: Centered on mobile, left-aligned on desktop ── */}
-        <div className="flex flex-col items-center md:items-start text-center md:text-left">
+        {/* ── Header: Centered on mobile & desktop for calm editorial feel ── */}
+        <div className="flex flex-col items-center text-center">
           <Eyebrow>{dict.merch.eyebrow}</Eyebrow>
 
-          <h2
+          <h1
             className="
               mt-5 font-display font-semibold text-dba-ink
               text-[length:var(--dba-type-h2)]
@@ -46,69 +45,76 @@ export function Merch({ dict, locale }: MerchProps) {
             "
           >
             {dict.merch.title}
-          </h2>
+          </h1>
 
-          <p
-            className="
-              mt-4 font-body text-dba-muted
-              text-[length:var(--dba-type-body)]
-              leading-[var(--dba-leading-body)]
-              max-w-[var(--dba-measure)]
-            "
-          >
-            {dict.merch.subtitle}
-          </p>
+          {dict.merch.subtitle ? (
+            <p
+              className="
+                mt-4 font-body text-dba-muted
+                text-[length:var(--dba-type-body)]
+                leading-[var(--dba-leading-body)]
+                max-w-[var(--dba-measure)]
+              "
+            >
+              {dict.merch.subtitle}
+            </p>
+          ) : null}
         </div>
 
-        {/* ── Product grid: 1 col mobile, 2 col tablet+ ── */}
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {MERCH_MOCKS.map((item) => (
-            <article
-              key={item.id}
-              className="group relative aspect-[3/4] overflow-hidden rounded-2xl bg-dba-cream"
+        {/* ── 2 Stand-by Placeholder Cards (1 col mobile, 2 col tablet+) ── */}
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
+          {[1, 2].map((index) => (
+            <div
+              key={index}
+              className="
+                relative aspect-[3/4] rounded-2xl
+                bg-dba-paper/80 border border-dba-rule/80
+                flex flex-col items-center justify-center p-8 text-center
+                shadow-[0_4px_24px_oklch(15%_0.01_80/0.03)]
+                transition-all duration-500 ease-[var(--dba-ease)]
+                hover:border-dba-rule-strong hover:bg-dba-paper
+              "
             >
-              <Image
-                src={item.imageUrl}
-                alt={`${item.title[locale]} — ${dict.merch.eyebrow}`}
-                fill
-                placeholder="blur"
-                blurDataURL={BLUR_PLACEHOLDER}
-                className="object-cover transition-transform duration-700 ease-[var(--dba-ease)] group-hover:scale-105"
-                sizes="(max-width: 640px) 100vw, 50vw"
-              />
+              <div className="flex flex-col items-center justify-center space-y-4 max-w-xs">
+                {/* Minimalist badge */}
+                <span className="font-mono text-[10px] tracking-[0.25em] text-dba-muted uppercase border border-dba-rule px-3 py-1 rounded-full bg-dba-cream/50">
+                  {isEs ? 'En preparación' : 'In production'}
+                </span>
 
-              {/* Product label */}
-              <div className="absolute inset-x-0 bottom-0 p-5 pt-16 bg-gradient-to-t from-[oklch(15%_0.01_80/0.7)] to-transparent">
-                <h3 className="font-body text-sm font-medium text-[oklch(91%_0_0)]">
-                  {item.title[locale]}
-                </h3>
+                {/* Main placeholder text */}
+                <p className="font-display italic text-lg sm:text-xl text-dba-ink/80 tracking-wide leading-relaxed uppercase">
+                  {placeholderText}
+                </p>
               </div>
-            </article>
+            </div>
           ))}
         </div>
 
-        {/* ── CTA ── */}
-        <div className="mt-10 flex flex-col sm:flex-row items-start gap-4">
+        {/* ── Editorial Description Box (Mockup 04) ── */}
+        <div className="mt-12 text-center max-w-2xl mx-auto">
+          <div className="inline-block rounded-2xl bg-dba-paper border border-dba-rule/70 px-6 py-4 sm:px-8 sm:py-5 shadow-sm">
+            <p className="font-display italic text-xs sm:text-sm text-dba-muted tracking-wider leading-relaxed uppercase">
+              {placeholderNote}
+            </p>
+          </div>
+        </div>
+
+        {/* ── Subtle Concierge Inquiry ── */}
+        <div className="mt-8 text-center">
           <a
             href={buildWhatsAppUrl('merchAvailability', locale)}
             target="_blank"
             rel="noopener noreferrer"
             className="
-              inline-flex items-center justify-center
-              rounded-full bg-dba-accent px-8 py-4
-              font-body text-sm font-medium text-dba-white
-              transition-all duration-500
-              hover:bg-dba-accent-hover hover:shadow-[0_12px_40px_oklch(55%_0.12_38/0.3)]
-              active:scale-[0.98]
+              inline-flex items-center gap-2
+              font-body text-xs font-medium text-dba-accent uppercase tracking-[0.18em]
+              transition-colors duration-300 hover:text-dba-accent-hover
               focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-dba-accent
-              select-none
             "
           >
-            {dict.merch.ctaPrimary} →
+            <span>{dict.merch.ctaPrimary}</span>
+            <span aria-hidden="true">→</span>
           </a>
-          <p className="font-body text-xs text-dba-faint mt-1 sm:mt-3">
-            {dict.merch.microcopy}
-          </p>
         </div>
       </div>
     </section>

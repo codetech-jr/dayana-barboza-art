@@ -6,10 +6,10 @@ import { notFound } from 'next/navigation';
 import { Hero } from '@/components/sections/Hero';
 import { AuthorityStrip } from '@/components/sections/AuthorityStrip';
 import { FeaturedWorks } from '@/components/ui/FeaturedWorks';
-import { ProcessTimeline } from '@/components/sections/ProcessTimeline';
 import { ClientStories } from '@/components/sections/ClientStories';
 import { FaqAccordion } from '@/components/sections/FaqAccordion';
 import { StudioSocials } from '@/components/sections/StudioSocials';
+import { CreativeProcess } from '@/components/sections/CreativeProcess';
 import { FooterContact } from '@/components/sections/FooterContact';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 
@@ -41,10 +41,10 @@ export async function generateMetadata({
  * 1. Hero: Impactful visual statement & primary hook.
  * 2. AuthorityStrip: Instant trust/credibility signal.
  * 3. FeaturedWorks: Immediate visual proof with 3 stellar works.
- * 4. ProcessTimeline: "How it works" — eliminates #1 purchase friction.
- * 5. ClientStories: Editorial social proof — "Diarios de Colección".
- * 6. FaqAccordion: SEO-optimized FAQ — resolves remaining objections.
- * 7. StudioSocials: Social proof & BTS process visibility.
+ * 4. ClientStories: Editorial social proof — "Diarios de Colección".
+ * 5. FaqAccordion: SEO-optimized FAQ — resolves remaining objections.
+ * 6. StudioSocials: Social proof & BTS process visibility.
+ * 7. CreativeProcess: "El Camino Creativo" — dissolves final purchase friction.
  * 8. FooterContact: Direct conversational conversion hub.
  *
  * ScrollReveal wraps each section for cinematic fade-in-up on scroll.
@@ -71,11 +71,7 @@ export default async function HomePage({
       </ScrollReveal>
 
       <ScrollReveal>
-        <ProcessTimeline locale={locale} />
-      </ScrollReveal>
-
-      <ScrollReveal>
-        <ClientStories locale={locale} />
+        <ClientStories locale={locale} dict={dict} />
       </ScrollReveal>
 
       <ScrollReveal>
@@ -84,6 +80,10 @@ export default async function HomePage({
 
       <ScrollReveal>
         <StudioSocials locale={locale} />
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <CreativeProcess dict={dict} locale={locale} />
       </ScrollReveal>
 
       <ScrollReveal>

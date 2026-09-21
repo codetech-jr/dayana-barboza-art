@@ -17,11 +17,11 @@ interface FeaturedWorksProps {
  * Provides immediate visual proof and hook directly under the Hero.
  */
 export function FeaturedWorks({ dict, locale }: FeaturedWorksProps) {
-  // 3 Stellar Pieces across key categories: Portrait, Cinema & Nature
+  // 3 Stellar Pieces curated from client selection (Mockup 02): Blossoming Beauty, Encanto & Blessings
   const stellarPieces = [
-    GALLERY_PIECES[0], // Frida Portrait
-    GALLERY_PIECES[4], // Al Pacino — Scarface
-    GALLERY_PIECES[9], // Tucán Tropical
+    GALLERY_PIECES.find((p) => p.id === 'portrait-blossoming') ?? GALLERY_PIECES[0],
+    GALLERY_PIECES.find((p) => p.id === 'cinema-encanto') ?? GALLERY_PIECES[7],
+    GALLERY_PIECES.find((p) => p.id === 'nature-blessings') ?? GALLERY_PIECES[9],
   ];
 
   const eyebrowText = locale === 'es' ? 'Colección Selecta' : 'Curated Selection';

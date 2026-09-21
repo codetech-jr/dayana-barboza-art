@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Eyebrow } from '@/components/ui';
 import { buildWhatsAppUrl } from '@/lib/whatsapp';
 import type { Dictionary } from '@/lib/types/dictionary';
@@ -69,28 +70,24 @@ export function FooterContact({ dict, locale }: FooterContactProps) {
           ))}
         </div>
 
-        {/* ── Social proof ── */}
-        <p className="mt-10 text-center font-body text-sm text-dba-muted leading-relaxed">
-          {dict.footer.socialProof}
-        </p>
 
         {/* ── Signature ── */}
         <p className="mt-12 text-center font-body text-xs text-dba-faint tracking-wide uppercase">
           {dict.footer.signature}
         </p>
 
-        {/* ── Minimalist Social & Contact Links ── */}
+        {/* ── Minimalist Social & Contact Links (Mockup 03) ── */}
         <nav
-          className="
-            mt-6 pt-6 border-t border-dba-rule-strong/50
-            flex flex-wrap items-center justify-center gap-6 md:gap-10
-          "
-          aria-label="Footer links"
+          className="mt-6 flex flex-wrap items-center justify-center gap-6 sm:gap-8"
+          aria-label="Social and contact links"
         >
           {[
-            { label: 'Instagram', href: 'https://instagram.com/dayanabarboza.art' },
-            { label: 'TikTok', href: 'https://tiktok.com/@dayanabarboza.art' },
-            { label: locale === 'es' ? 'Contacto' : 'Contact', href: buildWhatsAppUrl('footerIdea', locale) },
+            { label: 'INSTAGRAM', href: 'https://instagram.com/dayanabarboza.art' },
+            { label: 'TIKTOK', href: 'https://tiktok.com/@dayanabarboza.art' },
+            {
+              label: locale === 'es' ? 'CONTACTO' : 'CONTACT',
+              href: buildWhatsAppUrl('footerIdea', locale),
+            },
           ].map((link) => (
             <a
               key={link.label}
@@ -98,7 +95,7 @@ export function FooterContact({ dict, locale }: FooterContactProps) {
               target="_blank"
               rel="noopener noreferrer"
               className="
-                font-body text-xs font-medium text-dba-muted uppercase tracking-[0.15em]
+                font-mono text-xs font-medium text-dba-muted uppercase tracking-[0.2em]
                 transition-colors duration-300 ease-[var(--dba-ease)]
                 hover:text-dba-accent
                 focus-visible:outline-2 focus-visible:outline-offset-2
@@ -109,6 +106,25 @@ export function FooterContact({ dict, locale }: FooterContactProps) {
             </a>
           ))}
         </nav>
+
+        {/* ── Umbrella Brand Origin Stamp (Amazing Project) ── */}
+        <div className="mt-14 pt-10 border-t border-dba-rule/60 flex flex-col items-center justify-center gap-3">
+          <span className="font-mono text-xs uppercase tracking-[0.25em] text-dba-muted font-medium">
+            {locale === 'es' ? 'Una marca de' : 'A brand by'}
+          </span>
+          <Image
+            src="/logos/logo-3.png"
+            alt="Amazing Project"
+            width={240}
+            height={120}
+            className="h-16 md:h-20 w-auto object-contain select-none opacity-90 hover:opacity-100 transition-opacity duration-300"
+          />
+        </div>
+
+        {/* ── Copyright & Legal Notice ── */}
+        <p className="mt-6 text-center font-mono text-[10px] text-dba-faint tracking-wider">
+          © {new Date().getFullYear()} Amazing Project · {locale === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
+        </p>
       </div>
     </footer>
   );

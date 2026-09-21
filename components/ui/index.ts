@@ -3,4 +3,5 @@ export { Eyebrow } from './Eyebrow';
 export { GalleryLightbox } from './GalleryLightbox';
 export { FeaturedWorks } from './FeaturedWorks';
 export { ScrollReveal } from './ScrollReveal';
+export { StoryImageSlider } from './StoryImageSlider';
 

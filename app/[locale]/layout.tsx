@@ -108,6 +108,15 @@ export async function generateMetadata({
         en: '/en',
       },
     },
+    icons: {
+      icon: [
+        { url: '/logos/logo-1.png', type: 'image/png' },
+      ],
+      shortcut: ['/logos/logo-1.png'],
+      apple: [
+        { url: '/logos/logo-1.png', sizes: '180x180', type: 'image/png' },
+      ],
+    },
     robots: {
       index: true,
       follow: true,
@@ -143,6 +152,11 @@ export default async function LocaleLayout({
       className={`${playfair.variable} ${dmSans.variable} antialiased scroll-smooth`}
       style={{ scrollPaddingTop: '80px' }}
     >
+      <head>
+        <link rel="icon" href="/logos/logo-1.png" type="image/png" />
+        <link rel="shortcut icon" href="/logos/logo-1.png" />
+        <link rel="apple-touch-icon" href="/logos/logo-1.png" />
+      </head>
       <body className="min-h-dvh flex flex-col bg-dba-white text-dba-ink font-body">
         <Nav dict={dict} locale={locale} />
         {children}

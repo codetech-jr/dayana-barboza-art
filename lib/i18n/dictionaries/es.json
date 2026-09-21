@@ -84,11 +84,57 @@
     "microcopy": "Grupos privados disponibles para cumpleaños, despedidas y corporativos. Pregunta por disponibilidad."
   },
   "merch": {
-    "eyebrow": "Merch · Para vestir el arte sin fronteras",
-    "title": "El arte también\nvive en algodón.",
-    "subtitle": "T-shirts con arte original de Dayana Barboza. Ediciones limitadas. Sin reposición.",
-    "ctaPrimary": "Consultar tallas y disponibilidad",
-    "microcopy": "Sin carrito de compras. Sin esperas. Atención directa y personalizada."
+    "eyebrow": "Merch · Arte casual",
+    "title": "El arte de vestir casual",
+    "subtitle": "",
+    "ctaPrimary": "Consultar disponibilidad",
+    "microcopy": "Atención directa y personalizada.",
+    "placeholder": "FOTOS DE FRANELAS LUEGO TE LAS MANDO",
+    "placeholderNote": "LUEGO ESCRIBIREMOS UNA DESCRIPCION DE LAS T-SHIRT AQUI. MÁS ADELANTE TE ENVIARE ESO"
+  },
+  "creativeProcess": {
+    "eyebrow": "El camino de tu pieza",
+    "title": "Camino Creativo",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Cuéntame tu idea.",
+        "description": "Cuéntame lo que te inspira, una persona, una película, un lugar, un momento. Juntos crearemos ese diseño perfecto."
+      },
+      {
+        "number": "02",
+        "title": "Ajustes y diseño",
+        "description": "Aquí ajustamos colores, composición y detalles hasta lograr el diseño soñado. Luego creamos el boceto final que debes aprobar. Para el diseño uso chaquetas de marcas como Levi's o Gap, o puedes enviar la tuya si lo prefieres."
+      },
+      {
+        "number": "03",
+        "title": "La chaqueta cobra vida",
+        "description": "Empezamos el proceso creativo, creamos la base donde se plasmará el boceto final. Tu diseño empieza a cobrar vida, colores y trazos se encuentran y empieza la magia. Siempre estaremos en contacto para que veas cómo va el proceso."
+      },
+      {
+        "number": "04",
+        "title": "Detalles finales y envío",
+        "description": "Luego de que el diseño está completamente listo se realiza el sellado de protección final. ¡Ahora sí, lista para enviar! Se envían fotos del resultado final y todo lo referente al envío."
+      }
+    ]
+  },
+  "clientStories": {
+    "eyebrow": "Diarios de Colección",
+    "title": "Historias que se llevan puestas",
+    "subtitle": "Cada pieza tiene un dueño que decidió convertir su historia en arte. Estas son sus palabras.",
+    "featured": {
+      "provenance": "Colección Privada · Pieza Única",
+      "quote": "¡Hermoso trabajo, Dayana! Tu talento y creatividad transformaron la chaqueta en una pieza única y especial. Se nota el cuidado, el detalle y la pasión con la que trabajas. Es un gusto ver cómo conviertes una idea en arte tan bien logrado. Estoy feliz con tu excelente trabajo. Mis más amplias recomendaciones.",
+      "author": "Nora S.",
+      "role": "Bespoke Collector · Pieza Única",
+      "image": "/gallery/cinema/totoro.jpg",
+      "images": [
+        "/gallery/cinema/totoro-1.jpg",
+        "/gallery/cinema/totoro-2.jpg",
+        "/gallery/cinema/totoro-3.jpg"
+      ],
+      "imageAlt": "Nora S. con su chaqueta My Neighbor Totoro pintada a mano sobre denim"
+    }
   },
   "footer": {
     "eyebrow": "¿Qué creamos hoy?",
@@ -98,6 +144,6 @@
       "idea": "Tengo una idea y quiero tu opinión"
     },
     "socialProof": "Respondiendo desde Virginia y para todo el mundo.",
-    "signature": "Dayana Barboza Art — Arte que se vive, se lleva y no se olvida."
+    "signature": "Amazing Project — Arte que se vive, se lleva y no se olvida."
   }
 }

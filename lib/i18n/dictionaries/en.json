@@ -84,11 +84,57 @@
     "microcopy": "Private groups available for birthdays, celebrations, and corporate events. Ask about availability."
   },
   "merch": {
-    "eyebrow": "Merch · Wear art without borders",
-    "title": "Art also lives\nin cotton.",
-    "subtitle": "T-shirts with original art by Dayana Barboza. Limited editions. No restocks.",
-    "ctaPrimary": "Check sizes and availability",
-    "microcopy": "No shopping cart. No waiting. Direct, personalized attention."
+    "eyebrow": "Merch · Casual art",
+    "title": "The Art of Casual Wear",
+    "subtitle": "",
+    "ctaPrimary": "Check availability",
+    "microcopy": "Direct and personalized attention.",
+    "placeholder": "T-SHIRT PHOTOS COMING SOON",
+    "placeholderNote": "T-shirt descriptions will be added here soon. Coming up next."
+  },
+  "creativeProcess": {
+    "eyebrow": "The journey of your piece",
+    "title": "Creative Journey",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Share your vision",
+        "description": "Tell me what inspires you—a loved one, a movie, a place, a meaningful moment. Together, we will craft your perfect design."
+      },
+      {
+        "number": "02",
+        "title": "Refinement & design",
+        "description": "We fine-tune colors, composition, and every detail until the design is flawless. Then we create the final sketch for your approval. I use premium jackets from brands like Levi's or Gap, or you can send your own if you prefer."
+      },
+      {
+        "number": "03",
+        "title": "The piece comes to life",
+        "description": "The creative journey begins. We prepare the canvas where your approved sketch will emerge. Your vision comes to life with rich pigments and deliberate brushstrokes. We stay in close contact so you can follow the progress."
+      },
+      {
+        "number": "04",
+        "title": "Final details & delivery",
+        "description": "Once the artwork is complete, we apply the final protective seal. Ready to ship! You'll receive high-resolution photos of the finished piece along with all tracking and delivery details."
+      }
+    ]
+  },
+  "clientStories": {
+    "eyebrow": "Collector Diaries",
+    "title": "Stories worn, not told",
+    "subtitle": "Every piece has an owner who chose to turn their story into art. These are their words.",
+    "featured": {
+      "provenance": "Private Collection · One-of-a-Kind Piece",
+      "quote": "Beautiful work, Dayana! Your talent and creativity truly transformed the jacket into a unique, one-of-a-kind masterpiece. The care, meticulous detail, and passion you put into your craft shine through in every brushstroke. It’s such a joy to see how you bring an idea to life with such breathtaking artistry. I couldn't be happier with your incredible work. My absolute highest recommendation!",
+      "author": "Nora S.",
+      "role": "Bespoke Collector · Unique Commission",
+      "image": "/gallery/cinema/totoro.jpg",
+      "images": [
+        "/gallery/cinema/totoro-1.jpg",
+        "/gallery/cinema/totoro-2.jpg",
+        "/gallery/cinema/totoro-3.jpg"
+      ],
+      "imageAlt": "Nora S. wearing her hand-painted My Neighbor Totoro denim jacket"
+    }
   },
   "footer": {
     "eyebrow": "What shall we create today?",
@@ -98,6 +144,6 @@
       "idea": "I have an idea and want your take"
     },
     "socialProof": "Responding from Virginia to the world.",
-    "signature": "Dayana Barboza Art — Art you live, wear, and never forget."
+    "signature": "Amazing Project — Art you live, wear, and never forget."
   }
 }

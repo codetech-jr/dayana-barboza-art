@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { getDictionary } from '@/lib/i18n/getDictionary';
 import { isValidLocale } from '@/lib/i18n/config';
 import type { Locale } from '@/lib/i18n/config';
-import { CapsuleMerch } from '@/components/sections/CapsuleMerch';
+import { Merch } from '@/components/sections/Merch';
 import { FooterContact } from '@/components/sections/FooterContact';
 
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
@@ -17,11 +17,12 @@ export async function generateMetadata({
   if (!isValidLocale(locale)) return {};
 
   const dict = await getDictionary(locale);
-  const title = locale === 'es' ? 'Merch & Piezas de Colección' : 'Merch & Collector Pieces';
+  const title = `${dict.merch.title} | Dayana Barboza Art`;
+  const description = dict.merch.eyebrow;
 
   return {
     title,
-    description: dict.merch.subtitle,
+    description,
     alternates: {
       canonical: `/${locale}/merch`,
       languages: {
@@ -30,8 +31,8 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: `${title} | Dayana Barboza Art`,
-      description: dict.merch.subtitle,
+      title,
+      description,
       images: [
         {
           url: '/gallery/too-chic/1.webp',
@@ -45,7 +46,7 @@ export async function generateMetadata({
 }
 
 /**
- * Merch Route — Limited edition tees & art wear.
+ * Merch Route — El arte de vestir casual.
  */
 export default async function MerchPage({
   params,
@@ -61,7 +62,7 @@ export default async function MerchPage({
   return (
     <main className="min-h-dvh pt-28 md:pt-36 lg:pt-40">
       <ScrollReveal threshold={0}>
-        <CapsuleMerch locale={locale} />
+        <Merch dict={dict} locale={locale} />
       </ScrollReveal>
       <ScrollReveal>
         <FooterContact dict={dict} locale={locale} />

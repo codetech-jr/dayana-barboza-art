@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import type { Dictionary } from '@/lib/types/dictionary';
 import type { Locale } from '@/lib/i18n/config';
@@ -66,8 +67,8 @@ export function Nav({ dict, locale }: NavProps) {
           border border-dba-rule
           bg-[oklch(100%_0_0/0.7)]
           backdrop-blur-[16px] backdrop-saturate-[1.4]
-          px-5 py-3
-          md:px-8
+          px-5 py-2
+          md:px-8 md:py-2.5
           transition-shadow duration-500
         "
       >
@@ -75,11 +76,17 @@ export function Nav({ dict, locale }: NavProps) {
           {/* ── Logo ── */}
           <Link
             href={`/${locale}`}
-            className="font-display text-lg font-semibold text-dba-ink tracking-wide select-none transition-opacity hover:opacity-85"
-            aria-label="Dayana Barboza Art — Home"
+            className="inline-flex items-center select-none transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-dba-accent"
+            aria-label="Dayana Barboza — Home"
           >
-            Dayana Barboza
-            <span className="text-dba-accent"> Art</span>
+            <Image
+              src="/logos/logo-1.png"
+              alt="Amazing Project"
+              width={100}
+              height={100}
+              className="h-10 md:h-12 w-auto object-contain select-none transition-transform duration-300 hover:scale-105"
+              priority
+            />
           </Link>
 
           {/* ── Desktop Route Links ── */}
@@ -206,11 +213,16 @@ export function Nav({ dict, locale }: NavProps) {
           <Link
             href={`/${locale}`}
             onClick={() => setMenuOpen(false)}
-            className="font-display text-lg font-semibold text-dba-ink tracking-wide select-none"
-            aria-label="Dayana Barboza Art — Home"
+            className="inline-flex items-center select-none transition-opacity hover:opacity-85"
+            aria-label="Dayana Barboza — Home"
           >
-            Dayana Barboza
-            <span className="text-dba-accent"> Art</span>
+            <Image
+              src="/logos/logo-1.png"
+              alt="Amazing Project"
+              width={100}
+              height={100}
+              className="h-10 w-auto object-contain select-none"
+            />
           </Link>
 
           <button
@@ -311,6 +323,27 @@ export function Nav({ dict, locale }: NavProps) {
           >
             {dict.nav.cta}
           </a>
+
+          {/* Mobile Umbrella Brand Stamp */}
+          <div
+            className="mt-2 flex flex-col items-center gap-1.5 transition-all duration-300"
+            style={{
+              transitionDelay: menuOpen ? `${(NAV_LINKS.length + 2) * 50}ms` : '0ms',
+              opacity: menuOpen ? 0.7 : 0,
+              transform: menuOpen ? 'translateY(0)' : 'translateY(16px)',
+            }}
+          >
+            <span className="text-[10px] font-mono tracking-widest uppercase text-dba-muted">
+              {locale === 'es' ? 'Una marca de' : 'A brand by'}
+            </span>
+            <Image
+              src="/logos/logo-2.png"
+              alt="Amazing Project"
+              width={100}
+              height={24}
+              className="h-4 w-auto object-contain"
+            />
+          </div>
         </nav>
       </div>
     </>

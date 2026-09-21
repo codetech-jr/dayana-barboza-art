@@ -20,6 +20,8 @@ export interface GalleryPiece {
   readonly status: Availability;
   /** If true, piece gets a large 2-col or 2-row tile in the Bento grid. */
   readonly featured?: boolean;
+  /** Raw image filename or alias. */
+  readonly image?: string;
 }
 
 /**
@@ -38,17 +40,27 @@ export const ABOUT_IMAGE_URL = '/gallery/portrait/1.webp';
  * Official Dayana Barboza Art Gallery catalog.
  * Mapped to standardized local folders:
  * - portrait/    -> category: 'portraits'
- * - movie-inspo/ -> category: 'cinema'
+ * - movie-inspo/ & cinema/ -> category: 'cinema'
  * - nature/      -> category: 'nature'
  * - too-chic/ & bordadas/ -> category: 'custom'
- *
- * Current distribution: 50% available (8 pieces), 50% sold (8 pieces).
  */
 export const GALLERY_PIECES: GalleryPiece[] = [
+  // ─── POP CULTURE / CINEMA (Featured Nora S. Bespoke Piece) ───
+  {
+    id: 'cinema-totoro',
+    title: { es: 'My Neighbor Totoro', en: 'My Neighbor Totoro' },
+    category: 'cinema',
+    imageUrl: '/gallery/cinema/totoro.jpg',
+    image: 'totoro.jpg',
+    availability: 'sold',
+    status: 'sold',
+    featured: true,
+  },
+
   // ─── PORTRAITS ───
   {
-    id: 'portrait-frida',
-    title: { es: 'Retrato de Frida', en: 'Frida Portrait' },
+    id: 'portrait-blossoming',
+    title: { es: 'Blossoming Beauty', en: 'Blossoming Beauty' },
     category: 'portraits',
     imageUrl: '/gallery/portrait/1.webp',
     availability: 'sold',
@@ -107,8 +119,8 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     status: 'available',
   },
   {
-    id: 'cinema-hollywood',
-    title: { es: 'Leyendas de Hollywood', en: 'Hollywood Legends' },
+    id: 'cinema-encanto',
+    title: { es: 'Encanto', en: 'Encanto' },
     category: 'cinema',
     imageUrl: '/gallery/movie-inspo/4.webp',
     availability: 'sold',
@@ -125,8 +137,8 @@ export const GALLERY_PIECES: GalleryPiece[] = [
 
   // ─── NATURE ───
   {
-    id: 'nature-toucan',
-    title: { es: 'Tucán Tropical Amazónico', en: 'Amazonian Tropical Toucan' },
+    id: 'nature-blessings',
+    title: { es: 'Blessings', en: 'Blessings' },
     category: 'nature',
     imageUrl: '/gallery/nature/1.webp',
     availability: 'available',

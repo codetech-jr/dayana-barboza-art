@@ -1,15 +1,18 @@
 import Image from 'next/image';
-import { Eyebrow } from '@/components/ui';
+import { Eyebrow, StoryImageSlider } from '@/components/ui';
 import { BLUR_PLACEHOLDER } from '@/lib/data/gallery';
 import type { Locale } from '@/lib/i18n/config';
 
+import type { Dictionary } from '@/lib/types/dictionary';
+
 interface ClientStoriesProps {
   locale: Locale;
+  dict?: Dictionary;
 }
 
 /**
  * A curated collector dossier: provenance badge, editorial quote,
- * author attribution, and optional contextual image.
+ * author attribution, and optional contextual image or photo slider.
  */
 interface CollectorStory {
   readonly id: string;
@@ -18,34 +21,40 @@ interface CollectorStory {
   readonly author: string;
   readonly role: Record<Locale, string>;
   readonly image?: string;
+  readonly images?: readonly string[];
   readonly imageAlt?: string;
 }
 
 /* ─────────────────────────────────────────────────────────────────────
  * DATA — 3 real collector stories.
  *
- * Story[0] → Featured / Hero quote (spans 2 cols on desktop)
+ * Story[0] → Featured / Hero quote: Nora S. & Studio Ghibli Totoro
  * Story[1] → Secondary card (right column, top)
  * Story[2] → Secondary card (right column, bottom)
  * ──────────────────────────────────────────────────────────────────── */
 const STORIES: readonly CollectorStory[] = [
   {
-    id: 'katherine-m',
+    id: 'nora-s',
     provenance: {
-      es: 'Colección Privada · Richmond, VA',
-      en: 'Private Collection · Richmond, VA',
+      es: 'Colección Privada · Pieza Única',
+      en: 'Private Collection · One-of-a-Kind Piece',
     },
     quote: {
-      es: 'Capturó el espíritu de mis hijos a la perfección en esta chaqueta. El detalle en cada trazo hiperrealista es sobrecogedor — jamás me la quito. No es ropa. Es un retrato que vive conmigo.',
-      en: 'She captured the spirit of my kids so perfectly on this jacket. The hyperrealistic detail in every brushstroke is breathtaking — I never take it off. It\'s not clothing. It\'s a portrait that lives with me.',
+      es: '¡Hermoso trabajo, Dayana! Tu talento y creatividad transformaron la chaqueta en una pieza única y especial. Se nota el cuidado, el detalle y la pasión con la que trabajas. Es un gusto ver cómo conviertes una idea en arte tan bien logrado. Estoy feliz con tu excelente trabajo. Mis más amplias recomendaciones.',
+      en: "Beautiful work, Dayana! Your talent and creativity truly transformed the jacket into a unique, one-of-a-kind masterpiece. The care, meticulous detail, and passion you put into your craft shine through in every brushstroke. It’s such a joy to see how you bring an idea to life with such breathtaking artistry. I couldn't be happier with your incredible work. My absolute highest recommendation!",
     },
-    author: 'Katherine M.',
+    author: 'Nora S.',
     role: {
-      es: 'Coleccionista · Pieza Bespoke',
-      en: 'Collector · Bespoke Commission',
+      es: 'Bespoke Collector · Pieza Única',
+      en: 'Bespoke Collector · Unique Commission',
     },
-    image: '/gallery/portrait/1.webp',
-    imageAlt: 'Detalle hiperrealista — retrato pintado a mano sobre denim',
+    image: '/gallery/cinema/totoro.jpg',
+    images: [
+      '/gallery/cinema/totoro-1.jpg',
+      '/gallery/cinema/totoro-2.jpg',
+      '/gallery/cinema/totoro-3.jpg',
+    ],
+    imageAlt: 'Nora S. con su chaqueta My Neighbor Totoro pintada a mano sobre denim',
   },
   {
     id: 'carlos-elena-r',
@@ -120,18 +129,30 @@ function QuoteMark({ className = '' }: { className?: string }) {
  *
  * Server Component — zero JS. All transitions are CSS-only.
  */
-export function ClientStories({ locale }: ClientStoriesProps) {
+export function ClientStories({ locale, dict }: ClientStoriesProps) {
   const isEs = locale === 'es';
 
-  const eyebrowText = isEs ? 'Diarios de Colección' : 'Collector Diaries';
-  const headingText = isEs
+  const eyebrowText = dict?.clientStories?.eyebrow ?? (isEs ? 'Diarios de Colección' : 'Collector Diaries');
+  const headingText = dict?.clientStories?.title ?? (isEs
     ? 'Historias que se llevan puestas'
-    : 'Stories worn, not told';
-  const subtitleText = isEs
+    : 'Stories worn, not told');
+  const subtitleText = dict?.clientStories?.subtitle ?? (isEs
     ? 'Cada pieza tiene un dueño que decidió convertir su historia en arte. Estas son sus palabras.'
-    : 'Every piece has an owner who chose to turn their story into art. These are their words.';
+    : 'Every piece has an owner who chose to turn their story into art. These are their words.');
 
-  const featured = STORIES[0];
+  const featured = dict?.clientStories?.featured
+    ? {
+        id: 'nora-s',
+        provenance: { es: dict.clientStories.featured.provenance, en: dict.clientStories.featured.provenance },
+        quote: { es: dict.clientStories.featured.quote, en: dict.clientStories.featured.quote },
+        author: dict.clientStories.featured.author,
+        role: { es: dict.clientStories.featured.role, en: dict.clientStories.featured.role },
+        image: dict.clientStories.featured.image,
+        images: dict.clientStories.featured.images ?? STORIES[0].images,
+        imageAlt: dict.clientStories.featured.imageAlt,
+      }
+    : STORIES[0];
+
   const secondary = STORIES.slice(1);
 
   return (
@@ -183,20 +204,26 @@ export function ClientStories({ locale }: ClientStoriesProps) {
               hover:-translate-y-1
             "
           >
-            {/* ── Contextual Image — collector's piece ── */}
-            {featured.image && (
+            {/* ── Contextual Image / Slider — collector's piece ── */}
+            {featured.images && featured.images.length > 1 ? (
+              <StoryImageSlider
+                images={featured.images}
+                alt={featured.imageAlt}
+                aspectRatioClass="aspect-[16/9]"
+              />
+            ) : featured.image ? (
               <div className="relative aspect-[16/9] bg-dba-paper">
                 <Image
-                  src={featured.image}
+                  src={featured.image.startsWith('/public/') ? featured.image.replace('/public', '') : featured.image}
                   alt={featured.imageAlt || ''}
                   fill
                   placeholder="blur"
                   blurDataURL={BLUR_PLACEHOLDER}
-                  className="object-cover object-top"
+                  className="object-cover object-center"
                   sizes="(max-width: 1024px) 100vw, 60vw"
                 />
               </div>
-            )}
+            ) : null}
 
             <div className="p-8 md:p-10">
               {/* Provenance badge */}
