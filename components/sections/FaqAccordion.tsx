@@ -24,22 +24,22 @@ const FAQ_DATA: Record<'es' | 'en', FaqItem[]> = {
     {
       question: '¿Cuánto cuesta una chaqueta personalizada?',
       answer:
-        'Cada pieza empieza desde $350 USD, y el precio final depende de la complejidad del diseño, el tamaño de la superficie pintada y los detalles específicos que pidas. Para darte perspectiva: una chaqueta de diseñador de lujo cuesta entre $500 y $3,000, es producida en serie, y la llevan miles de personas. La tuya la pinta una artista, existe una sola vez, y la lleva únicamente tú. La cotización exacta es gratuita y sin compromiso.',
+        'El precio se calcula de acuerdo al diseño, entre $250 a $350. Se pueden personalizar con tu nombre o alguna frase especial. Tu diseño será exclusivo, ya que no se repiten los diseños (solo si el mismo cliente lo requiere).',
     },
     {
-      question: '¿Cuánto tiempo tarda el proceso completo?',
+      question: '¿Cuánto tiempo tarda el proceso de creación?',
       answer:
-        'Desde que me escribes hasta que tienes la pieza en tus manos, el proceso toma entre 3 y 6 semanas en total: 1–2 días para la primera conversación y cotización, hasta 1 semana para el boceto digital y tu aprobación, 2 a 4 semanas para la pintura según complejidad, y 3 a 7 días hábiles para el envío. Si tienes una fecha límite en mente — un cumpleaños, un regalo, un evento — dímelo desde el inicio y organizamos juntas los tiempos.',
+        'El proceso toma entre 3 y 6 semanas en total, dependiendo de la complejidad del diseño: 1–2 días para la primera conversación y cotización, hasta 1 semana para el boceto digital y tu aprobación, y de 2 a 4 semanas para la creación según la complejidad del diseño. El envío podría tomar entre 3 a 7 días hábiles dentro de los Estados Unidos. Si tienes una fecha límite en mente — un cumpleaños o un evento especial — coordinaremos juntos para que puedas recibir tu pedido a tiempo.',
     },
     {
       question: '¿Qué pasa si el resultado no es lo que esperaba?',
       answer:
-        'Por eso el boceto existe. Antes de que el pincel toque la chaqueta, recibes un diseño digital completo para aprobar. Ahí revisamos composición, colores y detalles hasta que sientas que es exactamente tuyo — incluso si al principio no tenías las palabras para describirlo. Solo cuando das el visto bueno, comenzamos con la pieza física.',
+        'Se realizan muchos pasos previos durante el proceso para minimizar los riesgos. La aprobación del boceto y las imágenes enviadas durante la creación del diseño te mantendrán al tanto de cómo va luciendo tu proyecto. Si deseas corregir o cambiar algo, se debe mencionar en las etapas iniciales para que el resultado sea tal como lo deseas.',
     },
     {
       question: '¿Necesito tener mi propia chaqueta para el encargo?',
       answer:
-        'No es necesario. Tienes dos opciones: envías la tuya — una chaqueta que ya tiene historia, un vintage que guardabas, o una que compraste pensando en esto — o yo consigo la chaqueta por ti, según tu talla y preferencia. El costo se incluye en la cotización total. En ambos casos, el resultado es el mismo: una pieza que solo existe en tu talla, para tu cuerpo, con tu historia.',
+        'No es necesario. Tienes dos opciones: envías la tuya — una chaqueta que ya tiene historia, una vintage que guardabas, o una que compraste pensando en esto. O puedes obtenerla con nosotros, solemos trabajar con marcas como GAP o Levi\'s. En ambos casos, el resultado es el mismo: una pieza única y exclusiva.',
     },
     {
       question: '¿La pintura resiste el lavado? ¿Se mantiene con el tiempo?',
@@ -56,22 +56,22 @@ const FAQ_DATA: Record<'es' | 'en', FaqItem[]> = {
     {
       question: 'How much does a custom jacket cost?',
       answer:
-        'Each piece starts at $350 USD, and the final price depends on design complexity, painted surface area, and specific details. For perspective: a luxury designer jacket costs $500–$3,000, is mass-produced, and thousands of people wear it. Yours is painted by an artist, exists only once, and belongs only to you. The exact quote is free and no-commitment.',
+        'The price is calculated based on the design, ranging from $250 to $350. They can be personalized with your name or a special phrase. Your design will be exclusive — we never repeat designs (unless the same client requests it).',
     },
     {
-      question: 'How long does the entire process take?',
+      question: 'How long does the creation process take?',
       answer:
-        'From first contact to delivery, the process takes 3 to 6 weeks total: 1–2 days for initial conversation and quote, up to 1 week for the digital sketch and your approval, 2 to 4 weeks for painting depending on complexity, and 3 to 7 business days for shipping. If you have a deadline — a birthday, a gift, an event — tell me from the start and we can plan together.',
+        'The process takes 3 to 6 weeks total, depending on the design complexity: 1–2 days for initial conversation and quote, up to 1 week for the digital sketch and your approval, and 2 to 4 weeks for creation depending on the complexity of the design. Shipping may take 3 to 7 business days within the United States. If you have a deadline in mind — a birthday or a special event — we\'ll coordinate together so you can receive your order on time.',
     },
     {
       question: "What if the result isn't what I expected?",
       answer:
-        "That's why the sketch exists. Before the brush touches the jacket, you receive a complete digital design for approval. We review composition, colors, and details until it feels exactly right — even if at first you didn't have the words to describe it. Only when you approve do we begin the physical piece.",
+        'Many preliminary steps are taken throughout the process to minimize any risk. The sketch approval and progress images sent during the design creation will keep you informed of how your project is shaping up. If you wish to correct or change anything, it should be mentioned in the early stages so the result is exactly as you envision.',
     },
     {
       question: 'Do I need to have my own jacket for the commission?',
       answer:
-        "No. You have two options: send yours — a jacket with history, a vintage you've been saving, or one you bought for this — or I source one for you in your size and preference. The cost is included in the total quote. Either way, the result is the same: a piece that exists only in your size, for your body, with your story.",
+        "Not at all. You have two options: send yours — a jacket with history, a vintage you've been saving, or one you bought with this in mind. Or you can get one through us; we usually work with brands like GAP or Levi's. Either way, the result is the same: a unique and exclusive piece.",
     },
     {
       question: 'Does the paint withstand washing? Does it last?',

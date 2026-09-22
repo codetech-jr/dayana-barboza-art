@@ -25,7 +25,7 @@ const variantStyles: Record<ButtonVariant, string> = {
   primary: [
     'bg-dba-accent text-dba-white',
     'pl-8 pr-5 py-3',
-    'hover:bg-dba-accent-hover hover:shadow-[0_12px_40px_oklch(55%_0.12_38/0.25)]',
+    'hover:bg-dba-accent-hover hover:shadow-[0_12px_40px_oklch(45%_0.14_340/0.25)]',
     'active:scale-[0.97] active:bg-dba-accent-active',
   ].join(' '),
   ghost: [

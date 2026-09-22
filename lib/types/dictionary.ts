@@ -74,6 +74,12 @@ export interface Dictionary {
     readonly ctaPrimary: string;
     readonly ctaSecondary: string;
     readonly microcopy: string;
+    readonly sections?: readonly {
+      readonly number: string;
+      readonly eyebrow: string;
+      readonly title: string;
+      readonly description: string;
+    }[];
   };
   readonly merch: {
     readonly eyebrow: string;

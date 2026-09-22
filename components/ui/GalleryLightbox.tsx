@@ -268,7 +268,7 @@ export function GalleryLightbox({
                 inline-flex items-center justify-center gap-2.5
                 rounded-full bg-dba-accent px-7 py-3
                 font-body text-xs sm:text-sm font-medium text-dba-white
-                shadow-[0_8px_30px_oklch(55%_0.12_38/0.4)]
+                shadow-[0_8px_30px_oklch(45%_0.14_340/0.4)]
                 transition-all duration-300
                 hover:bg-dba-accent-hover hover:scale-[1.02]
                 active:scale-[0.98]

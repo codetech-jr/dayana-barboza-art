@@ -22,6 +22,12 @@ export interface GalleryPiece {
   readonly featured?: boolean;
   /** Raw image filename or alias. */
   readonly image?: string;
+  /**
+   * Optional custom badge label per locale.
+   * When present AND non-empty → renders this text as the badge.
+   * When absent (undefined) → no badge renders at all.
+   */
+  readonly badgeLabel?: Record<Locale, string>;
 }
 
 /**
@@ -43,8 +49,37 @@ export const ABOUT_IMAGE_URL = '/gallery/portrait/1.webp';
  * - movie-inspo/ & cinema/ -> category: 'cinema'
  * - nature/      -> category: 'nature'
  * - too-chic/ & bordadas/ -> category: 'custom'
+ *
+ * Badge system: Only pieces with explicit `badgeLabel` show a badge.
+ * All others render clean (no pill overlay).
  */
 export const GALLERY_PIECES: GalleryPiece[] = [
+  // ─── CLÁSICO DEL CINE EN DENIM (Mulan) — Available piece (client requested first position with GAP badge) ───
+  {
+    id: 'cinema-classic',
+    title: { es: 'Clásico del Cine en Denim', en: 'Denim Cinema Classic' },
+    category: 'cinema',
+    imageUrl: '/gallery/movie-inspo/3.webp',
+    availability: 'available',
+    status: 'available',
+    featured: true,
+    badgeLabel: {
+      es: 'Disponible · Talla M · GAP',
+      en: 'Available · Size M · GAP',
+    },
+  },
+
+  // ─── RATATOUILLE ───
+  {
+    id: 'cinema-ratatouille',
+    title: { es: 'Ratatouille — Rémy', en: 'Ratatouille — Rémy' },
+    category: 'cinema',
+    imageUrl: '/gallery/movie-inspo/Ratatouille.webp',
+    availability: 'available',
+    status: 'available',
+    featured: true,
+  },
+
   // ─── POP CULTURE / CINEMA (Featured Nora S. Bespoke Piece) ───
   {
     id: 'cinema-totoro',
@@ -111,28 +146,12 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     status: 'available',
   },
   {
-    id: 'cinema-classic',
-    title: { es: 'Clásico del Cine en Denim', en: 'Denim Cinema Classic' },
-    category: 'cinema',
-    imageUrl: '/gallery/movie-inspo/3.webp',
-    availability: 'available',
-    status: 'available',
-  },
-  {
     id: 'cinema-encanto',
     title: { es: 'Encanto', en: 'Encanto' },
     category: 'cinema',
     imageUrl: '/gallery/movie-inspo/4.webp',
     availability: 'sold',
     status: 'sold',
-  },
-  {
-    id: 'cinema-noir',
-    title: { es: 'Film Noir Tribute', en: 'Film Noir Tribute' },
-    category: 'cinema',
-    imageUrl: '/gallery/movie-inspo/5.webp',
-    availability: 'available',
-    status: 'available',
   },
 
   // ─── NATURE ───

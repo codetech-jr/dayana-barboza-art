@@ -69,19 +69,38 @@
     }
   },
   "events": {
-    "eyebrow": "Experiencias · No solo arte",
-    "title": "Una noche que\nno se olvida.",
-    "subtitle": "Art Parties privadas o grupales. Clases de técnica textil. Momentos donde el arte deja de ser cosa de museos y se convierte en tu experiencia.",
+    "eyebrow": "Experiencias Privadas",
+    "title": "Art Party /\nFiesta Creativa",
+    "subtitle": "Un día inolvidable para toda ocasión: cumpleaños, aniversarios, open house, despedidas, baby shower y más.",
     "inclusions": [
-      "Materiales y chaqueta incluidos",
+      "Materiales incluidos",
       "Guía paso a paso por Dayana",
-      "Ambiente íntimo (grupos de hasta 8 personas)",
-      "Foto de tu obra al finalizar",
-      "Copa o bebida de bienvenida"
+      "Grupos de 5 a 12 personas",
+      "Un recuerdo hecho con tus manos"
     ],
-    "ctaPrimary": "Ver fechas disponibles",
+    "sections": [
+      {
+        "number": "01",
+        "eyebrow": "La Técnica",
+        "title": "Arte y diversión en una noche",
+        "description": "Creamos un día especial de arte para ti y tus amigos o familiares. Será un día especial con el proyecto que más te guste o te inspire. Tú decides el proyecto, nosotros te guiamos."
+      },
+      {
+        "number": "02",
+        "eyebrow": "La Experiencia",
+        "title": "Sesiones Íntimas",
+        "description": "Grupos entre 5 a 12 personas. Nosotros te proporcionamos todos los materiales (excepto las chaquetas en arte textil, estas tendrán un costo adicional o puedes traer la tuya)."
+      },
+      {
+        "number": "03",
+        "eyebrow": "El Resultado",
+        "title": "Una experiencia única y especial",
+        "description": "El resultado será increíble, una maravillosa experiencia para ti y tus invitados, y un recuerdo especial hecho con tus manos."
+      }
+    ],
+    "ctaPrimary": "Reservar mi Art Party",
     "ctaSecondary": "Reservar una fecha privada",
-    "microcopy": "Grupos privados disponibles para cumpleaños, despedidas y corporativos. Pregunta por disponibilidad."
+    "microcopy": "Grupos privados disponibles para cumpleaños, despedidas, baby showers y corporativos. Pregunta por disponibilidad."
   },
   "merch": {
     "eyebrow": "Merch · Arte casual",

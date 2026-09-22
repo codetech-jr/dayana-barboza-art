@@ -117,7 +117,7 @@ export function GalleryTeaser({ dict, locale }: GalleryTeaserProps) {
               rounded-full bg-dba-accent px-8 py-4
               font-body text-sm font-medium text-dba-white
               transition-all duration-500
-              hover:bg-dba-accent-hover hover:shadow-[0_12px_40px_oklch(55%_0.12_38/0.3)]
+              hover:bg-dba-accent-hover hover:shadow-[0_12px_40px_oklch(45%_0.14_340/0.3)]
               active:scale-[0.98]
               focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-dba-accent
               select-none

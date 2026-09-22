@@ -10,34 +10,16 @@ interface EventsProps {
   locale: Locale;
 }
 
-/** Inline check icon — no emoji, no library dependency. */
-function CheckIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className="shrink-0 text-dba-accent mt-0.5"
-    >
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
-  );
-}
-
 /**
- * Events / Art Parties — Minimalist checklist with Photorealistic Blur SSR.
+ * Events / Art Parties — 3 Editorial Blocks Layout.
  *
  * Server Component. Cream background (alternating rhythm).
- * Features native Next.js static asset import with built-in Base64 blurDataURL,
- * delivering zero CLS and instant LCP feedback.
+ * Refactored from checklist to 3 numbered editorial blocks:
+ * 01 — La Técnica, 02 — La Experiencia, 03 — El Resultado.
  */
 export function Events({ dict, locale }: EventsProps) {
+  const sections = dict.events.sections;
+
   return (
     <section id="events" className="bg-dba-cream pt-4 lg:pt-6 pb-section">
       <div className="max-w-4xl mx-auto px-6">
@@ -79,24 +61,74 @@ export function Events({ dict, locale }: EventsProps) {
           />
         </div>
 
-        {/* ── Inclusions checklist ── */}
-        <ul className="mt-10 space-y-0" role="list">
-          {dict.events.inclusions.map((item, i) => (
-            <li
-              key={i}
-              className="
-                flex items-start gap-4
-                py-4 border-b border-dba-rule
-                last:border-b-0
-              "
-            >
-              <CheckIcon />
-              <span className="font-body text-dba-ink text-[length:var(--dba-type-body)]">
-                {item}
-              </span>
-            </li>
-          ))}
-        </ul>
+        {/* ── 3 Editorial Blocks (La Técnica · La Experiencia · El Resultado) ── */}
+        {sections && sections.length > 0 ? (
+          <div className="mt-12 space-y-10">
+            {sections.map((section, i) => (
+              <div
+                key={i}
+                className="border-t border-dba-rule/60 pt-8"
+              >
+                <p className="font-body text-[10px] font-medium uppercase tracking-[0.2em] text-dba-faint">
+                  {section.number} — {section.eyebrow}
+                </p>
+
+                <h3
+                  className="
+                    mt-3 font-display font-semibold text-dba-ink
+                    text-[length:var(--dba-type-h3)]
+                    leading-snug
+                  "
+                >
+                  {section.title}
+                </h3>
+
+                <p
+                  className="
+                    mt-3 font-body text-dba-muted
+                    text-[length:var(--dba-type-body)]
+                    leading-[var(--dba-leading-body)]
+                    max-w-[var(--dba-measure)]
+                  "
+                >
+                  {section.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          /* Fallback: inclusions checklist if sections not available */
+          <ul className="mt-10 space-y-0" role="list">
+            {dict.events.inclusions.map((item, i) => (
+              <li
+                key={i}
+                className="
+                  flex items-start gap-4
+                  py-4 border-b border-dba-rule
+                  last:border-b-0
+                "
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                  className="shrink-0 text-dba-accent mt-0.5"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span className="font-body text-dba-ink text-[length:var(--dba-type-body)]">
+                  {item}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
 
         {/* ── CTAs: Centered on mobile, row on desktop ── */}
         <div className="mt-12 flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4 w-full sm:w-auto">
@@ -109,7 +141,7 @@ export function Events({ dict, locale }: EventsProps) {
               rounded-full bg-dba-accent px-8 py-4
               font-body text-sm font-medium text-dba-white
               transition-all duration-500
-              hover:bg-dba-accent-hover hover:shadow-[0_12px_40px_oklch(55%_0.12_38/0.3)]
+              hover:bg-dba-accent-hover hover:shadow-[0_12px_40px_oklch(45%_0.14_340/0.3)]
               active:scale-[0.98]
               focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-dba-accent
               select-none

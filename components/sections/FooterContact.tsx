@@ -48,7 +48,7 @@ export function FooterContact({ dict, locale }: FooterContactProps) {
                 font-body text-base font-medium text-dba-ink
                 transition-all duration-300 ease-[var(--dba-ease)]
                 hover:border-dba-accent hover:text-dba-accent
-                hover:shadow-[0_8px_30px_oklch(55%_0.12_38/0.12)]
+                hover:shadow-[0_8px_30px_oklch(45%_0.14_340/0.12)]
                 active:scale-[0.99]
                 focus-visible:outline-2 focus-visible:outline-offset-2
                 focus-visible:outline-dba-accent

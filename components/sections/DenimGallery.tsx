@@ -30,38 +30,23 @@ function getFilterLabel(key: FilterKey, dict: Dictionary): string {
 }
 
 /**
- * ScarcityBadge — Tier-1 Status Label (Apple/Editorial Glassmorphism).
- * Position absolute top-4 left-4 z-20 style pill (rounded-full).
- * - Sold: Dark translucent glass with "• VENDIDA" / "• SOLD"
- * - Available: Elegant glass with "• 1 OF 1 - DISPONIBLE" / "• 1 OF 1 - AVAILABLE"
+ * ScarcityBadge — Optional badge that only renders when `piece.badgeLabel` is set.
+ *
+ * When badgeLabel is present → renders the custom text.
+ * When badgeLabel is absent → renders nothing (clean card).
  */
 function ScarcityBadge({
   piece,
   locale,
-  dict,
 }: {
   piece: GalleryPiece;
   locale: Locale;
   dict: Dictionary;
 }) {
-  const isSold = piece.availability === 'sold' || piece.status === 'sold';
+  const label = piece.badgeLabel?.[locale];
 
-  if (isSold) {
-    return (
-      <span
-        className="
-          absolute top-4 left-4 z-20
-          inline-flex items-center
-          rounded-full px-3.5 py-1.5
-          text-[10px] font-body font-semibold uppercase tracking-[0.16em]
-          bg-black/75 backdrop-blur-md border border-white/10 text-white/90
-          select-none shadow-sm
-        "
-      >
-        {dict.gallery.badges?.sold || (locale === 'es' ? '• VENDIDA' : '• SOLD')}
-      </span>
-    );
-  }
+  // No badgeLabel → no badge rendered
+  if (!label) return null;
 
   return (
     <span
@@ -69,12 +54,12 @@ function ScarcityBadge({
         absolute top-4 left-4 z-20
         inline-flex items-center
         rounded-full px-3.5 py-1.5
-        text-[10px] font-body font-semibold uppercase tracking-[0.18em]
+        text-[10px] font-body font-semibold uppercase tracking-[0.16em]
         bg-black/45 backdrop-blur-md border border-white/20 text-white
         select-none shadow-sm
       "
     >
-      {dict.gallery.badges?.available || (locale === 'es' ? '• 1 OF 1 - DISPONIBLE' : '• 1 OF 1 - AVAILABLE')}
+      • {label}
     </span>
   );
 }
@@ -225,7 +210,6 @@ export function DenimGallery({ dict, locale }: DenimGalleryProps) {
                 transition-all duration-500 ease-[var(--dba-ease)]
                 hover:shadow-[0_12px_40px_rgba(0,0,0,0.15)]
                 ${getAspectRatio(i)}
-                ${(piece.availability === 'sold' || piece.status === 'sold') ? 'grayscale-[0.2]' : ''}
               `}
               role="button"
               tabIndex={0}
