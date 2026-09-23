@@ -36,7 +36,7 @@ export function ArtPartiesExperience({ locale, dict }: ArtPartiesExperienceProps
 
   // Read from dictionary with fallbacks
   const eyebrowText = dict?.events?.eyebrow ?? (isEs ? 'Experiencias Privadas' : 'Private Experiences');
-  const headingText = dict?.events?.title ?? (isEs ? 'Art Party /\nFiesta Creativa' : 'Art Party /\nCreative Celebration');
+  const headingText = dict?.events?.title ?? (isEs ? 'Fiesta Creativa' : 'Art Party');
   const subtitleText = dict?.events?.subtitle ?? (isEs
     ? 'Un día inolvidable para toda ocasión: cumpleaños, aniversarios, open house, despedidas, baby showers y más.'
     : 'An unforgettable day for every occasion: birthdays, anniversaries, open houses, farewell celebrations, baby showers, and more.');

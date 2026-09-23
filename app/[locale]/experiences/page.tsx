@@ -17,7 +17,7 @@ export async function generateMetadata({
   if (!isValidLocale(locale)) return {};
 
   const dict = await getDictionary(locale);
-  const title = locale === 'es' ? 'Art Parties & Experiencias Textiles' : 'Art Parties & Textile Experiences';
+  const title = locale === 'es' ? 'Fiesta Creativa & Experiencias Textiles' : 'Art Party & Textile Experiences';
 
   return {
     title,
