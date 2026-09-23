@@ -71,7 +71,7 @@
   "events": {
     "eyebrow": "Experiencias Privadas",
     "title": "Art Party /\nFiesta Creativa",
-    "subtitle": "Un día inolvidable para toda ocasión: cumpleaños, aniversarios, open house, despedidas, baby shower y más.",
+    "subtitle": "Un día inolvidable para toda ocasión: cumpleaños, aniversarios, open house, despedidas, baby showers y más.",
     "inclusions": [
       "Materiales incluidos",
       "Guía paso a paso por Dayana",
@@ -83,19 +83,19 @@
         "number": "01",
         "eyebrow": "La Técnica",
         "title": "Arte y diversión en una noche",
-        "description": "Creamos un día especial de arte para ti y tus amigos o familiares. Será un día especial con el proyecto que más te guste o te inspire. Tú decides el proyecto, nosotros te guiamos."
+        "description": "Creamos un día de arte para ti y tus amigos o familiares. Será una fecha especial guiada por el proyecto que más te inspire. Tú decides el diseño, nosotros te guiamos."
       },
       {
         "number": "02",
         "eyebrow": "La Experiencia",
-        "title": "Sesiones Íntimas",
-        "description": "Grupos entre 5 a 12 personas. Nosotros te proporcionamos todos los materiales (excepto las chaquetas en arte textil, estas tendrán un costo adicional o puedes traer la tuya)."
+        "title": "Sesiones íntimas",
+        "description": "Para grupos de entre 5 a 12 personas. Nosotros te proporcionamos todos los materiales (exceptuando las prendas para el arte textil; estas tendrán un costo adicional, o bien, puedes traer la tuya propia)."
       },
       {
         "number": "03",
         "eyebrow": "El Resultado",
         "title": "Una experiencia única y especial",
-        "description": "El resultado será increíble, una maravillosa experiencia para ti y tus invitados, y un recuerdo especial hecho con tus manos."
+        "description": "El resultado será increíble. Vivirás una maravillosa experiencia junto a tus invitados, llevándose a casa un recuerdo súper especial hecho con sus propias manos."
       }
     ],
     "ctaPrimary": "Reservar mi Art Party",

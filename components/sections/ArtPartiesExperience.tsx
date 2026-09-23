@@ -3,54 +3,12 @@ import { Eyebrow } from '@/components/ui';
 import { buildWhatsAppUrl } from '@/lib/whatsapp';
 import { BLUR_PLACEHOLDER } from '@/lib/data/gallery';
 import type { Locale } from '@/lib/i18n/config';
+import type { Dictionary } from '@/lib/types/dictionary';
 
 interface ArtPartiesExperienceProps {
   locale: Locale;
+  dict?: Dictionary;
 }
-
-/* ─────────────────────────────────────────────────────────────────────
- * EXPERIENCE PILLARS — curated blocks that replace the generic
- * checklist. Each pillar is a rhetorical unit: eyebrow → heading →
- * body text, creating asymmetric editorial rhythm on the right column.
- *
- * Copywriting-psychologist: aspirational framing, identity language,
- * voice-of-customer "what they'll tell friends the next day."
- * ──────────────────────────────────────────────────────────────────── */
-interface ExperiencePillar {
-  readonly eyebrow: Record<Locale, string>;
-  readonly heading: Record<Locale, string>;
-  readonly body: Record<Locale, string>;
-}
-
-const PILLARS: readonly ExperiencePillar[] = [
-  {
-    eyebrow: { es: '01 — La Técnica', en: '01 — The Craft' },
-    heading: { es: 'Técnica y Vino', en: 'Technique & Wine' },
-    body: {
-      es: 'Aprende la técnica base del acrílico textil con la guía de Dayana mientras disfrutas de una copa en un ambiente de taller privado. Sin prisa. Sin moldes.',
-      en: 'Learn the foundations of textile acrylic painting guided by Dayana while enjoying a glass of wine in a private studio setting. No rush. No templates.',
-    },
-  },
-  {
-    eyebrow: { es: '02 — La Experiencia', en: '02 — The Experience' },
-    heading: { es: 'Sesiones Íntimas', en: 'Intimate Sessions' },
-    body: {
-      es: 'Grupos de 4 a 8 coleccionistas. Nada de salones masivos. Tu mesa, tus pinceles, tu chaqueta. El atelier se convierte en tu espacio creativo durante toda la velada.',
-      en: 'Groups of 4 to 8 collectors. No crowded venues. Your table, your brushes, your jacket. The atelier becomes your creative space for the entire evening.',
-    },
-  },
-  {
-    eyebrow: { es: '03 — El Resultado', en: '03 — The Takeaway' },
-    heading: {
-      es: 'Lleva a casa tu primer lienzo textil',
-      en: 'Take home your first textile canvas',
-    },
-    body: {
-      es: 'Al finalizar, cada invitado se lleva una pieza original intervenida por su propia mano — con los acabados y sellados profesionales que Dayana aplica a sus comisiones.',
-      en: 'At the end, every guest takes home an original piece crafted by their own hand — with the same professional sealing and finish Dayana applies to her commissions.',
-    },
-  },
-] as const;
 
 /**
  * ArtPartiesExperience — Immersive Split-Screen Booking Experience.
@@ -58,47 +16,67 @@ const PILLARS: readonly ExperiencePillar[] = [
  * Replaces the old checklist Events layout with a premium
  * editorial split-screen design (Kinfolk / Cereal Magazine tier).
  *
+ * Consumes dynamic dictionary strings (dict.events) with fallback.
+ *
  * Architecture:
  * ┌──────────────┬─────────────────────────────────┐
  * │              │  Eyebrow + H1 + Subtitle        │
  * │   Sticky     │                                 │
- * │   3:4 Image  │  Pillar 01: Técnica y Vino      │
- * │   (left col) │  Pillar 02: Sesiones Íntimas    │
- * │              │  Pillar 03: Lleva a casa…        │
+ * │   3:4 Image  │  Pillar 01: Arte y diversión…   │
+ * │   (left col) │  Pillar 02: Sesiones íntimas    │
+ * │              │  Pillar 03: Una experiencia…    │
  * │              │                                 │
  * │              │  Price Anchor + Dual CTAs        │
  * └──────────────┴─────────────────────────────────┘
  *
- * Skills applied:
- * - high-end-visual-design: Split-screen sticky, editorial asymmetry
- * - ui-ux-pro-max: Scroll-driven reveal rhythm, mobile stacking
- * - copywriting-psychologist: Aspirational pillars, identity framing
- * - scarcity-urgency-psychologist: Capacity-limited (real), calm tone
- * - brand-perception-psychologist: Atelier schema → premium positioning
- * - frontend-ui-engineering: Server Component, accessible, responsive
- *
  * Server Component — zero JS. CSS-only transitions.
  */
-export function ArtPartiesExperience({ locale }: ArtPartiesExperienceProps) {
+export function ArtPartiesExperience({ locale, dict }: ArtPartiesExperienceProps) {
   const isEs = locale === 'es';
 
-  const eyebrowText = isEs ? 'Experiencias Privadas' : 'Private Experiences';
-  const headingText = isEs
-    ? 'Una noche que no se olvida.'
-    : 'A night you\'ll never forget.';
-  const subtitleText = isEs
-    ? 'El arte deja de ser cosa de museos y se convierte en tu experiencia. Íntima, guiada y con una copa en la mano.'
-    : 'Art stops being a museum affair and becomes your experience. Intimate, guided, and with a glass in hand.';
+  // Read from dictionary with fallbacks
+  const eyebrowText = dict?.events?.eyebrow ?? (isEs ? 'Experiencias Privadas' : 'Private Experiences');
+  const headingText = dict?.events?.title ?? (isEs ? 'Art Party /\nFiesta Creativa' : 'Art Party /\nCreative Celebration');
+  const subtitleText = dict?.events?.subtitle ?? (isEs
+    ? 'Un día inolvidable para toda ocasión: cumpleaños, aniversarios, open house, despedidas, baby showers y más.'
+    : 'An unforgettable day for every occasion: birthdays, anniversaries, open houses, farewell celebrations, baby showers, and more.');
 
   const priceLabel = isEs
-    ? 'Desde $85 por cupo · Solo grupos de 4 a 8 coleccionistas'
-    : 'From $85 per seat · Groups of 4 to 8 collectors only';
+    ? 'Grupos de 5 a 12 personas · Materiales incluidos'
+    : 'Groups of 5 to 12 guests · Materials included';
 
-  const ctaPrimary = isEs ? 'Reservar Sesión Privada' : 'Book Private Session';
-  const ctaSecondary = isEs ? 'Consultar Lista de Espera' : 'Join the Waitlist';
-  const microcopy = isEs
-    ? 'Cumpleaños, despedidas y corporativos. Pregunta por disponibilidad.'
-    : 'Birthdays, celebrations, and corporate events. Ask about availability.';
+  const ctaPrimary = dict?.events?.ctaPrimary ?? (isEs ? 'Reservar mi Art Party' : 'Book my Art Party');
+  const ctaSecondary = dict?.events?.ctaSecondary ?? (isEs ? 'Reservar una fecha privada' : 'Book a private date');
+  const microcopy = dict?.events?.microcopy ?? (isEs
+    ? 'Grupos privados disponibles para cumpleaños, despedidas, baby showers y corporativos. Pregunta por disponibilidad.'
+    : 'Private groups available for birthdays, celebrations, baby showers, and corporate gatherings. Ask about availability.');
+
+  const sections = dict?.events?.sections ?? [
+    {
+      number: '01',
+      eyebrow: isEs ? 'La Técnica' : 'The Craft',
+      title: isEs ? 'Arte y diversión en una noche' : 'Art and fun in one night',
+      description: isEs
+        ? 'Creamos un día de arte para ti y tus amigos o familiares. Será una fecha especial guiada por el proyecto que más te inspire. Tú decides el diseño, nosotros te guiamos.'
+        : 'We create an immersive art day for you, your friends, or family. A bespoke session inspired by what moves you most. You choose the design, we guide you every step of the way.',
+    },
+    {
+      number: '02',
+      eyebrow: isEs ? 'La Experiencia' : 'The Experience',
+      title: isEs ? 'Sesiones íntimas' : 'Intimate Sessions',
+      description: isEs
+        ? 'Para grupos de entre 5 a 12 personas. Nosotros te proporcionamos todos los materiales (exceptuando las prendas para el arte textil; estas tendrán un costo adicional, o bien, puedes traer la tuya propia).'
+        : 'Designed for private groups of 5 to 12 guests. We provide all the materials (with the exception of garments for textile art, which carry an additional cost, or you may bring your own favorite piece).',
+    },
+    {
+      number: '03',
+      eyebrow: isEs ? 'El Resultado' : 'The Result',
+      title: isEs ? 'Una experiencia única y especial' : 'A unique and special experience',
+      description: isEs
+        ? 'El resultado será increíble. Vivirás una maravillosa experiencia junto a tus invitados, llevándose a casa un recuerdo súper especial hecho con sus propias manos.'
+        : 'The outcome will be truly memorable. An extraordinary shared experience for you and your guests, taking home a cherished heirloom piece crafted by your own hands.',
+    },
+  ];
 
   return (
     <section
@@ -136,7 +114,7 @@ export function ArtPartiesExperience({ locale }: ArtPartiesExperienceProps) {
               "
             >
               <span className="font-body text-[10px] font-semibold text-dba-ink uppercase tracking-[0.2em]">
-                {isEs ? '4–8 Cupos' : '4–8 Seats'}
+                {isEs ? '5–12 Cupos' : '5–12 Guests'}
               </span>
             </div>
           </div>
@@ -153,7 +131,12 @@ export function ArtPartiesExperience({ locale }: ArtPartiesExperienceProps) {
                 leading-[var(--dba-leading-tight)]
               "
             >
-              {headingText}
+              {headingText.split('\n').map((line, i) => (
+                <span key={i}>
+                  {i > 0 && <br />}
+                  {line}
+                </span>
+              ))}
             </h1>
 
             <p
@@ -169,21 +152,21 @@ export function ArtPartiesExperience({ locale }: ArtPartiesExperienceProps) {
 
             {/* ── Experience Pillars ────────────────────────────── */}
             <div className="mt-12 space-y-10">
-              {PILLARS.map((pillar) => (
+              {sections.map((section, idx) => (
                 <article
-                  key={pillar.eyebrow.en}
+                  key={idx}
                   className="border-t border-dba-rule-strong/40 pt-8"
                 >
                   <span className="font-body text-[10px] font-medium uppercase tracking-[0.22em] text-dba-accent">
-                    {pillar.eyebrow[locale]}
+                    {section.number} — {section.eyebrow}
                   </span>
 
                   <h2 className="mt-3 font-display font-semibold text-dba-ink text-xl md:text-2xl leading-tight">
-                    {pillar.heading[locale]}
+                    {section.title}
                   </h2>
 
                   <p className="mt-3 font-body text-dba-muted text-[0.95rem] leading-[1.75] max-w-lg">
-                    {pillar.body[locale]}
+                    {section.description}
                   </p>
                 </article>
               ))}

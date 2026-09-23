@@ -61,7 +61,7 @@ export default async function ExperiencesPage({
   return (
     <main className="bg-dba-cream min-h-dvh pt-28 md:pt-36 lg:pt-40">
       <ScrollReveal threshold={0}>
-        <ArtPartiesExperience locale={locale} />
+        <ArtPartiesExperience locale={locale} dict={dict} />
       </ScrollReveal>
       <ScrollReveal>
         <FooterContact dict={dict} locale={locale} />

@@ -34,7 +34,12 @@ export function Events({ dict, locale }: EventsProps) {
               leading-[var(--dba-leading-tight)]
             "
           >
-            {dict.events.title}
+            {dict.events.title.split('\n').map((line, i) => (
+              <span key={i}>
+                {i > 0 && <br />}
+                {line}
+              </span>
+            ))}
           </h2>
 
           <p

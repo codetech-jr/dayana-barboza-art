@@ -71,7 +71,7 @@
   "events": {
     "eyebrow": "Private Experiences",
     "title": "Art Party /\nCreative Celebration",
-    "subtitle": "An unforgettable day for every occasion: birthdays, anniversaries, open houses, farewell parties, baby showers, and more.",
+    "subtitle": "An unforgettable day for every occasion: birthdays, anniversaries, open houses, farewell celebrations, baby showers, and more.",
     "inclusions": [
       "Materials included",
       "Step-by-step guidance by Dayana",
@@ -83,24 +83,24 @@
         "number": "01",
         "eyebrow": "The Craft",
         "title": "Art and fun in one night",
-        "description": "We create a special art day for you and your friends or family. It will be a unique day with the project that inspires you most. You choose the project, we guide you."
+        "description": "We create an immersive art day for you, your friends, or family. A bespoke session inspired by what moves you most. You choose the design, we guide you every step of the way."
       },
       {
         "number": "02",
         "eyebrow": "The Experience",
         "title": "Intimate Sessions",
-        "description": "Groups of 5 to 12 people. We provide all the materials (except jackets for textile art, which have an additional cost or you can bring your own)."
+        "description": "Designed for private groups of 5 to 12 guests. We provide all the materials (with the exception of garments for textile art, which carry an additional cost, or you may bring your own favorite piece)."
       },
       {
         "number": "03",
         "eyebrow": "The Result",
         "title": "A unique and special experience",
-        "description": "The result will be incredible — a wonderful experience for you and your guests, and a special keepsake made with your own hands."
+        "description": "The outcome will be truly memorable. An extraordinary shared experience for you and your guests, taking home a cherished heirloom piece crafted by your own hands."
       }
     ],
     "ctaPrimary": "Book my Art Party",
     "ctaSecondary": "Book a private date",
-    "microcopy": "Private groups available for birthdays, celebrations, baby showers, and corporate events. Ask about availability."
+    "microcopy": "Private groups available for birthdays, celebrations, baby showers, and corporate gatherings. Ask about availability."
   },
   "merch": {
     "eyebrow": "Merch · Casual art",
