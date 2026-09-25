@@ -31,6 +31,10 @@ const TRIGGER_MESSAGES = {
     es: 'Hola Dayana, me interesa reservar una fecha privada.',
     en: "Hi Dayana, I'd like to book a private event.",
   },
+  paintingClasses: {
+    es: 'Hola Dayana, me gustaría recibir información sobre las Clases de Pintura Tradicional.',
+    en: "Hi Dayana, I'd like information about the Traditional Painting Classes.",
+  },
   merchAvailability: {
     es: 'Hola Dayana, quiero consultar tallas y disponibilidad de una camiseta.',
     en: "Hi Dayana, I'd like to check sizes and availability for a t-shirt.",

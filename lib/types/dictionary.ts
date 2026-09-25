@@ -18,6 +18,7 @@ export interface Dictionary {
   readonly nav: {
     readonly gallery: string;
     readonly about: string;
+    readonly classes?: string;
     readonly events: string;
     readonly merch: string;
     readonly cta: string;

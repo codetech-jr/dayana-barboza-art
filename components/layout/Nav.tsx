@@ -12,19 +12,21 @@ interface NavProps {
   locale: Locale;
 }
 
-export const NAV_LINKS = ['gallery', 'about', 'events', 'merch'] as const;
+export const NAV_LINKS = ['gallery', 'about', 'classes', 'events', 'merch'] as const;
 export type NavLinkKey = (typeof NAV_LINKS)[number];
 
 /**
  * Route mapping per nav key:
  * - gallery -> /[locale]/gallery
  * - about   -> /[locale]/about
+ * - classes -> /[locale]/classes
  * - events  -> /[locale]/experiences
  * - merch   -> /[locale]/merch
  */
 export const ROUTE_MAP: Record<NavLinkKey, string> = {
   gallery: '/gallery',
   about: '/about',
+  classes: '/classes',
   events: '/experiences',
   merch: '/merch',
 };

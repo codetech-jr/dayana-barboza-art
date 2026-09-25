@@ -17,8 +17,12 @@ interface GalleryTeaserProps {
  * Acts as the visual bridge between the Hero statement and the full Hub.
  */
 export function GalleryTeaser({ dict, locale }: GalleryTeaserProps) {
-  // Take 3 representative pieces
-  const featuredPieces = GALLERY_PIECES.slice(0, 3);
+  // Take 3 representative stellar pieces across categories
+  const featuredPieces = [
+    GALLERY_PIECES.find((p) => p.id === 'cinema-mulan-1') ?? GALLERY_PIECES[0],
+    GALLERY_PIECES.find((p) => p.id === 'nature-blessings') ?? GALLERY_PIECES[10],
+    GALLERY_PIECES.find((p) => p.id === 'portrait-lady-red-1') ?? GALLERY_PIECES[13],
+  ];
 
   const ctaLabel =
     locale === 'es'

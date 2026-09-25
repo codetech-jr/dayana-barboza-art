@@ -87,35 +87,37 @@ export function ArtPartiesExperience({ locale, dict }: ArtPartiesExperienceProps
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
           {/* ── Left Column: Sticky Editorial Image ────────────── */}
-          <div className="lg:sticky lg:top-28 relative aspect-[3/4] overflow-hidden rounded-2xl bg-dba-paper shadow-[0_12px_36px_oklch(15%_0.01_80/0.06)] border border-dba-rule/60">
-            <Image
-              src="/gallery/clases/1.webp"
-              alt={
-                isEs
-                  ? 'Dayana Barboza guiando un Art Party privado en su atelier'
-                  : 'Dayana Barboza guiding a private Art Party in her atelier'
-              }
-              fill
-              priority
-              placeholder="blur"
-              blurDataURL={BLUR_PLACEHOLDER}
-              className="object-cover object-center transition-transform duration-700 ease-[var(--dba-ease)] hover:scale-[1.03]"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
+          <div className="lg:sticky lg:top-28">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-dba-paper shadow-[0_12px_36px_oklch(15%_0.01_80/0.06)] border border-dba-rule/60">
+              <Image
+                src="/gallery/clases/1.webp"
+                alt={
+                  isEs
+                    ? 'Dayana Barboza guiando un Art Party privado en su atelier'
+                    : 'Dayana Barboza guiding a private Art Party in her atelier'
+                }
+                fill
+                priority
+                placeholder="blur"
+                blurDataURL={BLUR_PLACEHOLDER}
+                className="object-cover object-center transition-transform duration-700 ease-[var(--dba-ease)] hover:scale-[1.03]"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
 
-            {/* Floating capacity pill — genuine scarcity signal */}
-            <div
-              className="
-                absolute top-5 left-5
-                bg-[oklch(100%_0_0/0.85)] backdrop-blur-sm
-                rounded-full px-4 py-2
-                border border-dba-rule/60
-                shadow-[0_4px_16px_oklch(15%_0.01_80/0.08)]
-              "
-            >
-              <span className="font-body text-[10px] font-semibold text-dba-ink uppercase tracking-[0.2em]">
-                {isEs ? '5–12 Cupos' : '5–12 Guests'}
-              </span>
+              {/* Floating capacity pill — genuine scarcity signal */}
+              <div
+                className="
+                  absolute top-5 left-5
+                  bg-[oklch(100%_0_0/0.85)] backdrop-blur-sm
+                  rounded-full px-4 py-2
+                  border border-dba-rule/60
+                  shadow-[0_4px_16px_oklch(15%_0.01_80/0.08)]
+                "
+              >
+                <span className="font-body text-[10px] font-semibold text-dba-ink uppercase tracking-[0.2em]">
+                  {isEs ? '5–12 Cupos' : '5–12 Guests'}
+                </span>
+              </div>
             </div>
           </div>
 
