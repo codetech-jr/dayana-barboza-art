@@ -12,6 +12,8 @@ interface FaqAccordionProps {
 interface FaqItem {
   question: string;
   answer: string;
+  subAnswer?: string;
+  list?: string[];
 }
 
 /**
@@ -44,12 +46,20 @@ const FAQ_DATA: Record<'es' | 'en', FaqItem[]> = {
     {
       question: '¿La pintura resiste el lavado? ¿Se mantiene con el tiempo?',
       answer:
-        'Sí. Trabajo con acrílico especial formulado para fibra textil, aplicado en capas y sellado con calor al finalizar la pieza. El resultado es una pintura que se adhiere permanentemente al tejido del denim. Recomendaciones: lavado a mano o ciclo suave con agua fría, no usar secadora directa sobre el área pintada, y si planchas, hacerlo del revés con tela intermedia. La pintura no se desprende, no se decolora y no se agrieta.',
+        'Sí. Trabajo con acrílico especial formulado para fibra textil, aplicado en capas y sellado con calor al finalizar la pieza. El resultado es una pintura que se adhiere permanentemente al tejido del denim.',
+      subAnswer:
+        'Sin embargo, sigue siendo una obra de arte hecha con mucho amor y dedicación y mi deseo es que perdure en el tiempo. Para eso te recomiendo estos cuidados:',
+      list: [
+        'Lavado a mano de forma suave usando agua fría y jabones líquidos, sin tallar o fregar el área pintada.',
+        'Exprimir suavemente, y colgar la chaqueta en la sombra (evitar exposición al sol) para que el exceso de agua salga por sí solo.',
+        'No lavar al seco (Dry Clean).',
+        'Planchar al revés. Evita el contacto directo del calor con el área pintada. No usar vapor.',
+      ],
     },
     {
-      question: '¿Hacen envíos fuera de Virginia o a otros países?',
+      question: '¿Hacen envíos a todo Estados Unidos y a nivel internacional?',
       answer:
-        'Sí. Trabajo desde Virginia y envío a todo Estados Unidos con seguimiento en tiempo real. Para envíos internacionales: atiendo pedidos a Latinoamérica, Europa y otros destinos seleccionados. Los costos y tiempos se calculan caso a caso y se incluyen en la cotización. Si estás en el área de Richmond o Northern Virginia, también puedo coordinar entrega personal.',
+        'Sí. Trabajo desde Virginia y envío a todo Estados Unidos. Para envíos internacionales: Los costos y tiempos se calculan caso a caso y se incluyen en la cotización. Si estás en el área de Richmond o Northern Virginia, también puedo coordinar entrega personal.',
     },
   ],
   en: [
@@ -76,12 +86,20 @@ const FAQ_DATA: Record<'es' | 'en', FaqItem[]> = {
     {
       question: 'Does the paint withstand washing? Does it last?',
       answer:
-        "Yes. I use acrylic specially formulated for textile fiber, applied in layers and heat-sealed after completion. The result permanently bonds to the denim weave. Care recommendations: hand wash or gentle cycle with cold water, avoid direct dryer heat on the painted area, and iron inside-out with a cloth barrier. The paint won't peel, fade, or crack.",
+        'Yes. I use acrylic specially formulated for textile fiber, applied in layers and heat-sealed after completion. The result permanently bonds to the denim weave.',
+      subAnswer:
+        'However, this is still a work of art crafted with immense love and dedication, and my wish is for it to endure over time. To ensure its longevity, I recommend following these care guidelines:',
+      list: [
+        'Gentle hand wash using cold water and liquid soap, without scrubbing or rubbing the painted area.',
+        'Gently squeeze excess water, and hang the jacket in the shade (avoid direct sun exposure) to let it air dry naturally.',
+        'Do not dry clean.',
+        'Iron inside-out. Avoid direct heat contact with the painted area. Do not use steam.',
+      ],
     },
     {
-      question: 'Do you ship outside Virginia or internationally?',
+      question: 'Do you ship across the United States and internationally?',
       answer:
-        'Yes. I work from Virginia and ship throughout the United States with real-time tracking. For international orders: I serve Latin America, Europe, and select destinations. Costs and timelines are calculated case by case and included in the quote. If you are in the Richmond or Northern Virginia area, I can also coordinate personal delivery.',
+        'Yes. I work from Virginia and ship throughout the United States. For international shipping: Costs and timelines are calculated case by case and included in the quote. If you are in the Richmond or Northern Virginia area, I can also coordinate personal delivery.',
     },
   ],
 };
@@ -149,7 +167,7 @@ function AccordionItem({
             transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
             className="overflow-hidden"
           >
-            <p
+            <div
               className="
                 pb-6 pr-12 font-body text-dba-muted
                 text-[length:var(--dba-type-body)]
@@ -157,8 +175,20 @@ function AccordionItem({
                 max-w-[var(--dba-measure)]
               "
             >
-              {item.answer}
-            </p>
+              <p>{item.answer}</p>
+              {item.subAnswer && (
+                <p className="mt-3">{item.subAnswer}</p>
+              )}
+              {item.list && item.list.length > 0 && (
+                <ul className="list-disc pl-5 mt-4 space-y-2 marker:text-dba-accent">
+                  {item.list.map((listItem, idx) => (
+                    <li key={idx} className="leading-relaxed">
+                      {listItem}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -191,14 +221,19 @@ export function FaqAccordion({ locale }: FaqAccordionProps) {
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: items.map((item) => ({
-      '@type': 'Question',
-      name: item.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: item.answer,
-      },
-    })),
+    mainEntity: items.map((item) => {
+      let fullAnswer = item.answer;
+      if (item.subAnswer) fullAnswer += ` ${item.subAnswer}`;
+      if (item.list && item.list.length > 0) fullAnswer += ` ${item.list.join(' ')}`;
+      return {
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: fullAnswer,
+        },
+      };
+    }),
   };
 
   return (
