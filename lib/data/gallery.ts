@@ -191,7 +191,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
   },
   {
     id: 'portrait-lady-red-2',
-    title: { es: 'Lady on Red — En Exterior', en: 'Lady on Red — Outdoors' },
+    title: { es: 'Lady on Red — En Exterior', en: 'Lady on Red — Outdoor Editorial' },
     category: 'portraits',
     imageUrl: '/gallery/portrait/DSCN3655.jpg',
     availability: 'available',
@@ -220,7 +220,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
   // ─── PORTRAITS: THE GIRL AT THE BUS STOP (Lifecycle ×2) ───
   {
     id: 'portrait-bus-stop',
-    title: { es: 'The girl at the Bus stop', en: 'The girl at the Bus stop' },
+    title: { es: 'The girl at the Bus stop', en: 'The Girl at the Bus Stop' },
     category: 'portraits',
     imageUrl: '/gallery/portrait/3.webp',
     availability: 'available',
@@ -228,7 +228,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
   },
   {
     id: 'portrait-bus-stop-2',
-    title: { es: 'The girl at the Bus stop — En Exterior', en: 'The girl at the Bus stop — Outdoors' },
+    title: { es: 'The girl at the Bus stop — En Exterior', en: 'The Girl at the Bus Stop — Outdoor Editorial' },
     category: 'portraits',
     imageUrl: '/gallery/portrait/DSCN3758.jpg',
     availability: 'available',
@@ -283,7 +283,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
   },
   {
     id: 'custom-fantasy-2',
-    title: { es: 'Fantasy — Alas Dorsales', en: 'Fantasy — Wing Back' },
+    title: { es: 'Fantasy — Alas Dorsales', en: 'Fantasy — Angel Wings Detail' },
     category: 'custom',
     imageUrl: '/gallery/portrait/IMG_4801.jpg',
     availability: 'available',

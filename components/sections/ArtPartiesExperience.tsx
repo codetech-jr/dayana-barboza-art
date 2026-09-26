@@ -46,7 +46,7 @@ export function ArtPartiesExperience({ locale, dict }: ArtPartiesExperienceProps
     : 'Groups of 5 to 12 guests · Materials included';
 
   const ctaPrimary = dict?.events?.ctaPrimary ?? (isEs ? 'Reservar mi Art Party' : 'Book my Art Party');
-  const ctaSecondary = dict?.events?.ctaSecondary ?? (isEs ? 'Reservar una fecha privada' : 'Book a private date');
+  const ctaSecondary = dict?.events?.ctaSecondary ?? (isEs ? 'Reservar una fecha privada' : 'Inquire about private dates');
   const microcopy = dict?.events?.microcopy ?? (isEs
     ? 'Grupos privados disponibles para cumpleaños, despedidas, baby showers y corporativos. Pregunta por disponibilidad.'
     : 'Private groups available for birthdays, celebrations, baby showers, and corporate gatherings. Ask about availability.');
@@ -55,10 +55,10 @@ export function ArtPartiesExperience({ locale, dict }: ArtPartiesExperienceProps
     {
       number: '01',
       eyebrow: isEs ? 'La Técnica' : 'The Craft',
-      title: isEs ? 'Arte y diversión en una noche' : 'Art and fun in one night',
+      title: isEs ? 'Arte y diversión en una noche' : 'Art & Celebration in an Evening',
       description: isEs
         ? 'Creamos un día de arte para ti y tus amigos o familiares. Será una fecha especial guiada por el proyecto que más te inspire. Tú decides el diseño, nosotros te guiamos.'
-        : 'We create an immersive art day for you, your friends, or family. A bespoke session inspired by what moves you most. You choose the design, we guide you every step of the way.',
+        : 'We design a private art experience for you and your guests. A bespoke gathering centered around the project that inspires you most. You bring the idea, we guide you through every stroke.',
     },
     {
       number: '02',
@@ -71,7 +71,7 @@ export function ArtPartiesExperience({ locale, dict }: ArtPartiesExperienceProps
     {
       number: '03',
       eyebrow: isEs ? 'El Resultado' : 'The Result',
-      title: isEs ? 'Una experiencia única y especial' : 'A unique and special experience',
+      title: isEs ? 'Una experiencia única y especial' : 'An Unforgettable Keepsake',
       description: isEs
         ? 'El resultado será increíble. Vivirás una maravillosa experiencia junto a tus invitados, llevándose a casa un recuerdo súper especial hecho con sus propias manos.'
         : 'The outcome will be truly memorable. An extraordinary shared experience for you and your guests, taking home a cherished heirloom piece crafted by your own hands.',

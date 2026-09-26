@@ -66,12 +66,12 @@ const FAQ_DATA: Record<'es' | 'en', FaqItem[]> = {
     {
       question: 'How much does a custom jacket cost?',
       answer:
-        'The price is calculated based on the design, ranging from $250 to $350. They can be personalized with your name or a special phrase. Your design will be exclusive — we never repeat designs (unless the same client requests it).',
+        'Pricing ranges from $250 to $350 depending on the complexity of the design. Each jacket can be personalized with your name or a meaningful phrase. Your design will remain strictly exclusive — we never duplicate a design (unless requested by the original client).',
     },
     {
       question: 'How long does the creation process take?',
       answer:
-        'The process takes 3 to 6 weeks total, depending on the design complexity: 1–2 days for initial conversation and quote, up to 1 week for the digital sketch and your approval, and 2 to 4 weeks for creation depending on the complexity of the design. Shipping may take 3 to 7 business days within the United States. If you have a deadline in mind — a birthday or a special event — we\'ll coordinate together so you can receive your order on time.',
+        'The complete process typically takes 3 to 6 weeks: 1–2 days for our initial conversation and quote, up to 1 week to develop and approve your digital sketch, and 2 to 4 weeks for the hand-painting stage depending on detail. Shipping within the United States takes 3 to 7 business days. If you have a specific deadline in mind — such as a birthday or milestone event — we will coordinate closely to ensure your piece arrives on time.',
     },
     {
       question: "What if the result isn't what I expected?",

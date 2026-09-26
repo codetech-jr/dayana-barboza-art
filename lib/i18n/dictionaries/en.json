@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Dayana Barboza Art — Hyperrealist Hand-Painted Denim Jackets",
-    "description": "Hyperrealist art on denim. One-of-a-kind hand-painted jackets, Art Parties, and limited edition merch. Every piece exists only once. Get yours."
+    "description": "Hyperrealist art on denim. One-of-a-kind hand-painted jackets, Art Parties, and limited edition merch. Every piece exists only once. Commission yours."
   },
   "nav": {
     "gallery": "Gallery",
@@ -12,11 +12,11 @@
     "cta": "Message me"
   },
   "hero": {
-    "eyebrow": "Art that lives on you.",
+    "eyebrow": "Wearable art that lives with you.",
     "title": "Your story,\npainted by hand.",
-    "subtitle": "Hand-painted denim jackets. Each piece is unique and special.",
-    "ctaPrimary": "I want a quote for my design",
-    "ctaSecondary": "See the gallery",
+    "subtitle": "Hand-painted bespoke denim jackets. Each piece exists only once.",
+    "ctaPrimary": "Request a custom quote",
+    "ctaSecondary": "Explore the gallery",
     "ticker": "• Born at home • Collected in: • Richmond, VA • Bogotá • New York • Madrid •"
   },
   "about": {
@@ -28,7 +28,7 @@
         "I started painting jackets simply with the intention of making a special gift, without thinking about techniques or materials—I just wanted to give something made with my own hands. From that spark, Amazing Project was born: a journey that began without feeling completely prepared, without art degrees, without experience.",
         "Five years have passed since then, and it still takes me by surprise when people call me an artist. But time has taught me that art needs neither academies, nor galleries, nor accolades. What art truly needs is patience, discipline, and countless attempts.",
         "Art also demands continuous learning, and great wisdom to navigate both the rush of inspiration and the weight of frustration.",
-        "Art is an uninhibited form of expression, and its beauty lives in the eyes of whoever beholds it.",
+        "Art is an uninhibited form of expression, and its beauty lives in the eye of the beholder.",
         "Art is so generous that it gives you permission to call yourself an Artist."
       ],
       "quote": "I believe in the woman who chooses to build her dream, who dares to take risks and try. And I believe there are beautiful stories that deserve to be painted.",
@@ -36,23 +36,23 @@
     },
     "techniques": {
       "acrylic": {
-        "title": "Textile acrylic",
+        "title": "Textile Acrylics",
         "description": "Pigments formulated for denim fiber. Permanent adhesion."
       },
       "durability": {
-        "title": "Real durability",
+        "title": "Proven Durability",
         "description": "Withstands washing and time. Guaranteed."
       },
       "exclusive": {
-        "title": "Exclusive design",
+        "title": "Exclusive Design",
         "description": "No duplicates. Each piece exists only once."
       }
     }
   },
   "gallery": {
     "eyebrow": "Wearable art",
-    "title": "Art pieces you can wear",
-    "subtitle": "Each piece is unique and special. This gallery is for inspiration to create your own custom design",
+    "title": "Wearable Works of Art",
+    "subtitle": "Every creation is a one-of-a-kind original. Explore this gallery for inspiration to commission your own.",
     "filters": {
       "all": "All",
       "portraits": "Portraits",
@@ -60,9 +60,9 @@
       "nature": "Nature",
       "custom": "Custom"
     },
-    "cardCta": "I want something like this",
-    "ctaPrimary": "I want a quote for my design",
-    "microcopy": "Schedule available: response within 24 hours.",
+    "cardCta": "Commission a piece like this",
+    "ctaPrimary": "Request a custom quote",
+    "microcopy": "Commissions currently open · Response within 24 hours.",
     "ctaSecondary": "What's the design process like?",
     "badges": {
       "sold": "• SOLD",
@@ -83,8 +83,8 @@
       {
         "number": "01",
         "eyebrow": "The Craft",
-        "title": "Art and fun in one night",
-        "description": "We create an immersive art day for you, your friends, or family. A bespoke session inspired by what moves you most. You choose the design, we guide you every step of the way."
+        "title": "Art & Celebration in an Evening",
+        "description": "We design a private art experience for you and your guests. A bespoke gathering centered around the project that inspires you most. You bring the idea, we guide you through every stroke."
       },
       {
         "number": "02",
@@ -95,12 +95,12 @@
       {
         "number": "03",
         "eyebrow": "The Result",
-        "title": "A unique and special experience",
+        "title": "An Unforgettable Keepsake",
         "description": "The outcome will be truly memorable. An extraordinary shared experience for you and your guests, taking home a cherished heirloom piece crafted by your own hands."
       }
     ],
     "ctaPrimary": "Book my Art Party",
-    "ctaSecondary": "Book a private date",
+    "ctaSecondary": "Inquire about private dates",
     "microcopy": "Private groups available for birthdays, celebrations, baby showers, and corporate gatherings. Ask about availability."
   },
   "merch": {
@@ -159,8 +159,8 @@
   "footer": {
     "eyebrow": "What shall we create today?",
     "buttons": {
-      "jacket": "I want a quote for a custom jacket",
-      "party": "I want to book an Art Party",
+      "jacket": "Request a custom jacket quote",
+      "party": "Book an Art Party",
       "idea": "I have an idea and want your take"
     },
     "socialProof": "Responding from Virginia to the world.",

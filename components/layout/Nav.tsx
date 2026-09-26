@@ -167,7 +167,11 @@ export function Nav({ dict, locale }: NavProps) {
             "
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={
+              menuOpen
+                ? (locale === 'es' ? 'Cerrar menú' : 'Close menu')
+                : (locale === 'es' ? 'Abrir menú' : 'Open menu')
+            }
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <span
@@ -238,7 +242,7 @@ export function Nav({ dict, locale }: NavProps) {
               focus-visible:outline-2 focus-visible:outline-offset-2
               focus-visible:outline-dba-accent
             "
-            aria-label="Cerrar menú"
+            aria-label={locale === 'es' ? 'Cerrar menú' : 'Close menu'}
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <svg

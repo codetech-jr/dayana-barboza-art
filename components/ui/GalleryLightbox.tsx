@@ -102,7 +102,7 @@ export function GalleryLightbox({
   const ctaButtonText = activePiece
     ? (locale === 'es'
         ? `Cotizar diseño inspirado en: ${activePiece.title.es}`
-        : `Quote design inspired by: ${activePiece.title.en}`)
+        : `Commission a design inspired by: ${activePiece.title.en}`)
     : '';
 
   return createPortal(
@@ -149,7 +149,7 @@ export function GalleryLightbox({
                 focus-visible:outline-dba-accent
                 active:scale-95
               "
-              aria-label="Cerrar vista previa (Escape)"
+              aria-label={locale === 'es' ? 'Cerrar vista previa (Escape)' : 'Close preview (Escape)'}
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <svg
@@ -186,7 +186,7 @@ export function GalleryLightbox({
                 focus-visible:outline-dba-accent
                 active:scale-95
               "
-              aria-label="Anterior (Flecha izquierda)"
+              aria-label={locale === 'es' ? 'Anterior (Flecha izquierda)' : 'Previous (Left arrow)'}
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <svg
@@ -231,7 +231,7 @@ export function GalleryLightbox({
                 focus-visible:outline-dba-accent
                 active:scale-95
               "
-              aria-label="Siguiente (Flecha derecha)"
+              aria-label={locale === 'es' ? 'Siguiente (Flecha derecha)' : 'Next (Right arrow)'}
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <svg
@@ -290,7 +290,7 @@ export function GalleryLightbox({
                 scrollbar-none shrink-0 h-14
               "
               role="tablist"
-              aria-label="Thumbnails"
+              aria-label={locale === 'es' ? 'Miniaturas' : 'Thumbnails'}
             >
               {pieces.map((piece, i) => {
                 const isSelected = i === activeIndex;

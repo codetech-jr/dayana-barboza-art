@@ -16,7 +16,7 @@ interface StudioReel {
   readonly image: string;
   readonly platform: 'instagram' | 'tiktok';
   readonly link: string;
-  readonly alt: string;
+  readonly alt: Record<Locale, string>;
 }
 
 const STUDIO_REELS: readonly StudioReel[] = [
@@ -25,28 +25,40 @@ const STUDIO_REELS: readonly StudioReel[] = [
     image: '/gallery/portrait/1.webp',
     platform: 'instagram',
     link: 'https://instagram.com/dayanabarboza.art',
-    alt: 'Proceso de pintura hiperrealista — retrato en denim',
+    alt: {
+      es: 'Proceso de pintura hiperrealista — retrato en denim',
+      en: 'Hyperrealistic painting process — portrait on denim',
+    },
   },
   {
     id: 'reel-2',
     image: '/gallery/nature/1.webp',
     platform: 'tiktok',
     link: 'https://tiktok.com/@dayanabarboza.art',
-    alt: 'Capas de acrílico textil — naturaleza sobre denim',
+    alt: {
+      es: 'Capas de acrílico textil — naturaleza sobre denim',
+      en: 'Textile acrylic layers — nature art on denim',
+    },
   },
   {
     id: 'reel-3',
     image: '/gallery/too-chic/1.webp',
     platform: 'instagram',
     link: 'https://instagram.com/dayanabarboza.art',
-    alt: 'Resultado final — chaqueta intervenida terminada',
+    alt: {
+      es: 'Resultado final — chaqueta intervenida terminada',
+      en: 'Final piece — finished bespoke custom jacket',
+    },
   },
   {
     id: 'reel-4',
     image: '/gallery/movie-inspo/1.webp',
     platform: 'tiktok',
     link: 'https://tiktok.com/@dayanabarboza.art',
-    alt: 'Art Party en vivo — creación en tiempo real',
+    alt: {
+      es: 'Art Party en vivo — creación en tiempo real',
+      en: 'Live Art Party — creative gathering in real time',
+    },
   },
 ] as const;
 
@@ -136,7 +148,7 @@ export function StudioSocials({ locale }: StudioSocialsProps) {
               {/* ── Base Image — slow cinematic zoom on hover ── */}
               <Image
                 src={reel.image}
-                alt={reel.alt}
+                alt={reel.alt[locale]}
                 fill
                 placeholder="blur"
                 blurDataURL={BLUR_PLACEHOLDER}
