@@ -332,16 +332,13 @@ export function Nav({ dict, locale }: NavProps) {
 
           {/* Mobile Umbrella Brand Stamp */}
           <div
-            className="mt-2 flex flex-col items-center gap-1.5 transition-all duration-300"
+            className="mt-2 flex flex-col items-center transition-all duration-300"
             style={{
               transitionDelay: menuOpen ? `${(NAV_LINKS.length + 2) * 50}ms` : '0ms',
               opacity: menuOpen ? 0.7 : 0,
               transform: menuOpen ? 'translateY(0)' : 'translateY(16px)',
             }}
           >
-            <span className="text-[10px] font-mono tracking-widest uppercase text-dba-muted">
-              {locale === 'es' ? 'Una marca de' : 'A brand by'}
-            </span>
             <Image
               src="/logos/logo-2.png"
               alt="Amazing Project"

@@ -32,7 +32,7 @@ const STUDIO_REELS: readonly StudioReel[] = [
   },
   {
     id: 'reel-2',
-    image: '/gallery/nature/1.webp',
+    image: '/gallery/nature/2.webp',
     platform: 'tiktok',
     link: 'https://tiktok.com/@dayanabarboza.art',
     alt: {

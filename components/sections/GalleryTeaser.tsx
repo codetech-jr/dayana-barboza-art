@@ -20,7 +20,7 @@ export function GalleryTeaser({ dict, locale }: GalleryTeaserProps) {
   // Take 3 representative stellar pieces across categories
   const featuredPieces = [
     GALLERY_PIECES.find((p) => p.id === 'cinema-mulan-1') ?? GALLERY_PIECES[0],
-    GALLERY_PIECES.find((p) => p.id === 'nature-blessings') ?? GALLERY_PIECES[10],
+    GALLERY_PIECES.find((p) => p.id === 'nature-japanese-garden') ?? GALLERY_PIECES[10],
     GALLERY_PIECES.find((p) => p.id === 'portrait-lady-red-1') ?? GALLERY_PIECES[13],
   ];
 

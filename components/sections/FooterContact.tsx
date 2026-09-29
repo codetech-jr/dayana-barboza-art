@@ -108,10 +108,7 @@ export function FooterContact({ dict, locale }: FooterContactProps) {
         </nav>
 
         {/* ── Umbrella Brand Origin Stamp (Amazing Project) ── */}
-        <div className="mt-14 pt-10 border-t border-dba-rule/60 flex flex-col items-center justify-center gap-3">
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-dba-muted font-medium">
-            {locale === 'es' ? 'Una marca de' : 'A brand by'}
-          </span>
+        <div className="mt-14 pt-10 border-t border-dba-rule/60 flex flex-col items-center justify-center">
           <Image
             src="/logos/logo-3.png"
             alt="Amazing Project"

@@ -28,6 +28,11 @@ export interface GalleryPiece {
    * When absent (undefined) → no badge renders at all.
    */
   readonly badgeLabel?: Record<Locale, string>;
+  /**
+   * If true, forces this piece to begin at column 1 of a new row in desktop/tablet grids.
+   * Prevents narrative multi-photo jacket series (trípticos / secuencias) from being split across rows.
+   */
+  readonly startRow?: boolean;
 }
 
 /**
@@ -86,7 +91,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     status: 'available',
   },
 
-  // ─── CINEMA: MIRABEL ENCANTO (Lifecycle ×3) ───
+  // ─── CINEMA: MIRABEL ENCANTO (Lifecycle ×2) ───
   {
     id: 'cinema-encanto',
     title: { es: 'Mirabel — Encanto', en: 'Mirabel — Encanto' },
@@ -100,14 +105,6 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     title: { es: 'Mirabel — Vista Frontal & Espalda', en: 'Mirabel — Front & Back View' },
     category: 'cinema',
     imageUrl: '/gallery/movie-inspo/5.png',
-    availability: 'sold',
-    status: 'sold',
-  },
-  {
-    id: 'cinema-encanto-3',
-    title: { es: 'Mirabel — Proceso en Caballete', en: 'Mirabel — Easel Painting Process' },
-    category: 'cinema',
-    imageUrl: '/gallery/movie-inspo/4.webp',
     availability: 'sold',
     status: 'sold',
   },
@@ -131,16 +128,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     status: 'sold',
   },
 
-  // ─── CINEMA: SCARFACE & MARILYN ───
-  {
-    id: 'cinema-scarface',
-    title: { es: 'Al Pacino — Scarface', en: 'Al Pacino — Scarface' },
-    category: 'cinema',
-    imageUrl: '/gallery/movie-inspo/1.webp',
-    availability: 'sold',
-    status: 'sold',
-    featured: true,
-  },
+  // ─── CINEMA: POP ART ───
   {
     id: 'cinema-pop-art',
     title: { es: 'Marilyn Pop & Cinema', en: 'Marilyn Pop & Cinema' },
@@ -150,33 +138,14 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     status: 'available',
   },
 
-  // ─── NATURE: BLESSINGS (Lifecycle ×2) ───
-  {
-    id: 'nature-blessings',
-    title: { es: 'Blessings', en: 'Blessings' },
-    category: 'nature',
-    imageUrl: '/gallery/nature/1.webp',
-    availability: 'available',
-    status: 'available',
-    featured: true,
-  },
+  // ─── NATURE: BLESSINGS ───
   {
     id: 'nature-blessings-2',
-    title: { es: 'Blessings — En Exterior', en: 'Blessings — Outdoor Editorial' },
+    title: { es: 'Blessings', en: 'Blessings' },
     category: 'nature',
     imageUrl: '/gallery/nature/DSCN3770.jpg',
     availability: 'available',
     status: 'available',
-  },
-
-  // ─── NATURE: JAPANESE GARDEN ───
-  {
-    id: 'nature-japanese-garden',
-    title: { es: 'Japanese Garden', en: 'Japanese Garden' },
-    category: 'nature',
-    imageUrl: '/gallery/nature/2.webp',
-    availability: 'sold',
-    status: 'sold',
   },
 
   // ─── PORTRAITS: LADY ON RED (Lifecycle ×3) ───
@@ -206,6 +175,16 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     status: 'available',
   },
 
+  // ─── NATURE: JAPANESE GARDEN ───
+  {
+    id: 'nature-japanese-garden',
+    title: { es: 'Japanese Garden', en: 'Japanese Garden' },
+    category: 'nature',
+    imageUrl: '/gallery/nature/2.webp',
+    availability: 'sold',
+    status: 'sold',
+  },
+
   // ─── PORTRAITS: BLOSSOMING BEAUTY ───
   {
     id: 'portrait-blossoming',
@@ -217,18 +196,10 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     featured: true,
   },
 
-  // ─── PORTRAITS: THE GIRL AT THE BUS STOP (Lifecycle ×2) ───
-  {
-    id: 'portrait-bus-stop',
-    title: { es: 'The girl at the Bus stop', en: 'The Girl at the Bus Stop' },
-    category: 'portraits',
-    imageUrl: '/gallery/portrait/3.webp',
-    availability: 'available',
-    status: 'available',
-  },
+  // ─── PORTRAITS: THE GIRL AT THE BUS STOP ───
   {
     id: 'portrait-bus-stop-2',
-    title: { es: 'The girl at the Bus stop — En Exterior', en: 'The Girl at the Bus Stop — Outdoor Editorial' },
+    title: { es: 'The girl at the Bus stop', en: 'The Girl at the Bus Stop' },
     category: 'portraits',
     imageUrl: '/gallery/portrait/DSCN3758.jpg',
     availability: 'available',
@@ -253,7 +224,7 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     status: 'sold',
   },
 
-  // ─── CUSTOM: RATATOUILLE (Handbag Lifecycle ×2 migrated to Custom) ───
+  // ─── CUSTOM: RATATOUILLE (Handbag migrated to Custom) ───
   {
     id: 'custom-ratatouille',
     title: { es: 'Ratatouille — Cartera Rémy', en: 'Ratatouille — Rémy Handbag' },
@@ -262,14 +233,6 @@ export const GALLERY_PIECES: GalleryPiece[] = [
     availability: 'available',
     status: 'available',
     featured: true,
-  },
-  {
-    id: 'custom-ratatouille-2',
-    title: { es: 'Ratatouille — Detalle de Arte en Cuero', en: 'Ratatouille — Leather Art Detail' },
-    category: 'custom',
-    imageUrl: '/gallery/movie-inspo/5.webp',
-    availability: 'available',
-    status: 'available',
   },
 
   // ─── CUSTOM: FANTASY (Lifecycle ×2) ───

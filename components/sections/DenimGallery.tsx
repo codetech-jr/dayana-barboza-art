@@ -52,36 +52,28 @@ function ScarcityBadge({
     <span
       className="
         absolute top-4 left-4 z-20
-        inline-flex items-center
+        inline-flex items-center gap-1.5
         rounded-full px-3.5 py-1.5
-        text-[10px] font-body font-semibold uppercase tracking-[0.16em]
-        bg-black/45 backdrop-blur-md border border-white/20 text-white
+        text-[10px] font-body font-semibold uppercase tracking-[0.14em]
+        bg-black/50 backdrop-blur-md border border-white/20 text-white
         select-none shadow-sm
       "
     >
-      • {label}
+      <span className="w-1.5 h-1.5 rounded-full bg-dba-accent shrink-0 animate-pulse" aria-hidden="true" />
+      {label}
     </span>
   );
 }
 
 /**
- * Aspect ratio variation for organic masonry vertical rhythm in CSS columns.
- */
-function getAspectRatio(index: number): string {
-  const mod = index % 4;
-  if (mod === 0) return 'aspect-[3/4]';
-  if (mod === 1) return 'aspect-[4/5]';
-  if (mod === 2) return 'aspect-square';
-  return 'aspect-[3/4]';
-}
-
-/**
- * DenimGallery — Fluid CSS Columns Masonry Gallery with Apple-tier Glassmorphism badges.
+ * DenimGallery — High-End Editorial 3-Column Grid Gallery (Trípticos Narrativos).
  *
- * Refactored to address visual feedback:
- * - CSS Columns (`columns-1 sm:columns-2 lg:columns-3 gap-6`) for seamless organic cascade without white space gaps.
- * - Glassmorphism Badges (`bg-black/40 backdrop-blur-md border border-white/20`) with brand terracotta dot.
- * - Clean Bottom Vignette Gradient (`from-black/80 via-black/40 to-transparent`) for AAA text contrast without muddying artwork.
+ * Engineered for luxury editorial presentation:
+ * - 3-column desktop grid (lg:grid-cols-3) to display jackets as narrative triptychs side-by-side.
+ * - Strict 3:4 aspect ratio with object-cover on all cards for laser-aligned horizontal rows.
+ * - Cinematic hover scale transition (duration-700 ease-[var(--dba-ease)]).
+ * - Apple-grade glassmorphic badges with brand magenta accent dot.
+ * - Deep bottom vignette gradient for pristine text readability.
  */
 export function DenimGallery({ dict, locale }: DenimGalleryProps) {
   const [activeFilter, setActiveFilter] = useState<FilterKey>('all');
@@ -191,12 +183,17 @@ export function DenimGallery({ dict, locale }: DenimGalleryProps) {
           ))}
         </div>
 
-        {/* ── Organic CSS Columns Masonry Gallery Layout ── */}
+        {/* ── Bulletproof 3-Column Editorial Grid ──────────────────
+             TRUE CSS Grid — zero Masonry / zero columns-* / zero break-inside.
+             Each card: aspect-[4/5] + overflow-hidden + isolate.
+             Image lives inside an absolute "prison" div.
+             Hover scale only affects the <Image>, never the cell dimensions.
+        ── */}
         <div
           className="
-            mt-8
-            columns-1 sm:columns-2 lg:columns-3
-            gap-6
+            mt-10
+            grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
+            gap-6 lg:gap-8
           "
         >
           {filteredPieces.map((piece, i) => (
@@ -204,13 +201,18 @@ export function DenimGallery({ dict, locale }: DenimGalleryProps) {
               key={piece.id}
               onClick={() => setSelectedLightboxIndex(i)}
               className={`
-                break-inside-avoid mb-6
-                group relative overflow-hidden rounded-2xl bg-dba-cream
+                group relative isolate
+                aspect-[4/5] w-full
+                overflow-hidden rounded-2xl
+                bg-dba-cream
                 cursor-pointer
-                transition-all duration-500 ease-[var(--dba-ease)]
-                hover:shadow-[0_12px_40px_rgba(0,0,0,0.15)]
-                ${getAspectRatio(i)}
+                border border-dba-rule/60
+                transition-[border-color,box-shadow] duration-500 ease-[var(--dba-ease)]
+                hover:border-dba-accent/50
+                hover:shadow-[0_16px_40px_rgba(0,0,0,0.18)]
+                ${piece.startRow ? 'sm:col-start-1 lg:col-start-1' : ''}
               `}
+              style={piece.startRow ? { gridColumnStart: 1 } : undefined}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
@@ -221,30 +223,33 @@ export function DenimGallery({ dict, locale }: DenimGalleryProps) {
               }}
               aria-label={`${piece.title[locale]} — ${locale === 'es' ? 'Ver en alta resolución' : 'View in high resolution'}`}
             >
-              {/* ── Scarcity Badge ── */}
+              {/* ── Scarcity Badge (z-30 — always on top) ── */}
               <ScarcityBadge piece={piece} locale={locale} dict={dict} />
 
-              {/* ── High Quality Image — slow luxury zoom on hover ── */}
-              <Image
-                src={piece.imageUrl}
-                alt={`${piece.title[locale]} — ${dict.gallery.filters[piece.category]}`}
-                fill
-                priority={i < 4}
-                placeholder="blur"
-                blurDataURL={BLUR_PLACEHOLDER}
-                className="
-                  object-cover
-                  transition-transform duration-700 ease-[var(--dba-ease)]
-                  group-hover:scale-[1.05]
-                "
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              />
+              {/* ── Image Prison: absolute fill, object-cover ── */}
+              <div className="absolute inset-0 z-0">
+                <Image
+                  src={piece.imageUrl}
+                  alt={`${piece.title[locale]} — ${dict.gallery.filters[piece.category]}`}
+                  fill
+                  priority={i < 3}
+                  placeholder="blur"
+                  blurDataURL={BLUR_PLACEHOLDER}
+                  className="
+                    object-cover object-center
+                    transition-transform duration-700 ease-[var(--dba-ease)]
+                    group-hover:scale-105
+                  "
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+              </div>
 
-              {/* ── Bottom Vignette: emerges on hover with text slide-up ── */}
+              {/* ── Bottom Vignette + Text (z-10 — above image, below badge) ── */}
               <div
                 className="
-                  absolute inset-x-0 bottom-0 pt-20 pb-5 px-5
-                  bg-gradient-to-t from-black/80 via-black/40 to-transparent
+                  absolute inset-x-0 bottom-0 z-10
+                  pt-24 pb-6 px-6
+                  bg-gradient-to-t from-black/80 via-black/30 to-transparent
                   flex flex-col justify-end pointer-events-none
                   opacity-0 group-hover:opacity-100
                   translate-y-2 group-hover:translate-y-0
