@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { Eyebrow, StoryImageSlider } from '@/components/ui';
 import { BLUR_PLACEHOLDER } from '@/lib/data/gallery';
 import type { Locale } from '@/lib/i18n/config';
@@ -28,9 +29,9 @@ interface CollectorStory {
 /* ─────────────────────────────────────────────────────────────────────
  * DATA — 3 real collector stories.
  *
- * Story[0] → Featured / Hero quote: Nora S. & Studio Ghibli Totoro
- * Story[1] → Secondary card (right column, top)
- * Story[2] → Secondary card (right column, bottom)
+ * Story[0] → Star Story 1: Nora S. & Studio Ghibli Totoro
+ * Story[1] → Star Story 2: Andreina M. & Blossoming Beauty
+ * Story[2] → Horizontal Strip: Carlos & Elena R. & Art Party
  * ──────────────────────────────────────────────────────────────────── */
 const STORIES: readonly CollectorStory[] = [
   {
@@ -57,6 +58,28 @@ const STORIES: readonly CollectorStory[] = [
     imageAlt: 'Nora S. con su chaqueta My Neighbor Totoro pintada a mano sobre denim',
   },
   {
+    id: 'andreina-m',
+    provenance: {
+      es: 'Colección Privada · Blossoming Beauty',
+      en: 'Private Collection · Blossoming Beauty',
+    },
+    quote: {
+      es: "¡Amo absolutamente mi chaqueta 'Blossoming Beauty'! Es mucho más que una prenda; se siente como una obra de arte creada especialmente para mí. Me sorprende la atención a cada pequeño detalle, desde el bordado a mano hasta su hermoso forro floral. Expresa perfectamente quién soy. Es verdaderamente única, hecha a mano con maestría y con muchísimo corazón.",
+      en: "I absolutely love my 'Blossoming Beauty' jean jacket! It is so much more than a jacket—it feels like a piece of art created especially for me. I'm amazed by the attention to every little detail, from the hand embroidery to the gorgeous floral lining. It perfectly expresses who I am. It is truly one of a kind, beautifully handcrafted, and made with so much heart. I couldn't be happier!",
+    },
+    author: 'Andreina M.',
+    role: {
+      es: 'Coleccionista - Blossoming Beauty',
+      en: 'Bespoke Collector - Blossoming Beauty',
+    },
+    image: '/gallery/portrait/1.webp',
+    images: [
+      '/gallery/portrait/1.webp',
+      '/gallery/portrait/2.webp',
+    ],
+    imageAlt: 'Andreina M. con su chaqueta Blossoming Beauty pintada a mano sobre denim',
+  },
+  {
     id: 'carlos-elena-r',
     provenance: {
       es: 'Art Party Privado · Alexandria, VA',
@@ -70,22 +93,6 @@ const STORIES: readonly CollectorStory[] = [
     role: {
       es: 'Anfitriones de Art Party',
       en: 'Art Party Hosts',
-    },
-  },
-  {
-    id: 'marcus-t',
-    provenance: {
-      es: 'Pieza Bespoke · Washington, D.C.',
-      en: 'Bespoke Commission · Washington, D.C.',
-    },
-    quote: {
-      es: 'Le encomendé un retrato de David Bowie en una chaqueta vintage. Los contrastes de luz sobre el denim parecen cobrar vida. Es una verdadera obra de arte andante.',
-      en: 'I commissioned a David Bowie portrait on a vintage jacket. The lighting contrast on denim feels like it comes alive. It is a true wearable work of art.',
-    },
-    author: 'Marcus T.',
-    role: {
-      es: 'Coleccionista · Retrato Editorial',
-      en: 'Collector · Editorial Portrait',
     },
   },
 ] as const;
@@ -108,26 +115,16 @@ function QuoteMark({ className = '' }: { className?: string }) {
 }
 
 /**
- * ClientStories — "Diarios de Colección" / Editorial Bento Social Proof.
+ * ClientStories — "Diarios de Colección" / 50-50 Dual Star Collector Showcase.
  *
- * Replaces the generic star-rating testimonial grid with a premium
- * Kinfolk/Vogue-tier editorial layout.
- *
- * Architecture:
- * ┌───────────────────────┬─────────────────┐
- * │                       │  Secondary [1]  │
- * │   Featured Story [0]  ├─────────────────┤
- * │   (2 cols · image)    │  Secondary [2]  │
- * └───────────────────────┴─────────────────┘
- *
- * Skills applied:
- * - social-proof-architect: peer-similarity proof at the hesitation point
- * - brand-perception-psychologist: editorial schema signals premium positioning
- * - copywriting-psychologist: aspirational framing, voice-of-customer language
- * - high-end-visual-design: Bento asymmetry, Double-Bezel cards, OKLCH tokens
- * - frontend-ui-engineering: Server Component, accessible, responsive, semantic
- *
- * Server Component — zero JS. All transitions are CSS-only.
+ * Symmetrical luxury layout:
+ * ┌─────────────────────────────┬─────────────────────────────┐
+ * │   Star Story 1: Nora S.     │  Star Story 2: Andreina M.  │
+ * │   (Totoro Carousel)         │  (Blossoming Beauty Slider) │
+ * └─────────────────────────────┴─────────────────────────────┘
+ * ┌───────────────────────────────────────────────────────────┐
+ * │   Horizontal Strip: Carlos & Elena R. (Art Party)         │
+ * └───────────────────────────────────────────────────────────┘
  */
 export function ClientStories({ locale, dict }: ClientStoriesProps) {
   const isEs = locale === 'es';
@@ -140,7 +137,8 @@ export function ClientStories({ locale, dict }: ClientStoriesProps) {
     ? 'Cada pieza tiene un dueño que decidió convertir su historia en arte. Estas son sus palabras.'
     : 'Every piece has an owner who chose to turn their story into art. These are their words.');
 
-  const featured = dict?.clientStories?.featured
+  // Story 1: Nora S. (Totoro)
+  const noraStory: CollectorStory = dict?.clientStories?.featured
     ? {
         id: 'nora-s',
         provenance: { es: dict.clientStories.featured.provenance, en: dict.clientStories.featured.provenance },
@@ -149,11 +147,38 @@ export function ClientStories({ locale, dict }: ClientStoriesProps) {
         role: { es: dict.clientStories.featured.role, en: dict.clientStories.featured.role },
         image: dict.clientStories.featured.image,
         images: dict.clientStories.featured.images ?? STORIES[0].images,
-        imageAlt: dict.clientStories.featured.imageAlt,
+        imageAlt: dict.clientStories.featured.imageAlt ?? (isEs ? 'Nora S. con su chaqueta My Neighbor Totoro pintada a mano sobre denim' : 'Nora S. wearing her hand-painted My Neighbor Totoro denim jacket'),
       }
     : STORIES[0];
 
-  const secondary = STORIES.slice(1);
+  // Story 2: Andreina M. (Blossoming Beauty)
+  const dictAndreina = dict?.clientStories?.secondary?.find((s) => s.id === 'andreina-m');
+  const andreinaStory: CollectorStory = dictAndreina
+    ? {
+        id: 'andreina-m',
+        provenance: { es: dictAndreina.provenance, en: dictAndreina.provenance },
+        quote: { es: dictAndreina.quote, en: dictAndreina.quote },
+        author: dictAndreina.author,
+        role: { es: dictAndreina.role, en: dictAndreina.role },
+        image: dictAndreina.image ?? STORIES[1].image,
+        images: dictAndreina.images ?? STORIES[1].images,
+        imageAlt: dictAndreina.imageAlt ?? (isEs ? 'Andreina M. con su chaqueta Blossoming Beauty pintada a mano sobre denim' : 'Andreina M. wearing her hand-painted Blossoming Beauty denim jacket'),
+      }
+    : STORIES[1];
+
+  // Story 3: Carlos & Elena R. (Art Party strip)
+  const dictParty = dict?.clientStories?.secondary?.find((s) => s.id === 'carlos-elena-r');
+  const partyStory: CollectorStory = dictParty
+    ? {
+        id: 'carlos-elena-r',
+        provenance: { es: dictParty.provenance, en: dictParty.provenance },
+        quote: { es: dictParty.quote, en: dictParty.quote },
+        author: dictParty.author,
+        role: { es: dictParty.role, en: dictParty.role },
+      }
+    : STORIES[2];
+
+  const starStories = [noraStory, andreinaStory];
 
   return (
     <section
@@ -188,113 +213,44 @@ export function ClientStories({ locale, dict }: ClientStoriesProps) {
           </p>
         </div>
 
-        {/* ── Editorial Bento Grid ───────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8">
-
-          {/* ── FEATURED STORY — spans 3 of 5 columns ──────── */}
-          <article
-            className="
-              lg:col-span-3
-              rounded-[24px] bg-dba-white
-              border border-dba-rule/60
-              shadow-[0_8px_30px_oklch(15%_0.01_80/0.04)]
-              overflow-hidden
-              transition-all duration-500 ease-[var(--dba-ease)]
-              hover:shadow-[0_16px_48px_oklch(15%_0.01_80/0.09)]
-              hover:-translate-y-1
-            "
-          >
-            {/* ── Contextual Image / Slider — collector's piece ── */}
-            {featured.images && featured.images.length > 1 ? (
-              <StoryImageSlider
-                images={featured.images}
-                alt={featured.imageAlt}
-                aspectRatioClass="aspect-[16/9]"
-              />
-            ) : featured.image ? (
-              <div className="relative aspect-[16/9] bg-dba-paper">
-                <Image
-                  src={featured.image.startsWith('/public/') ? featured.image.replace('/public', '') : featured.image}
-                  alt={featured.imageAlt || ''}
-                  fill
-                  placeholder="blur"
-                  blurDataURL={BLUR_PLACEHOLDER}
-                  className="object-cover object-center"
-                  sizes="(max-width: 1024px) 100vw, 60vw"
+        {/* ── 2 Grandes Dossiers Editoriales (50% / 50%) ──────── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          {starStories.map((story) => (
+            <article
+              key={story.id}
+              className="
+                rounded-[24px] bg-dba-white
+                border border-dba-rule/60
+                shadow-[0_8px_30px_oklch(15%_0.01_80/0.04)]
+                overflow-hidden
+                transition-all duration-500 ease-[var(--dba-ease)]
+                hover:shadow-[0_16px_48px_oklch(15%_0.01_80/0.09)]
+                hover:-translate-y-1
+                flex flex-col justify-between
+              "
+            >
+              {/* ── Contextual Photo Slider ── */}
+              {story.images && story.images.length > 1 ? (
+                <StoryImageSlider
+                  images={story.images}
+                  alt={story.imageAlt}
+                  aspectRatioClass="aspect-[16/10]"
                 />
-              </div>
-            ) : null}
-
-            <div className="p-8 md:p-10">
-              {/* Provenance badge */}
-              <span
-                className="
-                  inline-block font-body font-medium
-                  text-[10px] uppercase tracking-[0.16em]
-                  text-dba-accent bg-dba-accent/8
-                  px-3 py-1.5 rounded-full
-                  select-none
-                "
-              >
-                {featured.provenance[locale]}
-              </span>
-
-              {/* Quote mark + Quote */}
-              <QuoteMark className="mt-6" />
-              <blockquote
-                className="
-                  mt-3 font-display italic font-normal text-dba-ink
-                  text-[length:clamp(1.25rem,2.5vw,1.75rem)]
-                  leading-[1.45]
-                "
-              >
-                {featured.quote[locale]}
-              </blockquote>
-
-              {/* Author attribution */}
-              <div className="mt-8 pt-6 border-t border-dba-rule/60 flex items-center gap-4">
-                {/* Monogram circle */}
-                <div
-                  className="
-                    w-11 h-11 rounded-full
-                    bg-dba-paper border border-dba-rule
-                    flex items-center justify-center
-                    font-display font-semibold text-dba-ink text-sm
-                    shrink-0 select-none
-                  "
-                  aria-hidden="true"
-                >
-                  {featured.author.charAt(0)}
+              ) : story.image ? (
+                <div className="relative aspect-[16/10] bg-dba-paper">
+                  <Image
+                    src={story.image.startsWith('/public/') ? story.image.replace('/public', '') : story.image}
+                    alt={story.imageAlt || ''}
+                    fill
+                    placeholder="blur"
+                    blurDataURL={BLUR_PLACEHOLDER}
+                    className="object-cover object-center"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
                 </div>
-                <div>
-                  <h3 className="font-body text-sm font-semibold text-dba-ink leading-tight">
-                    {featured.author}
-                  </h3>
-                  <p className="font-body text-xs text-dba-muted mt-0.5">
-                    {featured.role[locale]}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </article>
+              ) : null}
 
-          {/* ── SECONDARY STORIES — right column, stacked ──── */}
-          <div className="lg:col-span-2 flex flex-col gap-6 lg:gap-8">
-            {secondary.map((story) => (
-              <article
-                key={story.id}
-                className="
-                  flex-1
-                  rounded-[24px] bg-dba-white
-                  border border-dba-rule/60
-                  shadow-[0_8px_30px_oklch(15%_0.01_80/0.04)]
-                  p-7 md:p-8
-                  flex flex-col justify-between
-                  transition-all duration-500 ease-[var(--dba-ease)]
-                  hover:shadow-[0_16px_48px_oklch(15%_0.01_80/0.09)]
-                  hover:-translate-y-1
-                "
-              >
+              <div className="p-8 md:p-10 flex-1 flex flex-col justify-between">
                 <div>
                   {/* Provenance badge */}
                   <span
@@ -310,11 +266,12 @@ export function ClientStories({ locale, dict }: ClientStoriesProps) {
                   </span>
 
                   {/* Quote mark + Quote */}
-                  <QuoteMark className="mt-5" />
+                  <QuoteMark className="mt-6" />
                   <blockquote
                     className="
-                      mt-2 font-display italic font-normal text-dba-ink
-                      text-lg leading-[1.5]
+                      mt-3 font-display italic font-normal text-dba-ink
+                      text-[length:clamp(1.05rem,1.6vw,1.25rem)]
+                      leading-[1.55]
                     "
                   >
                     {story.quote[locale]}
@@ -322,10 +279,11 @@ export function ClientStories({ locale, dict }: ClientStoriesProps) {
                 </div>
 
                 {/* Author attribution */}
-                <div className="mt-6 pt-5 border-t border-dba-rule/60 flex items-center gap-3">
+                <div className="mt-8 pt-6 border-t border-dba-rule/60 flex items-center gap-4">
+                  {/* Monogram circle */}
                   <div
                     className="
-                      w-10 h-10 rounded-full
+                      w-11 h-11 rounded-full
                       bg-dba-paper border border-dba-rule
                       flex items-center justify-center
                       font-display font-semibold text-dba-ink text-sm
@@ -344,10 +302,85 @@ export function ClientStories({ locale, dict }: ClientStoriesProps) {
                     </p>
                   </div>
                 </div>
-              </article>
-            ))}
-          </div>
+              </div>
+            </article>
+          ))}
         </div>
+
+        {/* ── Franja Minimalista Horizontal: Art Party Privado ── */}
+        {partyStory && (
+          <aside
+            className="
+              mt-8 lg:mt-10
+              rounded-[24px] bg-dba-white/95 backdrop-blur-sm
+              border border-dba-rule/60
+              p-6 md:p-8
+              shadow-[0_4px_24px_oklch(15%_0.01_80/0.03)]
+              transition-all duration-500 ease-[var(--dba-ease)]
+              hover:shadow-[0_12px_36px_oklch(15%_0.01_80/0.06)]
+              hover:border-dba-accent/30
+              flex flex-col md:flex-row md:items-center justify-between gap-6
+            "
+            aria-label={isEs ? 'Testimonio de Art Party' : 'Art Party Testimonial'}
+          >
+            <div className="flex-1 max-w-3xl">
+              <span
+                className="
+                  inline-block font-body font-medium
+                  text-[10px] uppercase tracking-[0.16em]
+                  text-dba-accent bg-dba-accent/8
+                  px-3 py-1.5 rounded-full
+                  select-none mb-3
+                "
+              >
+                {partyStory.provenance[locale]}
+              </span>
+              <p className="font-display italic text-dba-ink text-base md:text-lg leading-relaxed">
+                “{partyStory.quote[locale]}”
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between md:justify-end gap-5 shrink-0 pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-dba-rule/60 md:pl-8">
+              <div className="flex items-center gap-3">
+                <div
+                  className="
+                    w-10 h-10 rounded-full
+                    bg-dba-paper border border-dba-rule
+                    flex items-center justify-center
+                    font-display font-semibold text-dba-ink text-sm
+                    shrink-0 select-none
+                  "
+                  aria-hidden="true"
+                >
+                  {partyStory.author.charAt(0)}
+                </div>
+                <div>
+                  <h4 className="font-body text-sm font-semibold text-dba-ink leading-tight">
+                    {partyStory.author}
+                  </h4>
+                  <p className="font-body text-xs text-dba-muted mt-0.5">
+                    {partyStory.role[locale]}
+                  </p>
+                </div>
+              </div>
+
+              <Link
+                href={`/${locale}/experiences`}
+                className="
+                  inline-flex items-center gap-1.5
+                  font-body text-xs font-semibold text-dba-accent
+                  hover:underline underline-offset-4
+                  transition-colors duration-300
+                  bg-dba-accent/8 hover:bg-dba-accent/15
+                  px-3.5 py-2 rounded-full
+                "
+              >
+                <span>{isEs ? 'Ver Art Parties' : 'Explore Art Parties'}</span>
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </aside>
+        )}
       </div>
     </section>
   );

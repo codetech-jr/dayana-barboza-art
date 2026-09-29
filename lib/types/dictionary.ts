@@ -113,6 +113,16 @@ export interface Dictionary {
       readonly images?: readonly string[];
       readonly imageAlt?: string;
     };
+    readonly secondary?: readonly {
+      readonly id: string;
+      readonly provenance: string;
+      readonly quote: string;
+      readonly author: string;
+      readonly role: string;
+      readonly image?: string;
+      readonly images?: readonly string[];
+      readonly imageAlt?: string;
+    }[];
   };
   readonly footer: {
     readonly eyebrow: string;

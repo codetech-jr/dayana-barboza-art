@@ -154,7 +154,29 @@
         "/gallery/cinema/totoro-3.jpg"
       ],
       "imageAlt": "Nora S. wearing her hand-painted My Neighbor Totoro denim jacket"
-    }
+    },
+    "secondary": [
+      {
+        "id": "carlos-elena-r",
+        "provenance": "Private Art Party · Alexandria, VA",
+        "quote": "We hosted an Art Party for Elena's birthday. It was an intimate, fun, and high-end experience. Every guest took home an unforgettable textile piece.",
+        "author": "Carlos & Elena R.",
+        "role": "Art Party Hosts"
+      },
+      {
+        "id": "andreina-m",
+        "provenance": "Private Collection · Blossoming Beauty",
+        "quote": "I absolutely love my 'Blossoming Beauty' jean jacket! It is so much more than a jacket—it feels like a piece of art created especially for me. I'm amazed by the attention to every little detail, from the hand embroidery to the gorgeous floral lining. It perfectly expresses who I am. It is truly one of a kind, beautifully handcrafted, and made with so much heart. I couldn't be happier!",
+        "author": "Andreina M.",
+        "role": "Bespoke Collector - Blossoming Beauty",
+        "image": "/gallery/portrait/1.webp",
+        "images": [
+          "/gallery/portrait/1.webp",
+          "/gallery/portrait/2.webp"
+        ],
+        "imageAlt": "Andreina M. wearing her hand-painted Blossoming Beauty denim jacket"
+      }
+    ]
   },
   "footer": {
     "eyebrow": "What shall we create today?",

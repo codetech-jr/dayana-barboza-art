@@ -154,7 +154,29 @@
         "/gallery/cinema/totoro-3.jpg"
       ],
       "imageAlt": "Nora S. con su chaqueta My Neighbor Totoro pintada a mano sobre denim"
-    }
+    },
+    "secondary": [
+      {
+        "id": "carlos-elena-r",
+        "provenance": "Art Party Privado · Alexandria, VA",
+        "quote": "Organizamos un Art Party para el cumpleaños de Elena. Fue una experiencia íntima, divertida y de alto nivel. Cada invitado se llevó una pieza textil inolvidable.",
+        "author": "Carlos & Elena R.",
+        "role": "Anfitriones de Art Party"
+      },
+      {
+        "id": "andreina-m",
+        "provenance": "Colección Privada · Blossoming Beauty",
+        "quote": "¡Amo absolutamente mi chaqueta 'Blossoming Beauty'! Es mucho más que una prenda; se siente como una obra de arte creada especialmente para mí. Me sorprende la atención a cada pequeño detalle, desde el bordado a mano hasta su hermoso forro floral. Expresa perfectamente quién soy. Es verdaderamente única, hecha a mano con maestría y con muchísimo corazón.",
+        "author": "Andreina M.",
+        "role": "Coleccionista - Blossoming Beauty",
+        "image": "/gallery/portrait/1.webp",
+        "images": [
+          "/gallery/portrait/1.webp",
+          "/gallery/portrait/2.webp"
+        ],
+        "imageAlt": "Andreina M. con su chaqueta Blossoming Beauty pintada a mano sobre denim"
+      }
+    ]
   },
   "footer": {
     "eyebrow": "¿Qué creamos hoy?",

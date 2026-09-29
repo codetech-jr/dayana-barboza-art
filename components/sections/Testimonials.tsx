@@ -44,17 +44,17 @@ const TESTIMONIALS: readonly TestimonialItem[] = [
     },
   },
   {
-    id: 'marcus-t',
-    initials: 'MT',
-    author: 'Marcus T.',
-    location: 'Washington, D.C.',
+    id: 'andreina-m',
+    initials: 'AM',
+    author: 'Andreina M.',
+    location: 'Richmond, VA',
     badge: {
-      es: 'Retrato Colección',
-      en: 'Collector Portrait',
+      es: 'Coleccionista - Blossoming Beauty',
+      en: 'Bespoke Collector - Blossoming Beauty',
     },
     quote: {
-      es: 'Le encomendé un retrato de David Bowie en una chaqueta vintage. Los contrastes de luz y la textura sobre el denim parecen cobrar vida. Es una verdadera obra de arte andante.',
-      en: 'I commissioned a David Bowie portrait on a vintage denim jacket. The lighting contrast and texture on denim feel like they come alive. It is a true wearable work of art.',
+      es: "¡Amo absolutamente mi chaqueta 'Blossoming Beauty'! Es mucho más que una prenda; se siente como una obra de arte creada especialmente para mí. Me sorprende la atención a cada pequeño detalle, desde el bordado a mano hasta su hermoso forro floral. Expresa perfectamente quién soy. Es verdaderamente única, hecha a mano con maestría y con muchísimo corazón.",
+      en: "I absolutely love my 'Blossoming Beauty' jean jacket! It is so much more than a jacket—it feels like a piece of art created especially for me. I'm amazed by the attention to every little detail, from the hand embroidery to the gorgeous floral lining. It perfectly expresses who I am. It is truly one of a kind, beautifully handcrafted, and made with so much heart. I couldn't be happier!",
     },
   },
 ];
