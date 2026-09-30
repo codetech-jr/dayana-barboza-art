@@ -17,12 +17,12 @@ export async function generateMetadata({
 
   const title =
     locale === 'es'
-      ? 'Clases de Pintura Tradicional | Dayana Barboza Art'
-      : 'Traditional Painting Classes | Dayana Barboza Art';
+      ? 'Atelier de Pintura: Óleo, Acrílico & Arte Textil | Dayana Barboza Art'
+      : 'Painting Atelier: Oil, Acrylic & Textile Art | Dayana Barboza Art';
   const description =
     locale === 'es'
-      ? 'Arte clásico en lienzo guiado por Dayana Barboza. Taller de óleo y acrílico, teoría del color y acompañamiento en atelier.'
-      : 'Classic canvas art guided by Dayana Barboza. Oil & acrylic studio workshop, color theory, and atelier mentorship.';
+      ? 'Formación de atelier guiada por Dayana Barboza. Dominio de óleo, acrílico y técnica textil, expediciones curatoriales a museos y sesiones plein air en Virginia.'
+      : 'Atelier training guided by Dayana Barboza. Oil, acrylic, and textile art mastery, curatorial museum excursions, and plein air sessions in Virginia.';
 
   return {
     title,

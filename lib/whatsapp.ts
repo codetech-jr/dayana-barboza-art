@@ -32,8 +32,8 @@ const TRIGGER_MESSAGES = {
     en: "Hi Dayana, I'd like to book a private event.",
   },
   paintingClasses: {
-    es: 'Hola Dayana, me gustaría recibir información sobre las Clases de Pintura Tradicional.',
-    en: "Hi Dayana, I'd like information about the Traditional Painting Classes.",
+    es: 'Hola Dayana, me gustaría consultar la disponibilidad de horarios y unirme a la lista de espera para las clases de pintura.',
+    en: "Hi Dayana, I'd like to check schedule availability and join the waitlist for painting classes.",
   },
   merchAvailability: {
     es: 'Hola Dayana, quiero consultar tallas y disponibilidad de una camiseta.',
