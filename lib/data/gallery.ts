@@ -41,11 +41,91 @@ export interface GalleryPiece {
 const SHIMMER_SVG = '<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" fill="#f5f0eb"/></svg>';
 export const BLUR_PLACEHOLDER = `data:image/svg+xml;base64,${Buffer.from(SHIMMER_SVG).toString('base64')}`;
 
-/** Official hero image — high-res original artwork. */
-export const HERO_IMAGE_URL = '/gallery/movie-inspo/1.webp';
+export interface HeroSlide {
+  id: string;
+  src: string;
+  altEs: string;
+  altEn: string;
+  objectPositionClass: string;
+  labelEs: string;
+  labelEn: string;
+}
 
-/** Official about portrait / workshop photo (configurable placeholder). */
-export const ABOUT_IMAGE_URL = '/gallery/portrait/1.webp';
+export const HERO_SLIDES: readonly HeroSlide[] = [
+  {
+    id: 'slide-atelier',
+    src: '/dayana-inicio.webp',
+    altEs: 'Dayana Barboza pintando al óleo en su atelier de arte',
+    altEn: 'Dayana Barboza painting in oil in her art atelier',
+    objectPositionClass: 'object-[60%_20%] md:object-[center_20%]',
+    labelEs: 'Atelier de Pintura',
+    labelEn: 'Painting Atelier',
+  },
+  {
+    id: 'slide-brave-jacket',
+    src: '/hero-2.webp',
+    altEs: 'Dayana Barboza en su taller junto a la chaqueta de denim intervenida Brave',
+    altEn: 'Dayana Barboza in her studio alongside the custom painted Brave denim jacket',
+    objectPositionClass: 'object-[65%_center] md:object-[center_35%]',
+    labelEs: 'Colección Denim Brave',
+    labelEn: 'Brave Denim Collection',
+  },
+  {
+    id: 'slide-easel-portrait',
+    src: '/hero-3.webp',
+    altEs: 'Dayana Barboza trabajando en un retrato al óleo frente al caballete en su estudio',
+    altEn: 'Dayana Barboza working on an oil portrait at her easel in the studio',
+    objectPositionClass: 'object-[55%_25%] md:object-[center_25%]',
+    labelEs: 'Proceso & Obra',
+    labelEn: 'Process & Artwork',
+  },
+] as const;
+
+/** Official hero image — fallback first slide. */
+export const HERO_IMAGE_URL = HERO_SLIDES[0].src;
+
+export interface AboutSlide {
+  id: string;
+  src: string;
+  altEs: string;
+  altEn: string;
+  objectPositionClass: string;
+  labelEs: string;
+  labelEn: string;
+}
+
+export const ABOUT_SLIDES: readonly AboutSlide[] = [
+  {
+    id: 'about-atelier-brushes',
+    src: '/about-me-1.webp',
+    altEs: 'Dayana Barboza en su taller con delantal de denim sosteniendo pinceles frente a sus pinturas',
+    altEn: 'Dayana Barboza in her studio with denim apron holding paintbrushes in front of pigments',
+    objectPositionClass: 'object-cover object-[center_12%]',
+    labelEs: 'Atelier & Pinceles',
+    labelEn: 'Atelier & Brushes',
+  },
+  {
+    id: 'about-plein-air',
+    src: '/about-me-2.webp',
+    altEs: 'Dayana Barboza pintando al aire libre en su caballete de madera',
+    altEn: 'Dayana Barboza painting plein air at her wooden easel',
+    objectPositionClass: 'object-cover object-[center_18%]',
+    labelEs: 'Pintura Plein Air',
+    labelEn: 'Plein Air Painting',
+  },
+  {
+    id: 'about-portrait-balcony',
+    src: '/about-me-3.webp',
+    altEs: 'Retrato de Dayana Barboza con blazer magenta sonriendo en su balcón',
+    altEn: 'Portrait of Dayana Barboza in magenta blazer smiling on the balcony',
+    objectPositionClass: 'object-cover object-[center_15%]',
+    labelEs: 'Retrato de Artista',
+    labelEn: 'Artist Portrait',
+  },
+] as const;
+
+/** Official about portrait / workshop photo (fallback first slide). */
+export const ABOUT_IMAGE_URL = ABOUT_SLIDES[0].src;
 
 /**
  * Official Dayana Barboza Art Gallery catalog.

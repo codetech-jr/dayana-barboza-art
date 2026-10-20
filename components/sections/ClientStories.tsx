@@ -1,9 +1,8 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Eyebrow, StoryImageSlider } from '@/components/ui';
-import { BLUR_PLACEHOLDER } from '@/lib/data/gallery';
-import type { Locale } from '@/lib/i18n/config';
+'use client';
 
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { Eyebrow, StoryImageSlider } from '@/components/ui';
+import type { Locale } from '@/lib/i18n/config';
 import type { Dictionary } from '@/lib/types/dictionary';
 
 interface ClientStoriesProps {
@@ -11,12 +10,9 @@ interface ClientStoriesProps {
   dict?: Dictionary;
 }
 
-/**
- * A curated collector dossier: provenance badge, editorial quote,
- * author attribution, and optional contextual image or photo slider.
- */
-interface CollectorStory {
+interface TestimonialStory {
   readonly id: string;
+  readonly category: 'collectors' | 'classes';
   readonly provenance: Record<Locale, string>;
   readonly quote: Record<Locale, string>;
   readonly author: string;
@@ -27,15 +23,18 @@ interface CollectorStory {
 }
 
 /* ─────────────────────────────────────────────────────────────────────
- * DATA — 3 real collector stories.
+ * DATA — 5 Curated Testimonials:
  *
- * Story[0] → Star Story 1: Nora S. & Studio Ghibli Totoro
- * Story[1] → Star Story 2: Andreina M. & Blossoming Beauty
- * Story[2] → Horizontal Strip: Carlos & Elena R. & Art Party
+ * 1. Nora S. (Bespoke Collector · Totoro Jacket) — with photos
+ * 2. Andreina M. (Bespoke Collector · Blossoming Beauty) — with photos
+ * 3. Leydi Pastillo (Atelier Student · Oil & Plein Air) — editorial text only
+ * 4. Frexy Da Silva (Student's Parent · Youth Art Academy) — editorial text only
+ * 5. Gabriela Lomelin (Atelier Student · Creativity & Technique) — editorial text only
  * ──────────────────────────────────────────────────────────────────── */
-const STORIES: readonly CollectorStory[] = [
+const STORIES: readonly TestimonialStory[] = [
   {
     id: 'nora-s',
+    category: 'collectors',
     provenance: {
       es: 'Colección Privada · Pieza Única',
       en: 'Private Collection · One-of-a-Kind Piece',
@@ -59,6 +58,7 @@ const STORIES: readonly CollectorStory[] = [
   },
   {
     id: 'andreina-m',
+    category: 'collectors',
     provenance: {
       es: 'Colección Privada · Blossoming Beauty',
       en: 'Private Collection · Blossoming Beauty',
@@ -69,8 +69,8 @@ const STORIES: readonly CollectorStory[] = [
     },
     author: 'Andreina M.',
     role: {
-      es: 'Coleccionista - Blossoming Beauty',
-      en: 'Bespoke Collector - Blossoming Beauty',
+      es: 'Coleccionista · Blossoming Beauty',
+      en: 'Bespoke Collector · Blossoming Beauty',
     },
     image: '/gallery/portrait/1.webp',
     images: [
@@ -80,31 +80,65 @@ const STORIES: readonly CollectorStory[] = [
     imageAlt: 'Andreina M. con su chaqueta Blossoming Beauty pintada a mano sobre denim',
   },
   {
-    id: 'carlos-elena-r',
+    id: 'leydi-pastillo',
+    category: 'classes',
     provenance: {
-      es: 'Art Party Privado · Alexandria, VA',
-      en: 'Private Art Party · Alexandria, VA',
+      es: 'Atelier de Pintura · Alumna Regular',
+      en: 'Painting Atelier · Studio Student',
     },
     quote: {
-      es: 'Organizamos un Art Party para el cumpleaños de Elena. Fue una experiencia íntima, divertida y de alto nivel. Cada invitado se llevó una pieza textil inolvidable.',
-      en: "We hosted an Art Party for Elena's birthday. It was an intimate, fun, and high-end experience. Every guest took home an unforgettable textile piece.",
+      es: 'Me gustan mucho las clases, cada clase es dinámica, entretenida y diferente, por lo que siempre tenemos la oportunidad de aprender algo nuevo y desarrollar nuestra creatividad. La profesora es muy amable, paciente y dedicada, y se toma el tiempo para enseñarnos y ayudarnos cuando lo necesitamos. Me gusta mucho que las clases no solo se enfocan en pintar, sino también en experimentar, aprender, disfrutar del proceso, y también hay actividades fuera de las instalaciones en donde podemos aprender más del arte. El ambiente es muy agradable y relajado, y me siento muy cómoda intentando cosas nuevas, incluso cuando al inicio se ve algo complicado, he salido de mi zona de confort y eso es lo que más me ha gustado. Sin duda, ha sido una experiencia muy bonita y enriquecedora. Recomiendo estas clases.',
+      en: "I really love the classes; each session is dynamic, engaging, and different, so we always have the opportunity to learn something new and develop our creativity. The teacher is very kind, patient, and dedicated, taking the time to guide and help us whenever needed. I love that the classes don't just focus on painting, but also on experimenting, learning, and enjoying the process. There are outdoor activities where we explore art further. The atmosphere is relaxed and I feel completely comfortable trying new things; stepping out of my comfort zone has been the best part. An enriching and beautiful experience. Highly recommended!",
     },
-    author: 'Carlos & Elena R.',
+    author: 'Leydi Pastillo',
     role: {
-      es: 'Anfitriones de Art Party',
-      en: 'Art Party Hosts',
+      es: 'Alumna de Atelier · Pintura & Plein Air',
+      en: 'Atelier Student · Oil & Plein Air',
+    },
+  },
+  {
+    id: 'frexy-da-silva',
+    category: 'classes',
+    provenance: {
+      es: 'Academia de Arte · Clases Infantiles',
+      en: 'Art Academy · Youth Mentorship',
+    },
+    quote: {
+      es: '¡Una experiencia maravillosa! Mi hija asiste a esta clase de arte y estamos súper felices con ella. La profesora es excelente: muy amable, respetuosa, paciente y cariñosa con los niños. Se nota muchísimo el amor y la dedicación que pone en cada clase. Además, es muy responsable y siempre cumple con el horario establecido. Mi hija disfruta muchísimo sus clases y ha desarrollado aún más su creatividad y entusiasmo por el arte. Sin duda, recomendamos esta clase al 100%. 💕🎨 Es un espacio bonito, agradable y donde los niños se sienten cómodos, felices y motivados para aprender. ¡Estamos fascinados!',
+      en: 'A truly wonderful experience! My daughter attends this art class and we are so happy with her progress. Dayana is exceptional: very kind, respectful, patient, and caring with children. The love and dedication she pours into every single class is truly noticeable. She is also very responsible and always punctual with schedules. My daughter thoroughly enjoys her classes and has developed even more creativity and enthusiasm for art. Without hesitation, we recommend this class 100%! 💕🎨 A beautiful, welcoming space where kids feel comfortable, happy, and motivated to learn. We are thrilled!',
+    },
+    author: 'Frexy Da Silva',
+    role: {
+      es: 'Familia de Alumna · Academia de Arte',
+      en: "Student's Parent · Art Academy",
+    },
+  },
+  {
+    id: 'gabriela-lomelin',
+    category: 'classes',
+    provenance: {
+      es: 'Atelier de Arte · Técnica & Creatividad',
+      en: 'Art Atelier · Technique & Creativity',
+    },
+    quote: {
+      es: 'Me gustan mucho las clases, cada clase es dinámica, entretenida y diferente, por lo que siempre tenemos la oportunidad de aprender algo nuevo y desarrollar nuestra creatividad. La profesora es muy amable, paciente y dedicada, y se toma el tiempo para enseñarnos y ayudarnos cuando lo necesitamos. Me gusta mucho que las clases no solo se enfocan en pintar, sino también en experimentar, aprender, disfrutar del proceso, y también hay actividades fuera de las instalaciones en donde podemos aprender más del arte. El ambiente es muy agradable y relajado, y me siento muy cómoda intentando cosas nuevas, incluso cuando al inicio se ve algo complicado, he salido de mi zona de confort y eso es lo que más me ha gustado. Sin duda, ha sido una experiencia muy bonita y enriquecedora. Recomiendo estas clases.',
+      en: "I truly enjoy the classes; every session is dynamic, entertaining, and unique, giving us the opportunity to constantly learn something new and expand our creativity. Dayana is remarkably kind, patient, and dedicated, taking the time to teach and support us whenever we need it. I love that the sessions don't only focus on painting, but on experimenting, learning, and enjoying the entire process, including outdoor excursions to discover more about the art world. The atmosphere is wonderfully relaxed and warm, encouraging me to step out of my comfort zone. An enriching and beautiful journey. 100% recommended!",
+    },
+    author: 'Gabriela Lomelin',
+    role: {
+      es: 'Alumna de Atelier · Formación Artística',
+      en: 'Atelier Student · Creative Expression',
     },
   },
 ] as const;
 
 /* ─────────────────────────────────────────────────────────────────────
- * DECORATIVE QUOTE MARK — inline SVG to avoid icon library dependency.
- * Renders a large „ opening-quote at the top of each story card.
+ * DECORATIVE QUOTE MARK
  * ──────────────────────────────────────────────────────────────────── */
 function QuoteMark({ className = '' }: { className?: string }) {
   return (
     <svg
-      className={`w-8 h-8 text-dba-accent/25 ${className}`}
+      className={`w-7 h-7 text-dba-accent/25 ${className}`}
       viewBox="0 0 32 32"
       fill="currentColor"
       aria-hidden="true"
@@ -115,272 +149,535 @@ function QuoteMark({ className = '' }: { className?: string }) {
 }
 
 /**
- * ClientStories — "Diarios de Colección" / 50-50 Dual Star Collector Showcase.
+ * ClientStories — "Voces del Atelier & Colecciones" Slider.
  *
- * Symmetrical luxury layout:
- * ┌─────────────────────────────┬─────────────────────────────┐
- * │   Star Story 1: Nora S.     │  Star Story 2: Andreina M.  │
- * │   (Totoro Carousel)         │  (Blossoming Beauty Slider) │
- * └─────────────────────────────┴─────────────────────────────┘
- * ┌───────────────────────────────────────────────────────────┐
- * │   Horizontal Strip: Carlos & Elena R. (Art Party)         │
- * └───────────────────────────────────────────────────────────┘
+ * Unified Editorial Carousel covering both categories:
+ * - 2 Bespoke Wearable Art Commissions (with photo carousels)
+ * - 3 Fine Art Classes & Academy Reviews (pure editorial typography)
+ *
+ * Features:
+ * - 2 cards per view on desktop, 1 card with edge peek on mobile
+ * - Native 60fps CSS scroll-snap with fallback programmatic controls
+ * - Category filter pills (`all`, `collectors`, `classes`)
+ * - Auto-play (7s) with pause on hover/touch
+ * - Touch swipe gestures & Left/Right arrow keys
+ * - Elongated progress pill indicators & numeric slide counter
  */
 export function ClientStories({ locale, dict }: ClientStoriesProps) {
   const isEs = locale === 'es';
+  const [filter, setFilter] = useState<'all' | 'collectors' | 'classes'>('all');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-  const eyebrowText = dict?.clientStories?.eyebrow ?? (isEs ? 'Diarios de Colección' : 'Collector Diaries');
-  const headingText = dict?.clientStories?.title ?? (isEs
-    ? 'Historias que se llevan puestas'
-    : 'Stories worn, not told');
-  const subtitleText = dict?.clientStories?.subtitle ?? (isEs
-    ? 'Cada pieza tiene un dueño que decidió convertir su historia en arte. Estas son sus palabras.'
-    : 'Every piece has an owner who chose to turn their story into art. These are their words.');
+  const trackRef = useRef<HTMLDivElement>(null);
 
-  // Story 1: Nora S. (Totoro)
-  const noraStory: CollectorStory = dict?.clientStories?.featured
-    ? {
-        id: 'nora-s',
-        provenance: { es: dict.clientStories.featured.provenance, en: dict.clientStories.featured.provenance },
-        quote: { es: dict.clientStories.featured.quote, en: dict.clientStories.featured.quote },
+  const eyebrowText =
+    dict?.clientStories?.eyebrow ??
+    (isEs ? 'Historias de Clientes & Comunidad' : 'Client Stories & Community');
+  const headingText =
+    dict?.clientStories?.title ??
+    (isEs ? 'Voces del Atelier & Colecciones' : 'Voices from the Atelier & Collections');
+  const subtitleText =
+    dict?.clientStories?.subtitle ??
+    (isEs
+      ? 'Desde chaquetas de autor pintadas a mano hasta la formación artística en nuestras clases: esto es lo que dicen quienes viven el arte de Dayana Barboza.'
+      : 'From hand-painted bespoke jackets to inspiring art education: hear directly from those who experience the art of Dayana Barboza.');
+
+  const filterAllLabel =
+    dict?.clientStories?.filterAll ?? (isEs ? 'Todos (5)' : 'All (5)');
+  const filterCollectorsLabel =
+    dict?.clientStories?.filterCollectors ?? (isEs ? 'Chaquetas a Medida (2)' : 'Bespoke Jackets (2)');
+  const filterClassesLabel =
+    dict?.clientStories?.filterClasses ?? (isEs ? 'Clases & Academia (3)' : 'Classes & Atelier (3)');
+
+  // Helper to build resolved story from dictionary
+  const resolveStory = (staticStory: TestimonialStory): TestimonialStory => {
+    if (dict?.clientStories?.featured && staticStory.id === 'nora-s') {
+      return {
+        ...staticStory,
+        provenance: {
+          es: dict.clientStories.featured.provenance,
+          en: dict.clientStories.featured.provenance,
+        },
+        quote: {
+          es: dict.clientStories.featured.quote,
+          en: dict.clientStories.featured.quote,
+        },
         author: dict.clientStories.featured.author,
-        role: { es: dict.clientStories.featured.role, en: dict.clientStories.featured.role },
-        image: dict.clientStories.featured.image,
-        images: dict.clientStories.featured.images ?? STORIES[0].images,
-        imageAlt: dict.clientStories.featured.imageAlt ?? (isEs ? 'Nora S. con su chaqueta My Neighbor Totoro pintada a mano sobre denim' : 'Nora S. wearing her hand-painted My Neighbor Totoro denim jacket'),
-      }
-    : STORIES[0];
+        role: {
+          es: dict.clientStories.featured.role,
+          en: dict.clientStories.featured.role,
+        },
+      };
+    }
 
-  // Story 2: Andreina M. (Blossoming Beauty)
-  const dictAndreina = dict?.clientStories?.secondary?.find((s) => s.id === 'andreina-m');
-  const andreinaStory: CollectorStory = dictAndreina
-    ? {
-        id: 'andreina-m',
-        provenance: { es: dictAndreina.provenance, en: dictAndreina.provenance },
-        quote: { es: dictAndreina.quote, en: dictAndreina.quote },
-        author: dictAndreina.author,
-        role: { es: dictAndreina.role, en: dictAndreina.role },
-        image: dictAndreina.image ?? STORIES[1].image,
-        images: dictAndreina.images ?? STORIES[1].images,
-        imageAlt: dictAndreina.imageAlt ?? (isEs ? 'Andreina M. con su chaqueta Blossoming Beauty pintada a mano sobre denim' : 'Andreina M. wearing her hand-painted Blossoming Beauty denim jacket'),
-      }
-    : STORIES[1];
+    const dictMatch = dict?.clientStories?.secondary?.find((s) => s.id === staticStory.id);
+    if (dictMatch) {
+      return {
+        ...staticStory,
+        provenance: { es: dictMatch.provenance, en: dictMatch.provenance },
+        quote: { es: dictMatch.quote, en: dictMatch.quote },
+        author: dictMatch.author,
+        role: { es: dictMatch.role, en: dictMatch.role },
+      };
+    }
 
-  // Story 3: Carlos & Elena R. (Art Party strip)
-  const dictParty = dict?.clientStories?.secondary?.find((s) => s.id === 'carlos-elena-r');
-  const partyStory: CollectorStory = dictParty
-    ? {
-        id: 'carlos-elena-r',
-        provenance: { es: dictParty.provenance, en: dictParty.provenance },
-        quote: { es: dictParty.quote, en: dictParty.quote },
-        author: dictParty.author,
-        role: { es: dictParty.role, en: dictParty.role },
-      }
-    : STORIES[2];
+    return staticStory;
+  };
 
-  const starStories = [noraStory, andreinaStory];
+  const resolvedStories = STORIES.map(resolveStory);
+
+  const filteredStories = resolvedStories.filter((s) => {
+    if (filter === 'collectors') return s.category === 'collectors';
+    if (filter === 'classes') return s.category === 'classes';
+    return true;
+  });
+
+  const total = filteredStories.length;
+
+  // ── Respect prefers-reduced-motion ──
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  // ── Scroll to specific card ──
+  const scrollToIndex = useCallback((index: number, smooth = true) => {
+    if (!trackRef.current) return;
+    const cards = trackRef.current.children;
+    const targetCard = cards[index] as HTMLElement | undefined;
+
+    if (targetCard) {
+      targetCard.scrollIntoView({
+        behavior: smooth ? 'smooth' : 'instant',
+        block: 'nearest',
+        inline: 'start',
+      });
+      setCurrentIndex(index);
+    }
+  }, []);
+
+  const goToNext = useCallback(() => {
+    const nextIdx = (currentIndex + 1) % total;
+    scrollToIndex(nextIdx);
+  }, [currentIndex, total, scrollToIndex]);
+
+  const goToPrev = useCallback(() => {
+    const prevIdx = (currentIndex - 1 + total) % total;
+    scrollToIndex(prevIdx);
+  }, [currentIndex, total, scrollToIndex]);
+
+  // ── Handle native scroll to update active dot ──
+  const handleScroll = () => {
+    const container = trackRef.current;
+    if (!container) return;
+
+    const scrollLeft = container.scrollLeft;
+    const firstChild = container.firstElementChild as HTMLElement | null;
+    if (!firstChild) return;
+
+    const cardWidth = firstChild.offsetWidth;
+    const gap = 24; // gap between cards
+    const newIdx = Math.round(scrollLeft / (cardWidth + gap));
+
+    if (newIdx !== currentIndex && newIdx >= 0 && newIdx < total) {
+      setCurrentIndex(newIdx);
+    }
+  };
+
+  // ── Handle filter tab change ──
+  const handleFilterChange = (newFilter: 'all' | 'collectors' | 'classes') => {
+    setFilter(newFilter);
+    setCurrentIndex(0);
+    if (trackRef.current) {
+      trackRef.current.scrollTo({ left: 0, behavior: 'instant' });
+    }
+  };
+
+  // ── Auto-advance carousel (7s interval) ──
+  useEffect(() => {
+    if (total <= 1 || isPaused || prefersReducedMotion) return;
+
+    const timer = setInterval(() => {
+      goToNext();
+    }, 7000);
+
+    return () => clearInterval(timer);
+  }, [total, isPaused, prefersReducedMotion, goToNext]);
+
+  // ── Keyboard navigation when section is in viewport ──
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const section = document.getElementById('client-stories');
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight && rect.bottom > 0;
+      if (!inView) return;
+
+      if (e.key === 'ArrowLeft') {
+        goToPrev();
+      } else if (e.key === 'ArrowRight') {
+        goToNext();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [goToNext, goToPrev]);
 
   return (
     <section
-      className="bg-dba-cream py-[var(--spacing-section)] lg:py-[var(--spacing-section-lg)]"
+      className="bg-dba-cream py-[var(--spacing-section)] lg:py-[var(--spacing-section-lg)] overflow-hidden"
+      id="client-stories"
       aria-labelledby="client-stories-heading"
+      aria-roledescription="carousel"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
     >
       <div className="max-w-6xl mx-auto px-6">
-        {/* ── Header ─────────────────────────────────────────── */}
-        <div className="text-center mb-16 lg:mb-20">
-          <Eyebrow>{eyebrowText}</Eyebrow>
+        {/* ── Section Header & Navigation Controls ── */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 lg:mb-12">
+          <div className="max-w-2xl">
+            <Eyebrow>{eyebrowText}</Eyebrow>
 
-          <h2
-            id="client-stories-heading"
-            className="
-              mt-5 font-display italic font-semibold text-dba-ink
-              text-[length:var(--dba-type-h2)]
-              leading-[var(--dba-leading-tight)]
-            "
-          >
-            {headingText}
-          </h2>
-
-          <p
-            className="
-              mt-4 font-body text-dba-muted
-              text-[length:var(--dba-type-body)]
-              leading-[var(--dba-leading-body)]
-              max-w-xl mx-auto
-            "
-          >
-            {subtitleText}
-          </p>
-        </div>
-
-        {/* ── 2 Grandes Dossiers Editoriales (50% / 50%) ──────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-          {starStories.map((story) => (
-            <article
-              key={story.id}
+            <h2
+              id="client-stories-heading"
               className="
-                rounded-[24px] bg-dba-white
-                border border-dba-rule/60
-                shadow-[0_8px_30px_oklch(15%_0.01_80/0.04)]
-                overflow-hidden
-                transition-all duration-500 ease-[var(--dba-ease)]
-                hover:shadow-[0_16px_48px_oklch(15%_0.01_80/0.09)]
-                hover:-translate-y-1
-                flex flex-col justify-between
+                mt-4 font-display italic font-semibold text-dba-ink
+                text-[length:var(--dba-type-h2)]
+                leading-[var(--dba-leading-tight)]
               "
             >
-              {/* ── Contextual Photo Slider ── */}
-              {story.images && story.images.length > 1 ? (
-                <StoryImageSlider
-                  images={story.images}
-                  alt={story.imageAlt}
-                  aspectRatioClass="aspect-[16/10]"
-                />
-              ) : story.image ? (
-                <div className="relative aspect-[16/10] bg-dba-paper">
-                  <Image
-                    src={story.image.startsWith('/public/') ? story.image.replace('/public', '') : story.image}
-                    alt={story.imageAlt || ''}
-                    fill
-                    placeholder="blur"
-                    blurDataURL={BLUR_PLACEHOLDER}
-                    className="object-cover object-center"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                </div>
-              ) : null}
+              {headingText}
+            </h2>
 
-              <div className="p-8 md:p-10 flex-1 flex flex-col justify-between">
-                <div>
-                  {/* Provenance badge */}
-                  <span
-                    className="
-                      inline-block font-body font-medium
-                      text-[10px] uppercase tracking-[0.16em]
-                      text-dba-accent bg-dba-accent/8
-                      px-3 py-1.5 rounded-full
-                      select-none
-                    "
-                  >
-                    {story.provenance[locale]}
-                  </span>
+            <p
+              className="
+                mt-3 font-body text-dba-muted
+                text-[length:var(--dba-type-body)]
+                leading-[var(--dba-leading-body)]
+              "
+            >
+              {subtitleText}
+            </p>
+          </div>
 
-                  {/* Quote mark + Quote */}
-                  <QuoteMark className="mt-6" />
-                  <blockquote
-                    className="
-                      mt-3 font-display italic font-normal text-dba-ink
-                      text-[length:clamp(1.05rem,1.6vw,1.25rem)]
-                      leading-[1.55]
-                    "
-                  >
-                    {story.quote[locale]}
-                  </blockquote>
-                </div>
+          {/* Top-Right Slider Controls: Arrows & Counter */}
+          <div className="flex items-center gap-4 shrink-0">
+            {/* Slide Counter */}
+            <div className="font-body text-xs tracking-widest text-dba-muted font-medium select-none">
+              <span className="text-dba-ink font-semibold">
+                {String(currentIndex + 1).padStart(2, '0')}
+              </span>
+              <span className="mx-1 text-dba-rule">/</span>
+              <span>{String(total).padStart(2, '0')}</span>
+            </div>
 
-                {/* Author attribution */}
-                <div className="mt-8 pt-6 border-t border-dba-rule/60 flex items-center gap-4">
-                  {/* Monogram circle */}
-                  <div
-                    className="
-                      w-11 h-11 rounded-full
-                      bg-dba-paper border border-dba-rule
-                      flex items-center justify-center
-                      font-display font-semibold text-dba-ink text-sm
-                      shrink-0 select-none
-                    "
-                    aria-hidden="true"
-                  >
-                    {story.author.charAt(0)}
-                  </div>
-                  <div>
-                    <h3 className="font-body text-sm font-semibold text-dba-ink leading-tight">
-                      {story.author}
-                    </h3>
-                    <p className="font-body text-xs text-dba-muted mt-0.5">
-                      {story.role[locale]}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </article>
-          ))}
+            {/* Prev / Next Luxury Buttons */}
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={goToPrev}
+                aria-label={isEs ? 'Testimonio anterior' : 'Previous review'}
+                className="
+                  w-10 h-10 rounded-full bg-dba-white border border-dba-rule/80
+                  text-dba-ink flex items-center justify-center
+                  transition-all duration-300
+                  hover:bg-dba-ink hover:text-dba-cream hover:border-dba-ink
+                  hover:scale-105 active:scale-95 shadow-sm
+                "
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                onClick={goToNext}
+                aria-label={isEs ? 'Testimonio siguiente' : 'Next review'}
+                className="
+                  w-10 h-10 rounded-full bg-dba-white border border-dba-rule/80
+                  text-dba-ink flex items-center justify-center
+                  transition-all duration-300
+                  hover:bg-dba-ink hover:text-dba-cream hover:border-dba-ink
+                  hover:scale-105 active:scale-95 shadow-sm
+                "
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* ── Franja Minimalista Horizontal: Art Party Privado ── */}
-        {partyStory && (
-          <aside
-            className="
-              mt-8 lg:mt-10
-              rounded-[24px] bg-dba-white/95 backdrop-blur-sm
-              border border-dba-rule/60
-              p-6 md:p-8
-              shadow-[0_4px_24px_oklch(15%_0.01_80/0.03)]
-              transition-all duration-500 ease-[var(--dba-ease)]
-              hover:shadow-[0_12px_36px_oklch(15%_0.01_80/0.06)]
-              hover:border-dba-accent/30
-              flex flex-col md:flex-row md:items-center justify-between gap-6
-            "
-            aria-label={isEs ? 'Testimonio de Art Party' : 'Art Party Testimonial'}
+        {/* ── Category Filter Pills ── */}
+        <div
+          className="mb-8 flex flex-wrap items-center gap-2 sm:gap-3"
+          role="tablist"
+          aria-label={isEs ? 'Filtrar testimonios' : 'Filter testimonials'}
+        >
+          <button
+            type="button"
+            role="tab"
+            aria-selected={filter === 'all'}
+            onClick={() => handleFilterChange('all')}
+            className={`
+              font-body text-xs sm:text-sm font-medium px-4 py-2 rounded-full
+              transition-all duration-300 select-none
+              ${
+                filter === 'all'
+                  ? 'bg-dba-ink text-dba-cream shadow-sm scale-[1.02]'
+                  : 'bg-dba-white/80 text-dba-muted border border-dba-rule hover:bg-dba-white hover:text-dba-ink'
+              }
+            `}
           >
-            <div className="flex-1 max-w-3xl">
-              <span
+            {filterAllLabel}
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={filter === 'collectors'}
+            onClick={() => handleFilterChange('collectors')}
+            className={`
+              font-body text-xs sm:text-sm font-medium px-4 py-2 rounded-full
+              transition-all duration-300 select-none
+              ${
+                filter === 'collectors'
+                  ? 'bg-dba-ink text-dba-cream shadow-sm scale-[1.02]'
+                  : 'bg-dba-white/80 text-dba-muted border border-dba-rule hover:bg-dba-white hover:text-dba-ink'
+              }
+            `}
+          >
+            {filterCollectorsLabel}
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={filter === 'classes'}
+            onClick={() => handleFilterChange('classes')}
+            className={`
+              font-body text-xs sm:text-sm font-medium px-4 py-2 rounded-full
+              transition-all duration-300 select-none
+              ${
+                filter === 'classes'
+                  ? 'bg-dba-ink text-dba-cream shadow-sm scale-[1.02]'
+                  : 'bg-dba-white/80 text-dba-muted border border-dba-rule hover:bg-dba-white hover:text-dba-ink'
+              }
+            `}
+          >
+            {filterClassesLabel}
+          </button>
+        </div>
+
+        {/* ── THE SLIDER TRACK (Covers both: 2 cards on desktop, 1 on mobile) ── */}
+        <div
+          ref={trackRef}
+          onScroll={handleScroll}
+          className="
+            flex gap-6 lg:gap-8 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none
+            pb-6 pt-2 px-1 -mx-1
+          "
+        >
+          {filteredStories.map((story, index) => {
+            const hasPhotos = story.images && story.images.length > 0;
+
+            return (
+              <div
+                key={story.id}
                 className="
-                  inline-block font-body font-medium
-                  text-[10px] uppercase tracking-[0.16em]
-                  text-dba-accent bg-dba-accent/8
-                  px-3 py-1.5 rounded-full
-                  select-none mb-3
+                  snap-start shrink-0
+                  w-[88vw] sm:w-[80vw] max-w-[420px] md:max-w-none md:w-[calc(50%-12px)] lg:w-[calc(50%-16px)]
+                  flex
                 "
               >
-                {partyStory.provenance[locale]}
-              </span>
-              <p className="font-display italic text-dba-ink text-base md:text-lg leading-relaxed">
-                “{partyStory.quote[locale]}”
-              </p>
-            </div>
-
-            <div className="flex items-center justify-between md:justify-end gap-5 shrink-0 pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-dba-rule/60 md:pl-8">
-              <div className="flex items-center gap-3">
-                <div
+                <article
                   className="
-                    w-10 h-10 rounded-full
-                    bg-dba-paper border border-dba-rule
-                    flex items-center justify-center
-                    font-display font-semibold text-dba-ink text-sm
-                    shrink-0 select-none
+                    w-full rounded-[24px] bg-dba-white
+                    border border-dba-rule/60
+                    overflow-hidden
+                    shadow-[0_8px_30px_oklch(15%_0.01_80/0.04)]
+                    transition-all duration-500 ease-[var(--dba-ease)]
+                    hover:shadow-[0_16px_48px_oklch(15%_0.01_80/0.08)]
+                    hover:border-dba-accent/30
+                    flex flex-col justify-between h-full
                   "
-                  aria-hidden="true"
                 >
-                  {partyStory.author.charAt(0)}
-                </div>
-                <div>
-                  <h4 className="font-body text-sm font-semibold text-dba-ink leading-tight">
-                    {partyStory.author}
-                  </h4>
-                  <p className="font-body text-xs text-dba-muted mt-0.5">
-                    {partyStory.role[locale]}
-                  </p>
-                </div>
-              </div>
+                  <div>
+                    {/* Header Option A: Has Photos (Bespoke Jackets) */}
+                    {hasPhotos ? (
+                      <StoryImageSlider
+                        images={story.images!}
+                        alt={story.imageAlt || story.author}
+                        aspectRatioClass="aspect-[16/10]"
+                        autoPlayIntervalMs={story.id === 'nora-s' ? 5500 : 6500}
+                      />
+                    ) : (
+                      /* Header Option B: No Photos (Fine Art Classes & Academy) */
+                      <div className="bg-gradient-to-br from-dba-paper via-dba-paper/60 to-dba-cream/40 border-b border-dba-rule/50 p-6 sm:p-7 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-dba-accent/10 border border-dba-accent/25 flex items-center justify-center font-display font-semibold text-dba-accent text-sm select-none">
+                            DB
+                          </div>
+                          <div>
+                            <span className="block font-body text-[11px] font-semibold uppercase tracking-[0.18em] text-dba-ink">
+                              {isEs ? 'Atelier & Plein Air' : 'Studio & Plein Air'}
+                            </span>
+                            <span className="block font-body text-[11px] text-dba-muted">
+                              {isEs ? 'Virginia · Formación Artística' : 'Virginia · Fine Art Academy'}
+                            </span>
+                          </div>
+                        </div>
 
-              <Link
-                href={`/${locale}/experiences`}
-                className="
-                  inline-flex items-center gap-1.5
-                  font-body text-xs font-semibold text-dba-accent
-                  hover:underline underline-offset-4
-                  transition-colors duration-300
-                  bg-dba-accent/8 hover:bg-dba-accent/15
-                  px-3.5 py-2 rounded-full
-                "
-              >
-                <span>{isEs ? 'Ver Art Parties' : 'Explore Art Parties'}</span>
-                <span aria-hidden="true">→</span>
-              </Link>
-            </div>
-          </aside>
-        )}
+                        <div
+                          className="flex items-center gap-0.5 text-amber-500 text-xs tracking-widest select-none"
+                          aria-label="Calificación: 5 de 5 estrellas"
+                        >
+                          ★★★★★
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Card Content Body */}
+                    <div className="p-7 sm:p-8">
+                      {/* Badge + Rating (Only for photo cards since non-photo cards have it in header) */}
+                      {hasPhotos && (
+                        <div className="flex items-center justify-between gap-3 mb-5">
+                          <span
+                            className="
+                              inline-block font-body font-medium
+                              text-[10px] uppercase tracking-[0.16em]
+                              text-dba-accent bg-dba-accent/8
+                              px-3 py-1.5 rounded-full
+                              select-none
+                            "
+                          >
+                            {story.provenance[locale]}
+                          </span>
+
+                          <div
+                            className="flex items-center gap-0.5 text-amber-500 text-xs tracking-widest select-none"
+                            aria-label="Calificación: 5 de 5 estrellas"
+                          >
+                            ★★★★★
+                          </div>
+                        </div>
+                      )}
+
+                      {!hasPhotos && (
+                        <div className="mb-4">
+                          <span
+                            className="
+                              inline-block font-body font-medium
+                              text-[10px] uppercase tracking-[0.16em]
+                              text-dba-accent bg-dba-accent/8
+                              px-3 py-1.5 rounded-full
+                              select-none
+                            "
+                          >
+                            {story.provenance[locale]}
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Decorative Quote Mark */}
+                      <QuoteMark className="mb-4" />
+
+                      {/* Testimonial Quote */}
+                      <blockquote
+                        className="
+                          font-display italic font-normal text-dba-ink
+                          text-[0.98rem] lg:text-[1.05rem]
+                          leading-[1.65]
+                        "
+                      >
+                        “{story.quote[locale].replace(/^[“"¡]/, (m) => (m === '“' || m === '"' ? '' : m)).replace(/[”"]$/, '')}”
+                      </blockquote>
+                    </div>
+                  </div>
+
+                  {/* Author Attribution Footer */}
+                  <div className="px-7 pb-7 sm:px-8 sm:pb-8 pt-0">
+                    <div className="pt-6 border-t border-dba-rule/60 flex items-center gap-3.5">
+                      <div
+                        className="
+                          w-11 h-11 rounded-full
+                          bg-dba-paper border border-dba-rule
+                          flex items-center justify-center
+                          font-display font-semibold text-dba-ink text-sm
+                          shrink-0 select-none
+                        "
+                        aria-hidden="true"
+                      >
+                        {story.author.charAt(0)}
+                      </div>
+                      <div>
+                        <h4 className="font-body text-sm font-semibold text-dba-ink leading-tight">
+                          {story.author}
+                        </h4>
+                        <p className="font-body text-xs text-dba-muted mt-0.5">
+                          {story.role[locale]}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ── Slider Bottom Pagination Indicators ── */}
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          {/* Dot Progress Indicators */}
+          <div
+            className="flex items-center gap-2"
+            role="tablist"
+            aria-label={isEs ? 'Páginas de testimonios' : 'Testimonial pages'}
+          >
+            {filteredStories.map((story, index) => {
+              const isActive = index === currentIndex;
+              return (
+                <button
+                  key={story.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-label={`${isEs ? 'Ir a testimonio' : 'Go to review'} ${index + 1}`}
+                  onClick={() => scrollToIndex(index)}
+                  className={`
+                    h-2 rounded-full transition-all duration-300
+                    ${
+                      isActive
+                        ? 'w-8 bg-dba-ink'
+                        : 'w-2 bg-dba-rule hover:bg-dba-muted'
+                    }
+                  `}
+                />
+              );
+            })}
+          </div>
+
+          {/* Swipe Hint on Mobile */}
+          <p className="font-body text-xs text-dba-muted flex items-center gap-1.5 select-none sm:hidden">
+            <span>{isEs ? 'Desliza para explorar más' : 'Swipe to explore more'}</span>
+            <span aria-hidden="true">→</span>
+          </p>
+
+          {/* Status Hint on Desktop */}
+          <p className="font-body text-xs text-dba-muted hidden sm:block select-none">
+            {isEs
+              ? 'Navega con flechas o desliza horizontalmente'
+              : 'Navigate using arrows or swipe horizontally'}
+          </p>
+        </div>
       </div>
     </section>
   );

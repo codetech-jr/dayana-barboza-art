@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { Eyebrow } from '@/components/ui';
-import { ABOUT_IMAGE_URL, BLUR_PLACEHOLDER } from '@/lib/data/gallery';
+import { Eyebrow, AboutImageSlider } from '@/components/ui';
+import { ABOUT_SLIDES } from '@/lib/data/gallery';
 import type { Dictionary } from '@/lib/types/dictionary';
 import type { Locale } from '@/lib/i18n/config';
 
@@ -34,22 +34,9 @@ export function About({ dict, locale }: AboutProps) {
     >
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
-          {/* ── Left Column: Editorial Portrait (3:4 ratio, sticky on desktop) ── */}
+          {/* ── Left Column: Editorial Portrait Slider (3:4 ratio, sticky on desktop) ── */}
           <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-dba-paper shadow-[0_12px_36px_oklch(15%_0.01_80/0.06)] border border-dba-rule/60 md:sticky md:top-28">
-            <Image
-              src={ABOUT_IMAGE_URL}
-              alt={
-                isEs
-                  ? 'Dayana Barboza — Artista de pintura hiperrealista sobre denim en su taller'
-                  : 'Dayana Barboza — Hyperrealistic denim artist in her studio'
-              }
-              fill
-              priority
-              placeholder="blur"
-              blurDataURL={BLUR_PLACEHOLDER}
-              className="object-cover object-top transition-transform duration-700 ease-[var(--dba-ease)] hover:scale-[1.03]"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
+            <AboutImageSlider locale={locale} slides={ABOUT_SLIDES} />
           </div>
 
           {/* ── Right Column: Biography & Pull-Quote ── */}

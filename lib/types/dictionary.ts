@@ -104,12 +104,17 @@ export interface Dictionary {
     readonly eyebrow: string;
     readonly title: string;
     readonly subtitle: string;
+    readonly filterAll?: string;
+    readonly filterCollectors?: string;
+    readonly filterClasses?: string;
+    readonly collectorsLabel?: string;
+    readonly classesLabel?: string;
     readonly featured: {
       readonly provenance: string;
       readonly quote: string;
       readonly author: string;
       readonly role: string;
-      readonly image: string;
+      readonly image?: string;
       readonly images?: readonly string[];
       readonly imageAlt?: string;
     };

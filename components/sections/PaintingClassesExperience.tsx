@@ -65,6 +65,62 @@ const CLASS_PHOTOS = [
       en: 'Atelier study cards and brushes session',
     },
   },
+  {
+    src: '/gallery/clases/class-1.webp',
+    alt: {
+      es: 'Sesión grupal en el atelier compartiendo procesos creativos',
+      en: 'Group atelier session sharing creative processes',
+    },
+  },
+  {
+    src: '/gallery/clases/class-2.webp',
+    alt: {
+      es: 'Mentoría personalizada y técnica de dibujo en el atelier',
+      en: 'One-on-one mentorship and drawing technique at the atelier',
+    },
+  },
+  {
+    src: '/gallery/clases/class-3.webp',
+    alt: {
+      es: 'Estudiantes concentradas en el trazo y encaje preliminar',
+      en: 'Students focused on sketching and structural drafting',
+    },
+  },
+  {
+    src: '/gallery/clases/class-4.webp',
+    alt: {
+      es: 'Detalle de alumna perfeccionando su técnica pictórica',
+      en: 'Close-up of student refining her painting technique',
+    },
+  },
+  {
+    src: '/gallery/clases/class-5.webp',
+    alt: {
+      es: 'Ambiente colaborativo y guiado durante la clase de arte',
+      en: 'Collaborative and guided atmosphere during art class',
+    },
+  },
+  {
+    src: '/gallery/clases/class-6.webp',
+    alt: {
+      es: 'Dayana Barboza guiando a las alumnas frente a la mesa de trabajo',
+      en: 'Dayana Barboza guiding students at the studio work table',
+    },
+  },
+  {
+    src: '/gallery/clases/class-7.webp',
+    alt: {
+      es: 'Detalle de paleta, pinceles y mezclas de color en sesión práctica',
+      en: 'Close-up of palette, brushes, and color mixing in hands-on session',
+    },
+  },
+  {
+    src: '/gallery/clases/class-8.webp',
+    alt: {
+      es: 'Inmersión y práctica artística en el taller de pintura',
+      en: 'Immersive artistic practice at the painting workshop',
+    },
+  },
 ];
 
 const CURRICULUM_PILLARS = [
@@ -142,14 +198,14 @@ export function PaintingClassesExperience({ locale }: PaintingClassesExperienceP
           </p>
         </div>
 
-        {/* ── Student Showcase Vitrine (Responsive 8-image grid) ── */}
+        {/* ── Student Showcase Vitrine (Responsive grid) ── */}
         <div className="mt-14 lg:mt-20">
           <div className="flex items-center justify-between mb-6">
             <span className="font-mono text-xs uppercase tracking-[0.2em] text-dba-muted">
               {isEs ? 'Vitrina de Alumnas & Atelier' : 'Students & Atelier Showcase'}
             </span>
             <span className="font-mono text-xs text-dba-faint">
-              8 {isEs ? 'piezas' : 'works'}
+              {CLASS_PHOTOS.length} {isEs ? 'piezas' : 'works'}
             </span>
           </div>
 

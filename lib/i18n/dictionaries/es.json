@@ -139,9 +139,14 @@
     ]
   },
   "clientStories": {
-    "eyebrow": "Diarios de Colección",
-    "title": "Historias que se llevan puestas",
-    "subtitle": "Cada pieza tiene un dueño que decidió convertir su historia en arte. Estas son sus palabras.",
+    "eyebrow": "Historias de Clientes & Comunidad",
+    "title": "Voces del Atelier & Colecciones",
+    "subtitle": "Desde chaquetas de autor pintadas a mano hasta la formación artística en nuestras clases: esto es lo que dicen quienes viven el arte de Dayana Barboza.",
+    "filterAll": "Todos (5)",
+    "filterCollectors": "Chaquetas a Medida (2)",
+    "filterClasses": "Clases & Academia (3)",
+    "collectorsLabel": "Piezas a Medida & Colecciones Privadas",
+    "classesLabel": "Experiencias en las Clases & Atelier",
     "featured": {
       "provenance": "Colección Privada · Pieza Única",
       "quote": "¡Hermoso trabajo, Dayana! Tu talento y creatividad transformaron la chaqueta en una pieza única y especial. Se nota el cuidado, el detalle y la pasión con la que trabajas. Es un gusto ver cómo conviertes una idea en arte tan bien logrado. Estoy feliz con tu excelente trabajo. Mis más amplias recomendaciones.",
@@ -157,24 +162,38 @@
     },
     "secondary": [
       {
-        "id": "carlos-elena-r",
-        "provenance": "Art Party Privado · Alexandria, VA",
-        "quote": "Organizamos un Art Party para el cumpleaños de Elena. Fue una experiencia íntima, divertida y de alto nivel. Cada invitado se llevó una pieza textil inolvidable.",
-        "author": "Carlos & Elena R.",
-        "role": "Anfitriones de Art Party"
-      },
-      {
         "id": "andreina-m",
         "provenance": "Colección Privada · Blossoming Beauty",
         "quote": "¡Amo absolutamente mi chaqueta 'Blossoming Beauty'! Es mucho más que una prenda; se siente como una obra de arte creada especialmente para mí. Me sorprende la atención a cada pequeño detalle, desde el bordado a mano hasta su hermoso forro floral. Expresa perfectamente quién soy. Es verdaderamente única, hecha a mano con maestría y con muchísimo corazón.",
         "author": "Andreina M.",
-        "role": "Coleccionista - Blossoming Beauty",
+        "role": "Coleccionista · Blossoming Beauty",
         "image": "/gallery/portrait/1.webp",
         "images": [
           "/gallery/portrait/1.webp",
           "/gallery/portrait/2.webp"
         ],
         "imageAlt": "Andreina M. con su chaqueta Blossoming Beauty pintada a mano sobre denim"
+      },
+      {
+        "id": "leydi-pastillo",
+        "provenance": "Atelier de Pintura · Alumna Regular",
+        "quote": "Me gustan mucho las clases, cada clase es dinámica, entretenida y diferente, por lo que siempre tenemos la oportunidad de aprender algo nuevo y desarrollar nuestra creatividad. La profesora es muy amable, paciente y dedicada, y se toma el tiempo para enseñarnos y ayudarnos cuando lo necesitamos. Me gusta mucho que las clases no solo se enfocan en pintar, sino también en experimentar, aprender, disfrutar del proceso, y también hay actividades fuera de las instalaciones en donde podemos aprender más del arte. El ambiente es muy agradable y relajado, y me siento muy cómoda intentando cosas nuevas, incluso cuando al inicio se ve algo complicado, he salido de mi zona de confort y eso es lo que más me ha gustado. Sin duda, ha sido una experiencia muy bonita y enriquecedora. Recomiendo estas clases.",
+        "author": "Leydi Pastillo",
+        "role": "Alumna de Atelier · Pintura & Plein Air"
+      },
+      {
+        "id": "frexy-da-silva",
+        "provenance": "Academia de Arte · Clases Infantiles",
+        "quote": "¡Una experiencia maravillosa! Mi hija asiste a esta clase de arte y estamos súper felices con ella. La profesora es excelente: muy amable, respetuosa, paciente y cariñosa con los niños. Se nota muchísimo el amor y la dedicación que pone en cada clase. Además, es muy responsable y siempre cumple con el horario establecido. Mi hija disfruta muchísimo sus clases y ha desarrollado aún más su creatividad y entusiasmo por el arte. Sin duda, recomendamos esta clase al 100%. 💕🎨 Es un espacio bonito, agradable y donde los niños se sienten cómodos, felices y motivados para aprender. ¡Estamos fascinados!",
+        "author": "Frexy Da Silva",
+        "role": "Familia de Alumna · Academia de Arte"
+      },
+      {
+        "id": "gabriela-lomelin",
+        "provenance": "Atelier de Arte · Técnica & Creatividad",
+        "quote": "Me gustan mucho las clases, cada clase es dinámica, entretenida y diferente, por lo que siempre tenemos la oportunidad de aprender algo nuevo y desarrollar nuestra creatividad. La profesora es muy amable, paciente y dedicada, y se toma el tiempo para enseñarnos y ayudarnos cuando lo necesitamos. Me gusta mucho que las clases no solo se enfocan en pintar, sino también en experimentar, aprender, disfrutar del proceso, y también hay actividades fuera de las instalaciones en donde podemos aprender más del arte. El ambiente es muy agradable y relajado, y me siento muy cómoda intentando cosas nuevas, incluso cuando al inicio se ve algo complicado, he salido de mi zona de confort y eso es lo que más me ha gustado. Sin duda, ha sido una experiencia muy bonita y enriquecedora. Recomiendo estas clases.",
+        "author": "Gabriela Lomelin",
+        "role": "Alumna de Atelier · Formación Artística"
       }
     ]
   },

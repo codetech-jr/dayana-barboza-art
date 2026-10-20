@@ -139,9 +139,14 @@
     ]
   },
   "clientStories": {
-    "eyebrow": "Collector Diaries",
-    "title": "Stories worn, not told",
-    "subtitle": "Every piece has an owner who chose to turn their story into art. These are their words.",
+    "eyebrow": "Client Stories & Community",
+    "title": "Voices from the Atelier & Collections",
+    "subtitle": "From hand-painted bespoke jackets to inspiring art education: hear directly from those who experience the art of Dayana Barboza.",
+    "filterAll": "All (5)",
+    "filterCollectors": "Bespoke Jackets (2)",
+    "filterClasses": "Classes & Atelier (3)",
+    "collectorsLabel": "Bespoke Commissions & Private Collections",
+    "classesLabel": "Atelier & Art Class Reviews",
     "featured": {
       "provenance": "Private Collection · One-of-a-Kind Piece",
       "quote": "Beautiful work, Dayana! Your talent and creativity truly transformed the jacket into a unique, one-of-a-kind masterpiece. The care, meticulous detail, and passion you put into your craft shine through in every brushstroke. It’s such a joy to see how you bring an idea to life with such breathtaking artistry. I couldn't be happier with your incredible work. My absolute highest recommendation!",
@@ -153,28 +158,42 @@
         "/gallery/cinema/totoro-2.jpg",
         "/gallery/cinema/totoro-3.jpg"
       ],
-      "imageAlt": "Nora S. wearing her hand-painted My Neighbor Totoro denim jacket"
+      "imageAlt": "Nora S. wearing her custom hand-painted My Neighbor Totoro denim jacket"
     },
     "secondary": [
-      {
-        "id": "carlos-elena-r",
-        "provenance": "Private Art Party · Alexandria, VA",
-        "quote": "We hosted an Art Party for Elena's birthday. It was an intimate, fun, and high-end experience. Every guest took home an unforgettable textile piece.",
-        "author": "Carlos & Elena R.",
-        "role": "Art Party Hosts"
-      },
       {
         "id": "andreina-m",
         "provenance": "Private Collection · Blossoming Beauty",
         "quote": "I absolutely love my 'Blossoming Beauty' jean jacket! It is so much more than a jacket—it feels like a piece of art created especially for me. I'm amazed by the attention to every little detail, from the hand embroidery to the gorgeous floral lining. It perfectly expresses who I am. It is truly one of a kind, beautifully handcrafted, and made with so much heart. I couldn't be happier!",
         "author": "Andreina M.",
-        "role": "Bespoke Collector - Blossoming Beauty",
+        "role": "Bespoke Collector · Blossoming Beauty",
         "image": "/gallery/portrait/1.webp",
         "images": [
           "/gallery/portrait/1.webp",
           "/gallery/portrait/2.webp"
         ],
-        "imageAlt": "Andreina M. wearing her hand-painted Blossoming Beauty denim jacket"
+        "imageAlt": "Andreina M. wearing her custom hand-painted Blossoming Beauty denim jacket"
+      },
+      {
+        "id": "leydi-pastillo",
+        "provenance": "Painting Atelier · Studio Student",
+        "quote": "I really love the classes; each session is dynamic, engaging, and different, so we always have the opportunity to learn something new and develop our creativity. The teacher is very kind, patient, and dedicated, taking the time to guide and help us whenever needed. I love that the classes don't just focus on painting, but also on experimenting, learning, and enjoying the process. There are outdoor activities where we explore art further. The atmosphere is relaxed and I feel completely comfortable trying new things; stepping out of my comfort zone has been the best part. An enriching and beautiful experience. Highly recommended!",
+        "author": "Leydi Pastillo",
+        "role": "Atelier Student · Oil & Plein Air"
+      },
+      {
+        "id": "frexy-da-silva",
+        "provenance": "Art Academy · Youth Mentorship",
+        "quote": "A truly wonderful experience! My daughter attends this art class and we are so happy with her progress. Dayana is exceptional: very kind, respectful, patient, and caring with children. The love and dedication she pours into every single class is truly noticeable. She is also very responsible and always punctual with schedules. My daughter thoroughly enjoys her classes and has developed even more creativity and enthusiasm for art. Without hesitation, we recommend this class 100%! 💕🎨 A beautiful, welcoming space where kids feel comfortable, happy, and motivated to learn. We are thrilled!",
+        "author": "Frexy Da Silva",
+        "role": "Student's Parent · Art Academy"
+      },
+      {
+        "id": "gabriela-lomelin",
+        "provenance": "Art Atelier · Technique & Creativity",
+        "quote": "I truly enjoy the classes; every session is dynamic, entertaining, and unique, giving us the opportunity to constantly learn something new and expand our creativity. Dayana is remarkably kind, patient, and dedicated, taking the time to teach and support us whenever we need it. I love that the sessions don't only focus on painting, but on experimenting, learning, and enjoying the entire process, including outdoor excursions to discover more about the art world. The atmosphere is wonderfully relaxed and warm, encouraging me to step out of my comfort zone. An enriching and beautiful journey. 100% recommended!",
+        "author": "Gabriela Lomelin",
+        "role": "Atelier Student · Creative Expression"
       }
     ]
   },
