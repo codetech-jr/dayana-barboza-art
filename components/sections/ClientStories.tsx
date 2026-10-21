@@ -169,6 +169,7 @@ export function ClientStories({ locale, dict }: ClientStoriesProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isInView, setIsInView] = useState(false);
 
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -247,17 +248,38 @@ export function ClientStories({ locale, dict }: ClientStoriesProps) {
     return () => mediaQuery.removeEventListener('change', handler);
   }, []);
 
-  // ── Scroll to specific card ──
+  // ── Viewport Observer: ONLY auto-advance when section is actively visible ──
+  useEffect(() => {
+    const section = document.getElementById('client-stories');
+    if (!section || typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  // ── Scroll to specific card (SCOPED TO CONTAINER ONLY — NEVER SCROLLS WINDOW) ──
   const scrollToIndex = useCallback((index: number, smooth = true) => {
-    if (!trackRef.current) return;
-    const cards = trackRef.current.children;
+    const container = trackRef.current;
+    if (!container) return;
+    const cards = container.children;
     const targetCard = cards[index] as HTMLElement | undefined;
 
     if (targetCard) {
-      targetCard.scrollIntoView({
+      // Calculate target horizontal offset strictly within container coordinates
+      const containerLeft = container.getBoundingClientRect().left;
+      const cardLeft = targetCard.getBoundingClientRect().left;
+      const scrollOffset = cardLeft - containerLeft + container.scrollLeft;
+
+      container.scrollTo({
+        left: scrollOffset,
         behavior: smooth ? 'smooth' : 'instant',
-        block: 'nearest',
-        inline: 'start',
       });
       setCurrentIndex(index);
     }
@@ -300,16 +322,16 @@ export function ClientStories({ locale, dict }: ClientStoriesProps) {
     }
   };
 
-  // ── Auto-advance carousel (7s interval) ──
+  // ── Auto-advance carousel (7s interval) ONLY when section is visible in viewport ──
   useEffect(() => {
-    if (total <= 1 || isPaused || prefersReducedMotion) return;
+    if (total <= 1 || isPaused || prefersReducedMotion || !isInView) return;
 
     const timer = setInterval(() => {
       goToNext();
     }, 7000);
 
     return () => clearInterval(timer);
-  }, [total, isPaused, prefersReducedMotion, goToNext]);
+  }, [total, isPaused, prefersReducedMotion, isInView, goToNext]);
 
   // ── Keyboard navigation when section is in viewport ──
   useEffect(() => {
