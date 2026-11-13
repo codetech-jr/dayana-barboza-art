@@ -90,6 +90,15 @@ export interface Dictionary {
     readonly microcopy: string;
     readonly placeholder?: string;
     readonly placeholderNote?: string;
+    readonly badge?: string;
+    readonly waitlistTitle?: string;
+    readonly waitlistDescription?: string;
+    readonly card1Title?: string;
+    readonly card1Tag?: string;
+    readonly card1Specs?: string;
+    readonly card2Title?: string;
+    readonly card2Tag?: string;
+    readonly card2Specs?: string;
 
     // Tallas y Selección
     readonly sizeLabel: string;
