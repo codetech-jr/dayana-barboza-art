@@ -110,11 +110,13 @@ export async function generateMetadata({
     },
     icons: {
       icon: [
-        { url: '/logos/logo-1.png', type: 'image/png' },
+        { url: '/favicon.ico' },
+        { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+        { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
       ],
-      shortcut: ['/logos/logo-1.png'],
+      shortcut: '/favicon.ico',
       apple: [
-        { url: '/logos/logo-1.png', sizes: '180x180', type: 'image/png' },
+        { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
       ],
     },
     robots: {
@@ -153,9 +155,9 @@ export default async function LocaleLayout({
       style={{ scrollPaddingTop: '80px' }}
     >
       <head>
-        <link rel="icon" href="/logos/logo-1.png" type="image/png" />
-        <link rel="shortcut icon" href="/logos/logo-1.png" />
-        <link rel="apple-touch-icon" href="/logos/logo-1.png" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
       <body className="min-h-dvh flex flex-col bg-dba-white text-dba-ink font-body">
         <Nav dict={dict} locale={locale} />
