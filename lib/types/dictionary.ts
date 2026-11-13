@@ -90,6 +90,35 @@ export interface Dictionary {
     readonly microcopy: string;
     readonly placeholder?: string;
     readonly placeholderNote?: string;
+
+    // Tallas y Selección
+    readonly sizeLabel: string;
+    readonly sizeGuide: string;
+    readonly selectSize: string;
+
+    // Estados de Producto
+    readonly statusAvailable: string;
+    readonly statusLimited: string;
+    readonly statusSoldOut: string;
+
+    // Acciones del Carrito / Bolsa
+    readonly addToBag: string;
+    readonly addedToBag: string;
+    readonly soldOutCta: string;
+    readonly buyWhatsapp: string;
+
+    // Cajón del Carrito / Bolsa
+    readonly bagTitle: string;
+    readonly bagEmpty: string;
+    readonly bagSubtotal: string;
+    readonly bagCheckout: string;
+    readonly bagContinue: string;
+    readonly bagRemove: string;
+    readonly bagQuantity: string;
+
+    // Mensajes Legales / Confianza
+    readonly securePayment: string;
+    readonly returnsPolicy: string;
   };
   readonly creativeProcess: {
     readonly eyebrow: string;
