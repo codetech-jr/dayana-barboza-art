@@ -39,6 +39,10 @@ const TRIGGER_MESSAGES = {
     es: 'Hola Dayana, quiero consultar tallas y disponibilidad de una camiseta.',
     en: "Hi Dayana, I'd like to check sizes and availability for a t-shirt.",
   },
+  merchWaitlist: {
+    es: 'Hola Dayana, quiero unirme a la lista prioritaria para el lanzamiento de la colección de Merch.',
+    en: "Hi Dayana, I'd like to join the priority waitlist for the Merch collection launch.",
+  },
   footerJacket: {
     es: 'Hola Dayana, me interesa cotizar una chaqueta personalizada.',
     en: "Hi Dayana, I'd like to get a quote for a custom jacket.",
