@@ -1,8 +1,9 @@
 import type { MetadataRoute } from 'next';
+import { TSHIRTS_CATALOG } from '@/lib/data/tshirts';
 
 const BASE_URL = 'https://www.dayanabarboza.com';
 
-const ROUTES = [
+const STATIC_ROUTES = [
   { path: '', priority: 1.0, changeFrequency: 'weekly' as const },
   { path: '/gallery', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/about', priority: 0.8, changeFrequency: 'monthly' as const },
@@ -14,7 +15,15 @@ const ROUTES = [
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
-  return ROUTES.flatMap((route) => [
+  const productRoutes = TSHIRTS_CATALOG.map((product) => ({
+    path: `/merch/${product.slug}`,
+    priority: 0.75,
+    changeFrequency: 'weekly' as const,
+  }));
+
+  const allRoutes = [...STATIC_ROUTES, ...productRoutes];
+
+  return allRoutes.flatMap((route) => [
     {
       url: `${BASE_URL}/es${route.path}`,
       lastModified,
