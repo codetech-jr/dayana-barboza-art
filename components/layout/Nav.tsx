@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { CartDrawer } from '@/components/cart';
+import { useCart } from '@/lib/cart';
 import type { Dictionary } from '@/lib/types/dictionary';
 import type { Locale } from '@/lib/i18n/config';
 
@@ -42,6 +44,8 @@ export const ROUTE_MAP: Record<NavLinkKey, string> = {
  */
 export function Nav({ dict, locale }: NavProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { totalItems } = useCart();
   const pathname = usePathname();
 
   const alternateLocale: Locale = locale === 'es' ? 'en' : 'es';
@@ -118,8 +122,50 @@ export function Nav({ dict, locale }: NavProps) {
             })}
           </ul>
 
-          {/* ── Desktop Right: CTA + Switcher ── */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* ── Desktop Right: Bag + Switcher + CTA ── */}
+          <div className="hidden md:flex items-center gap-3.5">
+            {/* Bag Trigger Button */}
+            <button
+              type="button"
+              onClick={() => setIsCartOpen(true)}
+              className="
+                relative flex items-center justify-center
+                w-10 h-10 rounded-full
+                border border-dba-rule bg-dba-paper/40 hover:bg-dba-paper text-dba-ink
+                transition-all duration-300
+                hover:border-dba-accent hover:text-dba-accent
+                focus-visible:outline-2 focus-visible:outline-offset-2
+                focus-visible:outline-dba-accent
+              "
+              aria-label={
+                locale === 'es'
+                  ? `Bolsa de compras, ${totalItems} artículos`
+                  : `Shopping bag, ${totalItems} items`
+              }
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                <line x1="3" x2="21" y1="6" y2="6" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+              </svg>
+
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-dba-accent px-1 text-[10px] font-mono font-bold text-dba-white shadow-xs">
+                  {totalItems}
+                </span>
+              )}
+            </button>
+
             {/* Language Switcher */}
             <Link
               href={alternateHref}
@@ -154,48 +200,92 @@ export function Nav({ dict, locale }: NavProps) {
             </a>
           </div>
 
-          {/* ── Mobile Hamburger ── */}
-          <button
-            type="button"
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="
-              md:hidden relative z-50
-              flex flex-col justify-center items-center
-              w-10 h-10 rounded-full
-              focus-visible:outline-2 focus-visible:outline-offset-2
-              focus-visible:outline-dba-accent
-            "
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            aria-label={
-              menuOpen
-                ? (locale === 'es' ? 'Cerrar menú' : 'Close menu')
-                : (locale === 'es' ? 'Abrir menú' : 'Open menu')
-            }
-            style={{ WebkitTapHighlightColor: 'transparent' }}
-          >
-            <span
-              className={`
-                block h-[1.5px] w-5 bg-dba-ink rounded-full
-                transition-all duration-400 ease-[var(--dba-ease)]
-                ${menuOpen ? 'rotate-45 translate-y-[5px]' : ''}
-              `}
-            />
-            <span
-              className={`
-                block h-[1.5px] w-5 bg-dba-ink rounded-full mt-[3.5px]
-                transition-all duration-200
-                ${menuOpen ? 'opacity-0 scale-x-0' : ''}
-              `}
-            />
-            <span
-              className={`
-                block h-[1.5px] w-5 bg-dba-ink rounded-full mt-[3.5px]
-                transition-all duration-400 ease-[var(--dba-ease)]
-                ${menuOpen ? '-rotate-45 -translate-y-[5px]' : ''}
-              `}
-            />
-          </button>
+          {/* ── Mobile Right: Bag + Hamburger ── */}
+          <div className="flex md:hidden items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setIsCartOpen(true)}
+              className="
+                relative flex items-center justify-center
+                w-10 h-10 rounded-full
+                border border-dba-rule bg-dba-paper/40 hover:bg-dba-paper text-dba-ink
+                transition-all duration-300
+                hover:border-dba-accent hover:text-dba-accent
+                focus-visible:outline-2 focus-visible:outline-offset-2
+                focus-visible:outline-dba-accent
+              "
+              aria-label={
+                locale === 'es'
+                  ? `Bolsa de compras, ${totalItems} artículos`
+                  : `Shopping bag, ${totalItems} items`
+              }
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                <line x1="3" x2="21" y1="6" y2="6" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+              </svg>
+
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-dba-accent px-1 text-[10px] font-mono font-bold text-dba-white shadow-xs">
+                  {totalItems}
+                </span>
+              )}
+            </button>
+
+            {/* Mobile Hamburger */}
+            <button
+              type="button"
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="
+                relative z-50
+                flex flex-col justify-center items-center
+                w-10 h-10 rounded-full
+                focus-visible:outline-2 focus-visible:outline-offset-2
+                focus-visible:outline-dba-accent
+              "
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              aria-label={
+                menuOpen
+                  ? (locale === 'es' ? 'Cerrar menú' : 'Close menu')
+                  : (locale === 'es' ? 'Abrir menú' : 'Open menu')
+              }
+              style={{ WebkitTapHighlightColor: 'transparent' }}
+            >
+              <span
+                className={`
+                  block h-[1.5px] w-5 bg-dba-ink rounded-full
+                  transition-all duration-400 ease-[var(--dba-ease)]
+                  ${menuOpen ? 'rotate-45 translate-y-[5px]' : ''}
+                `}
+              />
+              <span
+                className={`
+                  block h-[1.5px] w-5 bg-dba-ink rounded-full mt-[3.5px]
+                  transition-all duration-200
+                  ${menuOpen ? 'opacity-0 scale-x-0' : ''}
+                `}
+              />
+              <span
+                className={`
+                  block h-[1.5px] w-5 bg-dba-ink rounded-full mt-[3.5px]
+                  transition-all duration-400 ease-[var(--dba-ease)]
+                  ${menuOpen ? '-rotate-45 -translate-y-[5px]' : ''}
+                `}
+              />
+            </button>
+          </div>
         </nav>
       </header>
 
@@ -310,6 +400,47 @@ export function Nav({ dict, locale }: NavProps) {
             {alternateLocale === 'es' ? 'Español' : 'English'}
           </Link>
 
+          {/* Mobile Bag Button */}
+          <button
+            type="button"
+            onClick={() => {
+              setMenuOpen(false);
+              setIsCartOpen(true);
+            }}
+            className="
+              inline-flex items-center gap-2 rounded-full border border-dba-rule px-6 py-2.5
+              text-sm font-body font-medium text-dba-ink transition-colors duration-300
+              hover:border-dba-accent hover:text-dba-accent
+            "
+            style={{
+              transitionDelay: menuOpen ? `${(NAV_LINKS.length + 1) * 50}ms` : '0ms',
+              opacity: menuOpen ? 1 : 0,
+              transform: menuOpen ? 'translateY(0)' : 'translateY(16px)',
+            }}
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+              <line x1="3" x2="21" y1="6" y2="6" />
+              <path d="M16 10a4 4 0 0 1-8 0" />
+            </svg>
+            <span>{dict.merch.bagTitle}</span>
+            {totalItems > 0 && (
+              <span className="rounded-full bg-dba-accent px-2 py-0.5 font-mono text-xs font-semibold text-dba-white">
+                {totalItems}
+              </span>
+            )}
+          </button>
+
           {/* Mobile CTA */}
           <a
             href="#footer"
@@ -322,7 +453,7 @@ export function Nav({ dict, locale }: NavProps) {
               hover:bg-dba-accent-hover active:scale-95
             "
             style={{
-              transitionDelay: menuOpen ? `${(NAV_LINKS.length + 1) * 50}ms` : '0ms',
+              transitionDelay: menuOpen ? `${(NAV_LINKS.length + 2) * 50}ms` : '0ms',
               opacity: menuOpen ? 1 : 0,
               transform: menuOpen ? 'translateY(0)' : 'translateY(16px)',
             }}
@@ -334,7 +465,7 @@ export function Nav({ dict, locale }: NavProps) {
           <div
             className="mt-2 flex flex-col items-center transition-all duration-300"
             style={{
-              transitionDelay: menuOpen ? `${(NAV_LINKS.length + 2) * 50}ms` : '0ms',
+              transitionDelay: menuOpen ? `${(NAV_LINKS.length + 3) * 50}ms` : '0ms',
               opacity: menuOpen ? 0.7 : 0,
               transform: menuOpen ? 'translateY(0)' : 'translateY(16px)',
             }}
@@ -349,6 +480,14 @@ export function Nav({ dict, locale }: NavProps) {
           </div>
         </nav>
       </div>
+
+      {/* ── Slide-over Cart Drawer ── */}
+      <CartDrawer
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+        dict={dict.merch}
+        locale={locale}
+      />
     </>
   );
 }

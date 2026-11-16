@@ -5,6 +5,7 @@ import { LOCALES, isValidLocale } from '@/lib/i18n/config';
 import { notFound } from 'next/navigation';
 import { Nav } from '@/components/layout/Nav';
 import { WhatsAppFAB } from '@/components/layout/WhatsAppFAB';
+import { CartProvider } from '@/lib/cart';
 import '@/app/globals.css';
 
 /* ─── Font Loading (self-hosted by Next.js, no external requests) ─── */
@@ -160,9 +161,11 @@ export default async function LocaleLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
       <body className="min-h-dvh flex flex-col bg-dba-white text-dba-ink font-body">
-        <Nav dict={dict} locale={locale} />
-        {children}
-        <WhatsAppFAB locale={locale} />
+        <CartProvider>
+          <Nav dict={dict} locale={locale} />
+          {children}
+          <WhatsAppFAB locale={locale} />
+        </CartProvider>
       </body>
     </html>
   );

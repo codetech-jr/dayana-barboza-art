@@ -228,14 +228,21 @@ export function CartProvider({ children }: CartProviderProps) {
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
+const DEFAULT_CART_VALUE: CartContextValue = {
+  items: [],
+  addItem: () => {},
+  removeItem: () => {},
+  updateQuantity: () => {},
+  clearCart: () => {},
+  totalItems: 0,
+  subtotalUSD: 0,
+};
+
 /**
  * Hook to consume the CartContext.
- * Throws a descriptive error when used outside of CartProvider.
+ * Returns the active cart context, or safe default if rendered outside CartProvider.
  */
 export function useCart(): CartContextValue {
   const context = useContext(CartContext);
-  if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
-  }
-  return context;
+  return context ?? DEFAULT_CART_VALUE;
 }
