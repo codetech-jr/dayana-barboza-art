@@ -106,7 +106,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         {/* ── Breadcrumb / Back Link ── */}
         <div className="mb-6 sm:mb-10">
           <Link
-            href={`/${locale}/merch`}
+            href={`/${locale}/merch#merch`}
             className="
               inline-flex items-center gap-2
               font-body text-xs sm:text-sm font-medium
@@ -164,7 +164,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
               <div className="mt-4 flex items-baseline gap-3">
                 <span className="font-mono text-2xl sm:text-3xl font-bold text-dba-ink">
-                  ${product.priceUSD} USD
+                  ${product.priceUSD.toFixed(2)} USD
                 </span>
                 <span className="text-xs font-body text-dba-muted">
                   {locale === 'es' ? 'Edición original de autor' : 'Original artist edition'}

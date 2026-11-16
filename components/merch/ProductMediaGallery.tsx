@@ -228,13 +228,14 @@ export function ProductMediaGallery({
           `}
           aria-label={locale === 'es' ? 'Ver video de referencia' : 'View reference video'}
         >
-          {videoPoster ? (
+          {videoPoster && !imageErrorMap[4] ? (
             <Image
               src={videoPoster}
               alt="Video preview poster"
               fill
               sizes="80px"
               className="object-cover object-center opacity-60"
+              onError={() => handleImageError(4)}
             />
           ) : (
             <div className="w-full h-full bg-dba-paper" />
