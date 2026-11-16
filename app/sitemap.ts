@@ -10,6 +10,11 @@ const STATIC_ROUTES = [
   { path: '/classes', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/experiences', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/merch', priority: 0.8, changeFrequency: 'weekly' as const },
+  { path: '/returns', priority: 0.5, changeFrequency: 'monthly' as const },
+  { path: '/privacy', priority: 0.5, changeFrequency: 'monthly' as const },
+  { path: '/terms', priority: 0.5, changeFrequency: 'monthly' as const },
+  { path: '/shipping', priority: 0.5, changeFrequency: 'monthly' as const },
+  { path: '/accessibility', priority: 0.5, changeFrequency: 'monthly' as const },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

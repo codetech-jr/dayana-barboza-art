@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { Eyebrow } from '@/components/ui';
 import { buildWhatsAppUrl } from '@/lib/whatsapp';
 import type { Dictionary } from '@/lib/types/dictionary';
@@ -118,8 +119,49 @@ export function FooterContact({ dict, locale }: FooterContactProps) {
           />
         </div>
 
+        {/* ── Discreet Legal Links Strip ── */}
+        <nav
+          className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-center text-xs font-body text-dba-muted"
+          aria-label="Legal links"
+        >
+          <Link
+            href={`/${locale}/returns`}
+            className="hover:text-dba-accent transition-colors duration-200"
+          >
+            {dict.legal.returns}
+          </Link>
+          <span className="text-dba-rule select-none" aria-hidden="true">·</span>
+          <Link
+            href={`/${locale}/privacy`}
+            className="hover:text-dba-accent transition-colors duration-200"
+          >
+            {dict.legal.privacy}
+          </Link>
+          <span className="text-dba-rule select-none" aria-hidden="true">·</span>
+          <Link
+            href={`/${locale}/terms`}
+            className="hover:text-dba-accent transition-colors duration-200"
+          >
+            {dict.legal.terms}
+          </Link>
+          <span className="text-dba-rule select-none" aria-hidden="true">·</span>
+          <Link
+            href={`/${locale}/shipping`}
+            className="hover:text-dba-accent transition-colors duration-200"
+          >
+            {dict.legal.shipping}
+          </Link>
+          <span className="text-dba-rule select-none" aria-hidden="true">·</span>
+          <Link
+            href={`/${locale}/accessibility`}
+            className="hover:text-dba-accent transition-colors duration-200"
+          >
+            {dict.legal.accessibility}
+          </Link>
+        </nav>
+
         {/* ── Copyright & Legal Notice ── */}
-        <p className="mt-6 text-center font-mono text-[10px] text-dba-faint tracking-wider">
+        <p className="mt-4 text-center font-mono text-[10px] text-dba-faint tracking-wider">
           © {new Date().getFullYear()} Amazing Project · {locale === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
         </p>
       </div>

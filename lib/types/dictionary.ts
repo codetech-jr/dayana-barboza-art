@@ -10,6 +10,24 @@ export interface TechniqueBlock {
   readonly description: string;
 }
 
+export interface LegalSection {
+  readonly title: string;
+  readonly paragraphs: readonly string[];
+  readonly listItems?: readonly string[];
+  readonly note?: string;
+  readonly table?: {
+    readonly headers: readonly string[];
+    readonly rows: readonly (readonly string[])[];
+  };
+}
+
+export interface LegalPageContent {
+  readonly title: string;
+  readonly metaDescription: string;
+  readonly lastUpdated: string;
+  readonly sections: readonly LegalSection[];
+}
+
 export interface Dictionary {
   readonly meta: {
     readonly title: string;
@@ -176,5 +194,21 @@ export interface Dictionary {
     };
     readonly socialProof: string;
     readonly signature: string;
+  };
+  readonly legal: {
+    readonly returns: string;
+    readonly privacy: string;
+    readonly terms: string;
+    readonly shipping: string;
+    readonly accessibility: string;
+    readonly backToHome: string;
+    readonly lastUpdatedLabel: string;
+  };
+  readonly legalPages: {
+    readonly returns: LegalPageContent;
+    readonly privacy: LegalPageContent;
+    readonly terms: LegalPageContent;
+    readonly shipping: LegalPageContent;
+    readonly accessibility: LegalPageContent;
   };
 }

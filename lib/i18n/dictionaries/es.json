@@ -234,5 +234,336 @@
     },
     "socialProof": "Respondiendo desde Virginia y para todo el mundo.",
     "signature": "Amazing Project — Arte que se vive, se lleva y no se olvida."
+  },
+  "legal": {
+    "returns": "Devoluciones y Cancelaciones",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos y Condiciones",
+    "shipping": "Política de Envíos",
+    "accessibility": "Declaración de Accesibilidad",
+    "backToHome": "Volver al inicio",
+    "lastUpdatedLabel": "Última actualización"
+  },
+  "legalPages": {
+    "returns": {
+      "title": "Política de Devoluciones, Cancelaciones y Encargos",
+      "metaDescription": "Conoce nuestra política editorial para compras ready-to-ship, encargos personalizados de arte textil y reservas de talleres en The Amazing Project.",
+      "lastUpdated": "Noviembre 2026 · Versión 1.2",
+      "sections": [
+        {
+          "title": "1. Nuestro Compromiso Editorial",
+          "paragraphs": [
+            "En The Amazing Project, cada una de nuestras franelas y piezas textiles es concebida como arte que se vive, se viste y se colecciona. Cuidamos al máximo cada detalle de confección, pigmentación y acabado de autor.",
+            "Tu satisfacción total es nuestra prioridad; si por algún motivo tu pedido no cumple plenamente con tus expectativas, contamos con un proceso transparente para atenderte de forma personalizada."
+          ]
+        },
+        {
+          "title": "2. Bloque A — Franelas Ready-to-Ship (Colección Boutique)",
+          "paragraphs": [
+            "Aceptamos solicitudes de devolución dentro de los 14 días calendario posteriores a la fecha de entrega del paquete, según la confirmación oficial del servicio postal o de mensajería (carrier tracking).",
+            "Para que una devolución sea aprobada por nuestro atelier, la prenda debe cumplir sin excepción con todos los siguientes requisitos:"
+          ],
+          "listItems": [
+            "Estar en su estado original estricto: sin usar, sin lavar, sin olores corporales ni manchas, y sin alteraciones en sus costuras.",
+            "Conservar todas sus etiquetas originales intactas, fijas y adheridas.",
+            "Mantener el empaque original de The Amazing Project en óptimas condiciones.",
+            "Haber iniciado la solicitud formal dentro del plazo improrrogable de 14 días.",
+            "Presentar el comprobante o número de orden digital emitido por Stripe."
+          ],
+          "note": "Artículos no elegibles: Por razones de exclusividad y gestión de inventario, no aceptamos devoluciones en prendas adquiridas en Venta Final, piezas de la sección Archive, promociones especiales de liquidación o artículos que muestren señales de uso."
+        },
+        {
+          "title": "3. Costos de Envío, Reembolsos y Cambios de Talla (Ready-to-Ship)",
+          "paragraphs": [
+            "Los costos de envío para retornar el producto corren por cuenta del comprador, a menos que el motivo sea un error comprobable atribuible a The Amazing Project (despacho de una talla o modelo incorrecto, o defecto textil de fábrica).",
+            "Una vez recibido el paquete en nuestro taller e inspeccionada la prenda, te notificaremos la resolución. Si es aprobada, el reembolso se procesará de forma inmediata a través de Stripe hacia tu método de pago original (tarjeta de crédito, débito, Apple Pay o Google Pay). La acreditación suele tardar entre 5 y 10 días hábiles según tu entidad bancaria.",
+            "Debido a que nuestras franelas se lanzan en drops y ediciones limitadas, no podemos garantizar la disponibilidad inmediata de otra talla. Para cambiar de talla: se procesa la devolución de la prenda original según esta política y se realiza una nueva compra en la boutique por la talla requerida."
+          ]
+        },
+        {
+          "title": "4. Bloque B — Obras Custom y Chaquetas Intervenidas",
+          "paragraphs": [
+            "Las chaquetas y piezas textiles intervenidas a mano por Dayana Barboza son creaciones artísticas por encargo, diseñadas y ejecutadas a medida para cada coleccionista.",
+            "Al iniciar un encargo custom se abona un depósito del 50% para la fase de conceptualización y boceto. Si el cliente decide cancelar ANTES de la aprobación del boceto final, se reembolsa el 100% de dicho depósito dentro de los 5 días hábiles siguientes.",
+            "Una vez aprobado el boceto final por el cliente, el depósito del 50% NO es reembolsable bajo ninguna circunstancia, ya que cubre el tiempo invertido de diseño, preparación de paletas y reserva de agenda de taller.",
+            "Una vez completada y entregada la obra terminada, NO existe posibilidad de devolución ni reembolso (se trata de una pieza de arte única e irrepetible confeccionada bajo directrices exclusivas)."
+          ]
+        },
+        {
+          "title": "5. Prendas Enviadas por el Cliente al Taller",
+          "paragraphs": [
+            "Cuando el cliente envía su propia chaqueta o prenda personal a nuestro taller en Richmond, Virginia para su intervención artística:",
+            "The Amazing Project no se hace responsable por pérdidas, robos o deterioros ocurridos durante el tránsito postal de ida o vuelta gestionado por los servicios de encomienda. Recomendamos encarecidamente contratar un seguro postal con número de rastreo.",
+            "En el improbable caso de un accidente técnico o daño irreparable durante el proceso de pintura en taller, la responsabilidad civil máxima de The Amazing Project se limita estrictamente al valor comercial comprobable de la prenda base (hasta un tope máximo de $150 USD)."
+          ]
+        },
+        {
+          "title": "6. Bloque C — Clases de Pintura y Art Parties",
+          "paragraphs": [
+            "Nuestras experiencias formativas y talleres grupales cuentan con políticas diseñadas para garantizar la disponibilidad de materiales y la reserva de espacios:"
+          ],
+          "listItems": [
+            "Cancelación con más de 48 horas de antelación: Reembolso del 100% del valor abonado o emisión de un crédito de taller transferible con validez de 6 meses.",
+            "Cancelación con menos de 48 horas de antelación: No aplica reembolso monetario. Se permitirá una única reprogramación de fecha sujeta a cupos disponibles.",
+            "Inasistencia sin previo aviso (No-show): No aplica reembolso ni opción de reprogramación."
+          ]
+        },
+        {
+          "title": "7. Notificación de Daños en Tránsito y Contacto",
+          "paragraphs": [
+            "Si recibes un paquete con daños visibles causados por el transporte, deberás notificárnoslo dentro de las primeras 48 horas tras la entrega, adjuntando fotografías claras del embalaje y de la prenda.",
+            "Para iniciar cualquier gestión de devolución, comunícate con nosotros a contact@dayanabarboza.art o vía WhatsApp Concierge al +1 (786) 508-6177."
+          ]
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Política de Privacidad y Protección de Datos",
+      "metaDescription": "Transparencia total sobre tus datos, infraestructura de pagos segura con Stripe PCI-DSS y cumplimiento con Virginia VCDPA y CCPA.",
+      "lastUpdated": "Noviembre 2026 · Versión 1.2",
+      "sections": [
+        {
+          "title": "1. Responsable del Tratamiento y Compromiso",
+          "paragraphs": [
+            "The Amazing Project, fundado y dirigido por la artista Dayana Barboza, con sede en Richmond, Virginia, Estados Unidos, valora profundamente la confianza que depositas en nosotros al visitar nuestra boutique y encargar nuestras obras.",
+            "Esta Política de Privacidad describe de forma clara y transparente cómo recopilamos, utilizamos y protegemos tu información personal al interactuar con nuestra plataforma digital dayanabarboza.art."
+          ]
+        },
+        {
+          "title": "2. Información Personal que Recopilamos",
+          "paragraphs": [
+            "Solo solicitamos los datos estrictamente indispensables para procesar tus órdenes, coordinar envíos postales y mantener un canal directo de atención:"
+          ],
+          "table": {
+            "headers": [
+              "Dato Solicitado",
+              "Finalidad Exclusiva de Tratamiento"
+            ],
+            "rows": [
+              [
+                "Nombre y Apellido",
+                "Identificación de la orden y rotulación postal del paquete."
+              ],
+              [
+                "Correo Electrónico",
+                "Envío de confirmación de compra, recibo digital de Stripe y código de rastreo."
+              ],
+              [
+                "Dirección de Envío",
+                "Entrega física de la prenda a través de carriers certificados (USPS, UPS, FedEx)."
+              ],
+              [
+                "Teléfono / WhatsApp",
+                "Comunicación logística inmediata ante eventualidades en la entrega y atención concierge."
+              ]
+            ]
+          }
+        },
+        {
+          "title": "3. Máxima Seguridad Bancaria: Stripe PCI-DSS Nivel 1",
+          "paragraphs": [
+            "The Amazing Project y Dayana Barboza NUNCA almacenan, capturan ni tienen acceso a los números de tu tarjeta de crédito o débito.",
+            "Toda la infraestructura transaccional de pagos está delegada y gestionada de forma externa por Stripe Inc., pasarela de pagos líder mundial certificada bajo el estándar bancario más riguroso de la industria: PCI-DSS Nivel 1 (Payment Card Industry Data Security Standard).",
+            "Al ingresar tu tarjeta o abonar mediante Apple Pay o Google Pay, tus datos viajan cifrados bajo conexiones TLS/SSL directas a los servidores seguros de Stripe. Nuestro servidor solo recibe un identificador de cobro exitoso que muestra únicamente los últimos 4 dígitos y la marca de la tarjeta (ej. Visa ···· 4242) para fines de comprobante contable."
+          ]
+        },
+        {
+          "title": "4. Tratamiento de Fotografías de Referencia para Encargos",
+          "paragraphs": [
+            "Las imágenes, retratos y fotografías que los clientes proporcionan como referencia visual para la personalización de chaquetas o retratos artísticos son tratadas con absoluta confidencialidad.",
+            "Dichas imágenes se utilizan exclusivamente para la ejecución de la obra solicitada y son eliminadas permanentemente de nuestros dispositivos y archivos de trabajo tras la entrega satisfactoria de la pieza."
+          ]
+        },
+        {
+          "title": "5. Publicación de Obras en Portafolio y Redes Sociales",
+          "paragraphs": [
+            "The Amazing Project se reserva el derecho de documentar mediante fotografía y video el proceso creativo y el resultado final de todas las obras realizadas en el taller, con el fin de exhibirlas en nuestro portafolio artístico y en los canales oficiales de Instagram y TikTok (@dayanabarboza.art).",
+            "Si tu encargo es un obsequio sorpresa, un retrato íntimo o requieres reserva absoluta, puedes solicitar confidencialidad por escrito antes de iniciar el proceso de pintura y respetaremos íntegramente tu privacidad."
+          ]
+        },
+        {
+          "title": "6. Cookies Técnicas y Cero Comercio de Datos",
+          "paragraphs": [
+            "Nuestro sitio web utiliza únicamente almacenamiento local técnico y cookies esenciales para mantener activa tu bolsa de compras durante la sesión (dba_cart:v1). No utilizamos píxeles de seguimiento publicitario de Meta, TikTok ni Google Analytics.",
+            "No vendemos, no alquilamos ni comercializamos tu información personal a terceros bajo ninguna circunstancia. La única información compartida es tu dirección postal con las empresas transportistas encargadas de llevar el paquete hasta tu puerta."
+          ]
+        },
+        {
+          "title": "7. Tus Derechos bajo la Ley de Virginia (VCDPA)",
+          "paragraphs": [
+            "De conformidad con la Virginia Consumer Data Protection Act (VCDPA), los residentes del Estado de Virginia cuentan con los siguientes derechos sobre sus datos personales:",
+            "Derecho a confirmar si estamos tratando tus datos y acceder a ellos; derecho a corregir inexactitudes; derecho a solicitar la eliminación de datos personales recopilados; y derecho a obtener una copia portátil de tu información.",
+            "Asimismo, en atención a visitantes de California bajo la CCPA (California Consumer Privacy Act), ratificamos que no vendemos ni compartimos datos personales para publicidad conductual cruzada."
+          ]
+        },
+        {
+          "title": "8. Canales Oficiales para Ejercicio de Derechos",
+          "paragraphs": [
+            "Para ejercer cualquiera de tus derechos de privacidad o consultar inquietudes sobre el tratamiento de tus datos, puedes contactarnos en: contact@dayanabarboza.art o vía WhatsApp al +1 (786) 508-6177. Responderemos formalmente a tu solicitud en un plazo máximo de 30 días."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Términos y Condiciones de Uso",
+      "metaDescription": "Condiciones legales que rigen el uso de nuestra web, la compra de arte textil, encargos a medida y participación en talleres presenciales.",
+      "lastUpdated": "Noviembre 2026 · Versión 1.2",
+      "sections": [
+        {
+          "title": "1. Aceptación de los Términos",
+          "paragraphs": [
+            "Bienvenido a dayanabarboza.art. Al acceder, navegar, adquirir productos en nuestra tienda online o contratar servicios presenciales de The Amazing Project, aceptas quedar legalmente vinculado por los presentes Términos y Condiciones.",
+            "Si no estás de acuerdo con alguna de estas disposiciones, te rogamos abstenerte de utilizar nuestro sitio web y nuestros servicios comerciales."
+          ]
+        },
+        {
+          "title": "2. Descripción de los Servicios y Productos",
+          "paragraphs": [
+            "The Amazing Project, fundado por la artista Dayana Barboza en Richmond, Virginia, ofrece tres líneas principales de actividad artística:",
+            "a) Boutique Online: Franelas de edición limitada y arte para vestir ready-to-ship.",
+            "b) Encargos Personalizados: Obras de arte textil únicas pintadas a mano sobre chaquetas denim, lienzos y prendas de colección.",
+            "c) Experiencias y Talleres: Clases grupales e individuales de pintura (Art Parties y talleres de atelier)."
+          ]
+        },
+        {
+          "title": "3. Propiedad Intelectual y Derechos de Autor (Copyright)",
+          "paragraphs": [
+            "Dayana Barboza conserva de manera exclusiva e inalienable todos los derechos de autor (copyright), propiedad moral y derechos de explotación comercial sobre todas las obras, bocetos, conceptos visuales, diseños y pinturas aplicadas en las prendas y lienzos.",
+            "La adquisición de una prenda, chaqueta o pieza de arte textil otorga al comprador única y exclusivamente la propiedad física del objeto tangible adquirido. En ningún caso transfiere, cede ni licencia los derechos de reproducción, distribución, digitalización, modificación ni uso comercial del diseño artístico.",
+            "Queda estrictamente prohibida la reproducción total o parcial de los diseños con fines lucrativos o masivos sin la previa autorización expresa y por escrito de la artista."
+          ]
+        },
+        {
+          "title": "4. Responsabilidad sobre Prendas Enviadas por el Cliente",
+          "paragraphs": [
+            "Para clientes que envían prendas de su propiedad hacia el taller en Richmond, VA para ser intervenidas:",
+            "El cliente declara ser el legítimo propietario de la prenda y asume íntegramente los riesgos derivados del transporte postal de ida y vuelta.",
+            "The Amazing Project aplica técnicas mixtas de pintura textil de alto rendimiento. En el remoto e imprevisto evento de un daño técnico irreparable durante la intervención artística en taller, la responsabilidad de The Amazing Project quedará expresamente limitada al valor comercial de mercado declarado de la prenda base (hasta un límite indemnizatorio máximo de $150 USD)."
+          ]
+        },
+        {
+          "title": "5. Exención de Responsabilidad en Clases Presenciales y Talleres",
+          "paragraphs": [
+            "En nuestros talleres y Art Parties se emplean pigmentos acrílicos profesionales de alta fijación, solventes y herramientas artísticas que pueden ser indelebles en telas convencionales.",
+            "Cada participante es responsable de asistir con indumentaria y calzado adecuados para actividades de pintura. The Amazing Project no asume responsabilidad alguna por manchas, salpicaduras o deterioro en prendas, calzado o accesorios personales de los asistentes.",
+            "Los menores de edad que participen en actividades de atelier deberán estar acompañados y bajo la tutela continua de un adulto responsable."
+          ]
+        },
+        {
+          "title": "6. Precios, Moneda y Pasarelas de Pago",
+          "paragraphs": [
+            "Todos los precios listados en la web están expresados en Dólares Estadounidenses ($ USD). Nos reservamos el derecho de ajustar los precios del catálogo en cualquier momento sin previo aviso.",
+            "Los pagos se procesan de forma cifrada a través de Stripe. Para órdenes despachadas fuera de los Estados Unidos, los impuestos de importación, aranceles aduaneros o tasas de gestión local son de cuenta y responsabilidad exclusiva del comprador."
+          ]
+        },
+        {
+          "title": "7. Modificaciones de los Términos",
+          "paragraphs": [
+            "Nos reservamos el derecho de modificar estos Términos en cualquier momento para reflejar cambios legales, operativos o comerciales. Cualquier modificación entrará en vigor inmediatamente tras su publicación en esta página, señalando la fecha de última actualización."
+          ]
+        },
+        {
+          "title": "8. Legislación Aplicable y Fuero Jurisdiccional",
+          "paragraphs": [
+            "Estos Términos se rigen e interpretan conforme a las leyes del Estado de Virginia y las leyes federales de los Estados Unidos de América. Para cualquier controversia derivada del uso del sitio web o de las compras realizadas, las partes se someten a la jurisdicción exclusiva de los tribunales competentes de la Ciudad de Richmond, Virginia."
+          ]
+        }
+      ]
+    },
+    "shipping": {
+      "title": "Política de Envíos y Logística de Taller",
+      "metaDescription": "Información detallada sobre tiempos de producción artesanal, despacho con USPS/UPS/FedEx, envíos internacionales y recepción de chaquetas.",
+      "lastUpdated": "Noviembre 2026 · Versión 1.2",
+      "sections": [
+        {
+          "title": "1. Tiempo de Producción vs. Tiempo de Tránsito Postal",
+          "paragraphs": [
+            "Es fundamental distinguir entre el tiempo de elaboración artística en el taller y el tiempo que tarda la mensajería en transportar el paquete hasta tu destino:",
+            "El tiempo de envío postal comienza formalmente DESPUÉS de completar el proceso íntegro de pintura, curado térmico y sellado impermeable de la prenda.",
+            "Para franelas ready-to-ship de la boutique: Despachamos dentro de los 3 a 5 días hábiles siguientes a la confirmación de la orden.",
+            "Para obras custom y chaquetas intervenidas por encargo: El tiempo de producción artesanal oscila entre 3 y 4 semanas a partir de la aprobación final del boceto."
+          ]
+        },
+        {
+          "title": "2. Empresas de Mensajería y Rastreo Seguro",
+          "paragraphs": [
+            "Realizamos todos los despachos a través de empresas transportistas de primer nivel con comprobante de entrega: USPS (Priority Mail), UPS y FedEx.",
+            "Una vez generado el porte postal, recibirás automáticamente por correo electrónico o WhatsApp tu número de guía oficial (tracking number) para monitorear el avance en tiempo real."
+          ]
+        },
+        {
+          "title": "3. Envío de Chaquetas del Cliente hacia el Taller",
+          "paragraphs": [
+            "Si vas a enviar tu propia prenda para una intervención personalizada en Richmond, Virginia:",
+            "El cliente es responsable de seleccionar, costear y asegurar el envío de ida hacia nuestro taller.",
+            "La dirección física exacta de recepción se proporciona de manera privada vía correo o WhatsApp una vez confirmado el pedido y abonado el depósito inicial, con el fin de proteger la seguridad del taller."
+          ]
+        },
+        {
+          "title": "4. Envíos Internacionales y Trámites Aduaneros",
+          "paragraphs": [
+            "Despachamos piezas de arte textil a coleccionistas de todo el mundo (incluyendo España, Colombia, México, Reino Unido y más).",
+            "Aranceles, impuestos de importación (como IVA/VAT o aranceles locales) y tasas de gestión aduanera son responsabilidad exclusiva y directa del comprador en el país de destino. The Amazing Project no tiene control ni estimación previa de dichas tarifas gubernamentales."
+          ]
+        },
+        {
+          "title": "5. Paquetes Extraviados o Dañados en Tránsito",
+          "paragraphs": [
+            "Una vez entregado el paquete a la empresa transportista con su número de guía confirmado, la custodia y responsabilidad durante el tránsito corresponden al servicio de mensajería contratado.",
+            "En caso de extravío o daño evidente durante el transporte, el cliente debe iniciar formalmente el reclamo de seguro ante la empresa de paquetería correspondiente. The Amazing Project colaborará activamente suministrando comprobantes de envío y avalúos de la pieza artística."
+          ]
+        },
+        {
+          "title": "6. Exactitud en la Dirección de Entrega",
+          "paragraphs": [
+            "Es deber del comprador verificar la exactitud de sus datos de entrega. Paquetes devueltos a nuestro taller por direcciones incorrectas, incompletas o por falta de retiro en oficinas postales requerirán el pago de un nuevo flete de reenvío por parte del cliente."
+          ]
+        }
+      ]
+    },
+    "accessibility": {
+      "title": "Declaración de Accesibilidad Web",
+      "metaDescription": "Nuestro compromiso continuo con la accesibilidad digital inclusiva, estándares WCAG 2.1 Nivel AA y usabilidad universal.",
+      "lastUpdated": "Noviembre 2026 · Versión 1.2",
+      "sections": [
+        {
+          "title": "1. Compromiso con la Inclusión Digital",
+          "paragraphs": [
+            "En The Amazing Project y Dayana Barboza Art creemos que el arte es un lenguaje universal que debe ser accesible para todas las personas sin barreras.",
+            "Nos esforzamos de manera continua por garantizar que nuestra plataforma digital proporcione una experiencia inclusiva, navegable y legible para el público más amplio posible, adhiriéndonos progresivamente a las Pautas de Accesibilidad para el Contenido Web (WCAG 2.1) en su Nivel AA."
+          ]
+        },
+        {
+          "title": "2. Medidas y Criterios Técnicos Implementados",
+          "paragraphs": [
+            "Entre las medidas técnicas incorporadas en la arquitectura de nuestro sitio web destacan:"
+          ],
+          "listItems": [
+            "Navegación completa por teclado con anillos de enfoque visibles (focus-visible) de alto contraste en botones, enlaces y formularios.",
+            "Ratios de contraste cromático optimizados conforme a WCAG AA en toda la paleta de colores (tintas dba-ink sobre fondos de papel y marfil).",
+            "Textos alternativos descriptivos (alt text) en las piezas de arte textil y mockups de prendas.",
+            "Marcado semántico HTML5 estructurado (headings jerárquicos H1-H3, landmarks main, nav y footer).",
+            "Roles y atributos ARIA en componentes dinámicos como la bolsa de compras, modales y galerías interactivas.",
+            "Diseño responsivo que respeta preferencias de reducción de movimiento (prefers-reduced-motion) y zoom de tipografía."
+          ]
+        },
+        {
+          "title": "3. Limitaciones Actuales y Trabajo en Desarrollo",
+          "paragraphs": [
+            "Aunque trabajamos para que cada área sea plenamente accesible, reconocemos que algunas experiencias visuales complejas (como zooms en macros textiles y fallbacks temporales de mockups en preparación) se encuentran en proceso constante de refinamiento.",
+            "Monitoreamos activamente el comportamiento de la web con tecnologías de asistencia y lectores de pantalla como VoiceOver y NVDA."
+          ]
+        },
+        {
+          "title": "4. Asistencia Personalizada y Contacto Directo",
+          "paragraphs": [
+            "Si encuentras alguna dificultad al interactuar con cualquier sección de nuestra web o necesitas asistencia especial para realizar una compra o encargo, comunícate con nosotros:",
+            "Correo de Accesibilidad: contact@dayanabarboza.art",
+            "WhatsApp Concierge: +1 (786) 508-6177",
+            "Nos comprometemos a responder con prontitud para brindarte la información en un formato alternativo que se adapte a tus necesidades."
+          ]
+        }
+      ]
+    }
   }
 }

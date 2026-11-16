@@ -234,5 +234,336 @@
     },
     "socialProof": "Responding from Virginia to the world.",
     "signature": "Amazing Project — Art you live, wear, and never forget."
+  },
+  "legal": {
+    "returns": "Returns & Cancellations",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "shipping": "Shipping Policy",
+    "accessibility": "Accessibility Statement",
+    "backToHome": "Back to home",
+    "lastUpdatedLabel": "Last updated"
+  },
+  "legalPages": {
+    "returns": {
+      "title": "Returns, Cancellations & Bespoke Commissions Policy",
+      "metaDescription": "Learn about our editorial policy for ready-to-ship boutique pieces, custom textile commissions, and workshop bookings at The Amazing Project.",
+      "lastUpdated": "November 2026 · Version 1.2",
+      "sections": [
+        {
+          "title": "1. Our Editorial Commitment",
+          "paragraphs": [
+            "At The Amazing Project, each of our t-shirts and textile pieces is conceived as art that is lived in, worn, and collected. We devote the utmost care to every tailoring detail, artisanal pigment, and signature finishing.",
+            "Your complete satisfaction is our highest priority; if for any reason your purchase does not fully meet your expectations, we provide a clear and personalized process to assist you."
+          ]
+        },
+        {
+          "title": "2. Block A — Ready-to-Ship Apparel (Boutique Drops)",
+          "paragraphs": [
+            "We accept return requests within 14 calendar days from the delivery date, as recorded by official carrier tracking confirmation.",
+            "For a return to be approved by our atelier, the garment must strictly satisfy all of the following conditions without exception:"
+          ],
+          "listItems": [
+            "Be in its strict original condition: unworn, unwashed, free of body odors or stains, and without seam alterations.",
+            "Retain all original tags intact, securely fastened, and attached.",
+            "Keep The Amazing Project original packaging in pristine condition.",
+            "Have initiated the formal request within the non-extendable 14-day window.",
+            "Provide proof of purchase or digital order receipt issued by Stripe."
+          ],
+          "note": "Ineligible items: Due to exclusivity and inventory management, returns are not accepted on Final Sale items, Archive collection pieces, promotional clearance items, or garments displaying signs of wear."
+        },
+        {
+          "title": "3. Return Shipping Costs, Refunds & Size Exchanges (Ready-to-Ship)",
+          "paragraphs": [
+            "Return shipping costs are the sole responsibility of the customer, unless the return stems from a verifiable error attributable to The Amazing Project (dispatch of an incorrect size/model, or a genuine manufacturing flaw).",
+            "Once received at our atelier and inspected, we will notify you of the outcome. If approved, the refund will be processed immediately via Stripe to your original payment method (credit/debit card, Apple Pay, or Google Pay). Credit typically reflects within 5 to 10 business days depending on your issuing financial institution.",
+            "Because our t-shirts are released in limited drop editions, immediate size exchanges cannot be guaranteed. To exchange a size: return the original piece in accordance with this policy and place a new order on the boutique for the desired size."
+          ]
+        },
+        {
+          "title": "4. Block B — Bespoke Works & Hand-Painted Jackets",
+          "paragraphs": [
+            "Jackets and wearable textile art hand-painted by Dayana Barboza are bespoke collector commissions, designed and crafted to individual customer specifications.",
+            "Initiating a custom commission requires an upfront 50% deposit for conceptualization and sketch development. If the client cancels BEFORE final sketch approval, 100% of this deposit will be refunded within 5 business days.",
+            "Once the final design sketch is approved by the client, the 50% deposit becomes strictly NON-refundable under any circumstance, covering dedicated design hours, pigment preparation, and workshop scheduling.",
+            "Once the completed artwork is delivered, NO returns or refunds are possible (each garment is a unique, unrepeatable work of art crafted to private specifications)."
+          ]
+        },
+        {
+          "title": "5. Client-Supplied Garments Sent to the Workshop",
+          "paragraphs": [
+            "When a client ships their own personal jacket or garment to our atelier in Richmond, Virginia for artistic intervention:",
+            "The Amazing Project assumes no liability for loss, theft, or damage sustained during inbound or outbound postal transit handled by parcel carriers. We strongly urge customers to purchase full-value postal insurance with tracking.",
+            "In the improbable event of an irreparable technical mishap during the studio painting process, The Amazing Project's maximum legal liability is strictly capped at the verifiable commercial market value of the base garment (up to a ceiling of $150 USD)."
+          ]
+        },
+        {
+          "title": "6. Block C — Painting Classes & Art Parties",
+          "paragraphs": [
+            "Our educational experiences and group workshops operate under structured terms to ensure materials readiness and studio reservations:"
+          ],
+          "listItems": [
+            "Cancellations made more than 48 hours in advance: 100% monetary refund or issuance of a transferable workshop credit valid for 6 months.",
+            "Cancellations made under 48 hours in advance: No monetary refund applies. A one-time rescheduling will be permitted subject to seat availability.",
+            "No-show without notice: No refund or rescheduling applies."
+          ]
+        },
+        {
+          "title": "7. Reporting Transit Damage & Inquiries",
+          "paragraphs": [
+            "If you receive a package with visible shipping damage, notify us within 48 hours of delivery, attaching clear photographs of both the outer packaging and the garment.",
+            "To initiate any return or inquiry, contact us at contact@dayanabarboza.art or via WhatsApp Concierge at +1 (786) 508-6177."
+          ]
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Privacy Policy & Data Protection",
+      "metaDescription": "Complete transparency regarding your personal data, secure Stripe PCI-DSS payment infrastructure, and compliance with Virginia VCDPA and CCPA.",
+      "lastUpdated": "November 2026 · Version 1.2",
+      "sections": [
+        {
+          "title": "1. Data Controller & Privacy Commitment",
+          "paragraphs": [
+            "The Amazing Project, founded and directed by artist Dayana Barboza, headquartered in Richmond, Virginia, United States, deeply respects the trust you place in us when exploring our boutique and commissioning our wearable art.",
+            "This Privacy Policy outlines transparently how we collect, handle, and protect your personal information across our digital platform dayanabarboza.art."
+          ]
+        },
+        {
+          "title": "2. Information We Collect",
+          "paragraphs": [
+            "We collect only the personal information strictly necessary to fulfill your orders, arrange delivery logistics, and provide dedicated client support:"
+          ],
+          "table": {
+            "headers": [
+              "Information Category",
+              "Exclusive Purpose of Processing"
+            ],
+            "rows": [
+              [
+                "Full Name",
+                "Order identification and parcel address labeling."
+              ],
+              [
+                "Email Address",
+                "Purchase confirmations, Stripe digital receipts, and shipping tracking updates."
+              ],
+              [
+                "Shipping Address",
+                "Physical fulfillment and carrier delivery (USPS, UPS, FedEx)."
+              ],
+              [
+                "Phone / WhatsApp",
+                "Urgent logistics coordination during delivery and bespoke concierge communication."
+              ]
+            ]
+          }
+        },
+        {
+          "title": "3. Maximum Banking Security: Stripe PCI-DSS Level 1",
+          "paragraphs": [
+            "The Amazing Project and Dayana Barboza NEVER store, capture, or access your credit or debit card details.",
+            "Our entire transaction payment infrastructure is delegated to and managed externally by Stripe Inc., a world-leading financial platform certified under the most stringent banking standard in the industry: PCI-DSS Level 1 (Payment Card Industry Data Security Standard).",
+            "When entering payment details or using Apple Pay / Google Pay, your data travels encrypted via direct TLS/SSL channels to Stripe's secure vaults. Our server only receives an authorization confirmation displaying the card brand and last four digits (e.g., Visa ···· 4242) for accounting records."
+          ]
+        },
+        {
+          "title": "4. Treatment of Reference Photographs for Commissions",
+          "paragraphs": [
+            "Photographs and visual reference materials provided by clients for bespoke portraiture or custom jacket artwork are treated with strict confidentiality.",
+            "These images are utilized exclusively for executing the commissioned artwork and are permanently deleted from our working devices upon satisfactory delivery of the finished piece."
+          ]
+        },
+        {
+          "title": "5. Portfolio & Social Media Publications",
+          "paragraphs": [
+            "The Amazing Project reserves the right to document via photography and video both the creative process and the completed artwork produced in the studio, featuring them in our artistic archive and official social media channels (@dayanabarboza.art on Instagram and TikTok).",
+            "If your commission is a surprise gift, a private portrait, or requires total discretion, you may request confidentiality in writing prior to painting, and your privacy will be fully respected."
+          ]
+        },
+        {
+          "title": "6. Technical Cookies & Zero Data Commercialization",
+          "paragraphs": [
+            "Our website employs only essential technical local storage and cookies necessary to maintain your shopping bag active across sessions (dba_cart:v1). We do not use third-party tracking pixels from Meta, TikTok, or Google Analytics.",
+            "We never sell, rent, or trade your personal information to third parties under any circumstance. The only third-party data sharing is with shipping carriers (USPS, UPS, FedEx) strictly to transport your order."
+          ]
+        },
+        {
+          "title": "7. Your Rights Under Virginia Law (VCDPA)",
+          "paragraphs": [
+            "Pursuant to the Virginia Consumer Data Protection Act (VCDPA), Virginia residents hold specific rights regarding their personal data:",
+            "The right to confirm whether we process your data and to access it; the right to correct inaccuracies; the right to delete personal data provided; and the right to obtain a portable copy of your data.",
+            "Furthermore, for California visitors under the CCPA (California Consumer Privacy Act), we affirm that we do not sell or share personal information for cross-context behavioral advertising."
+          ]
+        },
+        {
+          "title": "8. Official Inquiries & Rights Requests",
+          "paragraphs": [
+            "To exercise any of your privacy rights or discuss our data practices, reach us at contact@dayanabarboza.art or via WhatsApp at +1 (786) 508-6177. We will formally address your request within 30 days."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Terms & Conditions of Service",
+      "metaDescription": "Legal terms governing the use of our website, acquisition of wearable art, bespoke commissions, and attendance at in-person workshops.",
+      "lastUpdated": "November 2026 · Version 1.2",
+      "sections": [
+        {
+          "title": "1. Acceptance of Terms",
+          "paragraphs": [
+            "Welcome to dayanabarboza.art. By accessing, browsing, purchasing products on our online store, or booking in-person services from The Amazing Project, you agree to be legally bound by these Terms & Conditions.",
+            "If you do not agree with any of these provisions, please refrain from using our digital platform and commercial services."
+          ]
+        },
+        {
+          "title": "2. Description of Services & Artworks",
+          "paragraphs": [
+            "The Amazing Project, founded by artist Dayana Barboza in Richmond, Virginia, operates three core lines of artistic work:",
+            "a) Online Boutique: Limited-edition ready-to-ship wearable art t-shirts.",
+            "b) Bespoke Commissions: One-of-a-kind wearable art hand-painted on denim jackets, canvases, and collector apparel.",
+            "c) Experiences & Workshops: Group and private painting classes (Art Parties and atelier instruction)."
+          ]
+        },
+        {
+          "title": "3. Intellectual Property & Artist Copyright [CRITICAL]",
+          "paragraphs": [
+            "Dayana Barboza retains exclusive and inalienable copyright, moral rights, and commercial exploitation rights over all artworks, sketches, visual concepts, designs, and paintings applied onto garments and canvases.",
+            "The purchase of a garment, jacket, or textile artwork grants the buyer physical ownership of the tangible object only. It does NOT transfer, assign, or license any rights of reproduction, distribution, digitization, derivative creation, or commercial exploitation of the artwork.",
+            "Any unauthorized reproduction, mass manufacturing, or commercial use without prior express written consent from the artist is strictly prohibited by federal and international copyright laws."
+          ]
+        },
+        {
+          "title": "4. Client-Supplied Garments Policy",
+          "paragraphs": [
+            "For clients providing their own jackets or apparel to our Richmond, VA atelier for artistic intervention:",
+            "The client warrants that they are the lawful owner of the garment and assumes all risks associated with inbound and outbound carrier transit.",
+            "The Amazing Project employs high-performance mixed-media textile art techniques. In the unlikely event of an irreparable technical accident during studio painting, our liability is strictly limited to the verifiable commercial market value of the base garment (up to an indemnity cap of $150 USD)."
+          ]
+        },
+        {
+          "title": "5. In-Person Workshops & Art Parties Liability Waiver",
+          "paragraphs": [
+            "Our workshops and Art Parties utilize permanent professional textile acrylics, mediums, and studio tools that cannot be washed out of conventional fabrics.",
+            "Participants are advised to dress in attire appropriate for painting. The Amazing Project accepts no liability for stains, paint splatters, or damage to personal clothing, footwear, or accessories.",
+            "Minors attending atelier activities must be accompanied and supervised by a responsible adult at all times."
+          ]
+        },
+        {
+          "title": "6. Pricing, Currency & Payments",
+          "paragraphs": [
+            "All prices displayed on this website are denominated in United States Dollars ($ USD). We reserve the right to revise pricing at any time without prior notice.",
+            "Payments are processed securely via Stripe. For international shipments outside the United States, customs duties, import tariffs, or local clearance charges are the sole responsibility of the purchaser."
+          ]
+        },
+        {
+          "title": "7. Amendments to Terms",
+          "paragraphs": [
+            "We reserve the right to update these Terms at any time to reflect legal or operational adjustments. Updates become effective immediately upon posting to this page, marked with the current revision date."
+          ]
+        },
+        {
+          "title": "8. Governing Law & Jurisdiction",
+          "paragraphs": [
+            "These Terms shall be governed by and construed in accordance with the laws of the Commonwealth of Virginia and applicable federal laws of the United States. Any dispute arising out of or related to these Terms shall be subject to the exclusive jurisdiction of the state and federal courts located in the City of Richmond, Virginia."
+          ]
+        }
+      ]
+    },
+    "shipping": {
+      "title": "Shipping & Atelier Logistics Policy",
+      "metaDescription": "Detailed information on artisanal production times, dispatch via USPS/UPS/FedEx, international delivery, and atelier jacket receipt.",
+      "lastUpdated": "November 2026 · Version 1.2",
+      "sections": [
+        {
+          "title": "1. Production Time vs. Postal Transit Time",
+          "paragraphs": [
+            "It is essential to distinguish between artisanal studio crafting time and the transit time taken by carriers to deliver your parcel:",
+            "Shipping transit time begins AFTER the painting, thermal curing, and protective sealing of the garment are fully completed.",
+            "Ready-to-ship boutique t-shirts: Dispatched within 3 to 5 business days following order confirmation.",
+            "Bespoke commissions and painted jackets: Studio crafting time spans 3 to 4 weeks starting from final sketch approval."
+          ]
+        },
+        {
+          "title": "2. Parcel Carriers & Secure Tracking",
+          "paragraphs": [
+            "All shipments are handled by premier carriers offering proof of delivery: USPS (Priority Mail), UPS, and FedEx.",
+            "As soon as your shipping label is generated, you will automatically receive an official tracking number via email or WhatsApp to track your parcel in real time."
+          ]
+        },
+        {
+          "title": "3. Shipping Client Jackets to the Atelier",
+          "paragraphs": [
+            "If you are sending your own personal jacket for custom intervention in Richmond, Virginia:",
+            "The customer is responsible for packaging, shipping fees, and securing adequate insurance for inbound transit to our atelier.",
+            "The exact studio delivery address is provided privately via email or WhatsApp once the commission is confirmed and the deposit is received, preserving studio safety and discretion."
+          ]
+        },
+        {
+          "title": "4. International Shipping & Customs Duties",
+          "paragraphs": [
+            "We proudly ship wearable art to collectors worldwide (including Spain, Colombia, Mexico, the United Kingdom, and beyond).",
+            "Customs duties, import VAT/taxes, and local brokerage fees are the exclusive responsibility of the buyer in the destination country. The Amazing Project has no control over or prior knowledge of international customs assessments."
+          ]
+        },
+        {
+          "title": "5. Lost or Damaged Packages in Transit",
+          "paragraphs": [
+            "Once a package is handed over to the carrier with confirmed tracking, custodial responsibility during transit resides with the carrier service.",
+            "In the event of damage or loss during transit, the client must initiate a carrier insurance claim directly. The Amazing Project will assist by furnishing proof of dispatch and artwork valuation documentation."
+          ]
+        },
+        {
+          "title": "6. Delivery Address Accuracy",
+          "paragraphs": [
+            "Buyers are responsible for verifying the accuracy of their delivery details. Shipments returned to our studio due to incorrect or incomplete addresses will require the customer to pay a reshipment fee before parcel dispatch."
+          ]
+        }
+      ]
+    },
+    "accessibility": {
+      "title": "Web Accessibility Statement",
+      "metaDescription": "Our ongoing commitment to digital inclusivity, WCAG 2.1 Level AA accessibility standards, and universal usability.",
+      "lastUpdated": "November 2026 · Version 1.2",
+      "sections": [
+        {
+          "title": "1. Commitment to Digital Inclusivity",
+          "paragraphs": [
+            "At The Amazing Project and Dayana Barboza Art, we consider art a universal human language that should be accessible to everyone without barriers.",
+            "We are continually improving the digital user experience for all visitors, aligning our web platform progressively with the Web Content Accessibility Guidelines (WCAG 2.1) Level AA."
+          ]
+        },
+        {
+          "title": "2. Implemented Technical Measures",
+          "paragraphs": [
+            "Key accessibility standards incorporated into our digital architecture include:"
+          ],
+          "listItems": [
+            "Full keyboard navigability with visible focus rings (focus-visible) across buttons, links, and interactive elements.",
+            "WCAG AA-compliant chromatic contrast ratios throughout our editorial palette (dba-ink on paper and cream backgrounds).",
+            "Descriptive alternative text (alt text) for textile artworks and product mockups.",
+            "Semantic HTML5 structure (hierarchical H1-H3 headings, main, nav, and footer landmarks).",
+            "ARIA roles and attributes on dynamic components such as the shopping bag drawer, modals, and interactive galleries.",
+            "Responsive layout honoring user preferences for reduced motion (prefers-reduced-motion) and font scaling."
+          ]
+        },
+        {
+          "title": "3. Known Limitations & Ongoing Enhancements",
+          "paragraphs": [
+            "While we aim for comprehensive accessibility, certain complex visual experiences (such as macro textile zoom viewers and temporary artwork fallbacks during photography updates) are undergoing continuous enhancement.",
+            "We actively evaluate site behavior with assistive technologies including VoiceOver and NVDA screen readers."
+          ]
+        },
+        {
+          "title": "4. Personalized Assistance & Direct Contact",
+          "paragraphs": [
+            "If you encounter accessibility hurdles on any part of our website or require tailored assistance with an order or commission, please contact us:",
+            "Accessibility Email: contact@dayanabarboza.art",
+            "WhatsApp Concierge: +1 (786) 508-6177",
+            "We are dedicated to responding promptly and providing the requested information in an alternative format tailored to your needs."
+          ]
+        }
+      ]
+    }
   }
 }
