@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useCart } from '@/lib/cart';
 import { BLUR_PLACEHOLDER } from '@/lib/data/gallery';
 import type { TShirtProduct, TShirtSize } from '@/lib/types/ecommerce';
@@ -97,7 +98,11 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
       aria-labelledby={`product-title-${product.id}`}
     >
       {/* ── 1. Image Showcase Area with dual-photo crossfade ── */}
-      <div className="relative aspect-[4/5] w-full overflow-hidden bg-dba-paper/60 select-none">
+      <Link
+        href={`/${locale}/merch/${product.slug}`}
+        className="block relative aspect-[4/5] w-full overflow-hidden bg-dba-paper/60 select-none"
+        aria-label={`${productName} — ${locale === 'es' ? 'Ver detalle' : 'View details'}`}
+      >
         {!imageError && frontSrc ? (
           <>
             {/* Primary Front Shot */}
@@ -188,7 +193,7 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
             ${product.priceUSD} USD
           </span>
         </div>
-      </div>
+      </Link>
 
       {/* ── 2. Card Content Area ── */}
       <div className="flex flex-col flex-1 p-5 sm:p-6 justify-between bg-dba-white">
@@ -199,7 +204,12 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
               id={`product-title-${product.id}`}
               className="font-display font-semibold text-dba-ink text-lg sm:text-xl leading-snug line-clamp-1"
             >
-              {productName}
+              <Link
+                href={`/${locale}/merch/${product.slug}`}
+                className="hover:text-dba-accent transition-colors duration-300"
+              >
+                {productName}
+              </Link>
             </h3>
           </div>
 
