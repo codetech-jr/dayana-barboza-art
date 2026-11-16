@@ -269,7 +269,7 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
           <div className="mt-4">
             <button
               type="button"
-              disabled={isSoldOut}
+              disabled={isSoldOut || (!selectedSize && !isAdded)}
               onClick={handleAddToBag}
               aria-live="polite"
               className={`
@@ -281,9 +281,11 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
                 select-none
                 ${
                   isSoldOut
-                    ? 'bg-dba-paper text-dba-faint border border-dba-rule/70 cursor-not-allowed'
+                    ? 'bg-dba-paper text-dba-faint border border-dba-rule/70 cursor-not-allowed opacity-60'
                     : isAdded
                     ? 'bg-dba-ink text-dba-white border border-dba-ink scale-[0.99]'
+                    : !selectedSize
+                    ? 'bg-dba-paper/80 text-dba-muted border border-dba-rule/80 cursor-not-allowed opacity-75'
                     : 'bg-dba-accent text-dba-white hover:bg-dba-accent-hover hover:shadow-[0_8px_24px_oklch(55%_0.12_38/0.25)] active:scale-[0.98]'
                 }
               `}
@@ -308,6 +310,8 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
                   </svg>
                   {dict.addedToBag}
                 </span>
+              ) : !selectedSize ? (
+                <span>{dict.selectSize}</span>
               ) : (
                 <span className="inline-flex items-center">
                   <svg

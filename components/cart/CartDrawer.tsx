@@ -337,13 +337,33 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
                             </button>
                           </div>
 
-                          {/* Remove Button */}
+                          {/* Remove Button with ✕ icon */}
                           <button
                             type="button"
                             onClick={() => removeItem(product.id, item.selectedSize)}
-                            className="font-body text-xs text-dba-muted hover:text-dba-accent transition-colors underline-offset-2 hover:underline"
+                            aria-label={`${dict.bagRemove} ${name}`}
+                            className="
+                              inline-flex items-center gap-1
+                              font-body text-xs text-dba-muted hover:text-dba-accent
+                              transition-colors underline-offset-2 hover:underline
+                              p-1 -mr-1
+                            "
                           >
-                            {dict.bagRemove}
+                            <svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              aria-hidden="true"
+                            >
+                              <line x1="18" y1="6" x2="6" y2="18" />
+                              <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                            <span>{dict.bagRemove}</span>
                           </button>
                         </div>
                       </div>
