@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useSyncExternalStore } from 'react';
+import React, { useState, useEffect, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -79,6 +79,15 @@ function buildWhatsAppCheckoutUrl(
 
 export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
   const { items, removeItem, updateQuantity, subtotalUSD, totalItems } = useCart();
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
+
+  if (prevIsOpen !== isOpen) {
+    setPrevIsOpen(isOpen);
+    if (!isOpen) {
+      setTermsAccepted(false);
+    }
+  }
 
   // SSR-safe client mount check without cascading render effects
   const isMounted = useSyncExternalStore(
@@ -386,39 +395,111 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
                   </span>
                 </div>
 
+                {/* Terms and Returns Acceptance Checkbox */}
+                <label className="flex items-start gap-2 cursor-pointer group mt-4">
+                  <input
+                    type="checkbox"
+                    checked={termsAccepted}
+                    onChange={(e) => setTermsAccepted(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 shrink-0 accent-dba-ink cursor-pointer"
+                    aria-required="true"
+                  />
+                  <span className="font-body text-xs text-dba-muted leading-snug">
+                    {locale === 'es' ? (
+                      <>
+                        He leído y acepto los{' '}
+                        <a
+                          href={`/${locale}/terms`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:text-dba-ink transition-colors"
+                        >
+                          Términos y Condiciones
+                        </a>{' '}
+                        y la{' '}
+                        <a
+                          href={`/${locale}/returns`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:text-dba-ink transition-colors"
+                        >
+                          Política de Reembolsos
+                        </a>
+                        , incluyendo las condiciones para piezas personalizadas.
+                      </>
+                    ) : (
+                      <>
+                        I have read and agree to the{' '}
+                        <a
+                          href={`/${locale}/terms`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:text-dba-ink transition-colors"
+                        >
+                          Terms & Conditions
+                        </a>{' '}
+                        and the{' '}
+                        <a
+                          href={`/${locale}/returns`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:text-dba-ink transition-colors"
+                        >
+                          Refund Policy
+                        </a>
+                        , including custom order conditions.
+                      </>
+                    )}
+                  </span>
+                </label>
+
                 {/* Checkout Button: Direct WhatsApp Concierge Order */}
-                <a
-                  href={checkoutUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="
-                    w-full h-12 px-6
-                    inline-flex items-center justify-center
-                    rounded-full font-body text-sm font-medium tracking-wide
-                    bg-dba-accent text-dba-white
-                    hover:bg-dba-accent-hover
-                    hover:shadow-[0_10px_28px_oklch(55%_0.12_38/0.25)]
-                    active:scale-[0.98]
-                    transition-all duration-300 ease-[var(--dba-ease)]
-                    select-none
-                  "
-                >
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="mr-2"
-                    aria-hidden="true"
+                <div>
+                  <button
+                    type="button"
+                    disabled={items.length === 0 || !termsAccepted}
+                    onClick={() => {
+                      if (!termsAccepted || items.length === 0) return;
+                      window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
+                    }}
+                    className="
+                      w-full h-12 px-6
+                      inline-flex items-center justify-center
+                      rounded-full font-body text-sm font-medium tracking-wide
+                      bg-dba-accent text-dba-white
+                      hover:bg-dba-accent-hover
+                      hover:shadow-[0_10px_28px_oklch(55%_0.12_38/0.25)]
+                      active:scale-[0.98]
+                      transition-all duration-300 ease-[var(--dba-ease)]
+                      disabled:opacity-50 disabled:cursor-not-allowed
+                      select-none
+                    "
                   >
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                  </svg>
-                  {dict.bagCheckout}
-                </a>
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="mr-2"
+                      aria-hidden="true"
+                    >
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                    {dict.bagCheckout}
+                  </button>
+
+                  {items.length > 0 && !termsAccepted && (
+                    <p className="text-center font-body text-[10px] text-dba-muted mt-1">
+                      {locale === 'es'
+                        ? 'Acepta los términos para continuar'
+                        : 'Accept terms to continue'}
+                    </p>
+                  )}
+                </div>
 
                 {/* Continue Shopping button */}
                 <button
