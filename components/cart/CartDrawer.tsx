@@ -19,7 +19,8 @@ import type { CartItem } from '@/lib/types/ecommerce';
  * - High-end Editorial Luxury design (warm palette, serif titles, refined hairlines)
  * - Portal-rendered backdrop & slide panel with spring physics
  * - Full accessibility: dialog role, escape handling, scroll-lock & focus management
- * - Direct WhatsApp Concierge checkout integrating current bag items & subtotal
+ * - Stripe Checkout integration with secure server-side session creation
+ * - WhatsApp Concierge fallback when Stripe is unavailable
  * - Inline quantity increment, decrement & removal controls
  * - Empty state with intuitive "continue exploring" CTA
  * ─────────────────────────────────────────────────────────────────────────────
@@ -80,12 +81,58 @@ function buildWhatsAppCheckoutUrl(
 export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
   const { items, removeItem, updateQuantity, subtotalUSD, totalItems } = useCart();
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [showFallback, setShowFallback] = useState(false);
   const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
 
   if (prevIsOpen !== isOpen) {
     setPrevIsOpen(isOpen);
     if (!isOpen) {
       setTermsAccepted(false);
+      setIsCheckingOut(false);
+      setShowFallback(false);
+    }
+  }
+
+  /**
+   * Initiates Stripe Checkout by calling the secure server endpoint.
+   * Falls back to WhatsApp concierge if the API request fails.
+   */
+  async function handleStripeCheckout() {
+    if (!termsAccepted || items.length === 0 || isCheckingOut) return;
+
+    setIsCheckingOut(true);
+    setShowFallback(false);
+
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: items.map((item) => ({
+            id: item.product.id,
+            size: item.selectedSize,
+            quantity: item.quantity,
+          })),
+          locale,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.url) {
+        console.error('[Checkout Error]:', data.error || 'No checkout URL returned');
+        setShowFallback(true);
+        setIsCheckingOut(false);
+        return;
+      }
+
+      // Redirect to Stripe hosted checkout page
+      window.location.href = data.url;
+    } catch (error) {
+      console.error('[Checkout Error]:', error);
+      setShowFallback(true);
+      setIsCheckingOut(false);
     }
   }
 
@@ -453,15 +500,12 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
                   </span>
                 </label>
 
-                {/* Checkout Button: Direct WhatsApp Concierge Order */}
+                {/* Checkout Button: Stripe Checkout with WhatsApp fallback */}
                 <div>
                   <button
                     type="button"
-                    disabled={items.length === 0 || !termsAccepted}
-                    onClick={() => {
-                      if (!termsAccepted || items.length === 0) return;
-                      window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
-                    }}
+                    disabled={items.length === 0 || !termsAccepted || isCheckingOut}
+                    onClick={handleStripeCheckout}
                     className="
                       w-full h-12 px-6
                       inline-flex items-center justify-center
@@ -475,21 +519,51 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
                       select-none
                     "
                   >
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="mr-2"
-                      aria-hidden="true"
-                    >
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                    </svg>
-                    {dict.bagCheckout}
+                    {isCheckingOut ? (
+                      <>
+                        <svg
+                          className="animate-spin -ml-1 mr-2 h-4 w-4"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                          />
+                        </svg>
+                        {locale === 'es' ? 'Procesando…' : 'Processing…'}
+                      </>
+                    ) : (
+                      <>
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="mr-2"
+                          aria-hidden="true"
+                        >
+                          <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                        {dict.bagCheckout}
+                      </>
+                    )}
                   </button>
 
                   {items.length > 0 && !termsAccepted && (
@@ -498,6 +572,44 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
                         ? 'Acepta los términos para continuar'
                         : 'Accept terms to continue'}
                     </p>
+                  )}
+
+                  {/* WhatsApp Fallback — shown only when Stripe fails */}
+                  {showFallback && (
+                    <div className="mt-3 p-3 rounded-xl bg-amber-50 border border-amber-200 text-center space-y-2">
+                      <p className="font-body text-xs text-amber-800">
+                        {locale === 'es'
+                          ? 'El pago en línea no está disponible en este momento. Puedes completar tu compra por WhatsApp:'
+                          : 'Online payment is currently unavailable. You can complete your purchase via WhatsApp:'}
+                      </p>
+                      <a
+                        href={checkoutUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="
+                          inline-flex items-center gap-2 px-5 py-2.5
+                          rounded-full font-body text-sm font-medium
+                          bg-emerald-600 text-white
+                          hover:bg-emerald-700
+                          transition-colors duration-200
+                        "
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                        </svg>
+                        {locale === 'es' ? 'Pedir por WhatsApp' : 'Order via WhatsApp'}
+                      </a>
+                    </div>
                   )}
                 </div>
 
