@@ -78,6 +78,100 @@ function buildWhatsAppCheckoutUrl(
   return `https://wa.me/${phone}?text=${encodeURIComponent(fullMessage)}`;
 }
 
+/**
+ * Computes elegant 2-letter uppercase monogram initials for a product name.
+ * e.g. "Guacamaya en Vuelo" -> "GV", "Ávila al Atardecer" -> "ÁA"
+ */
+function getProductInitials(name: string): string {
+  const stopWords = new Set([
+    'en',
+    'al',
+    'de',
+    'del',
+    'la',
+    'el',
+    'los',
+    'las',
+    'y',
+    'o',
+    'in',
+    'of',
+    'and',
+    'the',
+    'at',
+    'on',
+    'no.',
+    'no',
+  ]);
+
+  const words = name
+    .split(/\s+/)
+    .map((w) => w.trim())
+    .filter((w) => w.length > 0 && !stopWords.has(w.toLowerCase()));
+
+  if (words.length >= 2) {
+    return `${words[0][0]}${words[1][0]}`.toUpperCase();
+  }
+  if (words.length === 1 && words[0].length >= 2) {
+    return words[0].slice(0, 2).toUpperCase();
+  }
+  return 'DBA';
+}
+
+interface CartItemThumbnailProps {
+  src: string;
+  name: string;
+}
+
+/**
+ * Editorial thumbnail with artistic fallback when mockups are not yet on disk.
+ */
+function CartItemThumbnail({ src, name }: CartItemThumbnailProps) {
+  const [imageError, setImageError] = useState(false);
+  const initials = getProductInitials(name);
+
+  if (imageError || !src) {
+    return (
+      <div className="w-full h-full flex flex-col items-center justify-center p-2 text-center bg-gradient-to-b from-dba-paper to-dba-cream/80 select-none">
+        {/* Artistic paint/textile icon */}
+        <div className="w-8 h-8 rounded-full bg-dba-white/95 border border-dba-rule/80 flex items-center justify-center text-dba-accent shadow-2xs mb-1">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m18 11 2.5-2.5a3.5 3.5 0 0 0-5-5L13 6" />
+            <path d="M12 7 4 15l-1 5 5-1 8-8" />
+            <path d="m10 9 5 5" />
+          </svg>
+        </div>
+        <span className="font-mono text-[10px] font-semibold tracking-wider text-dba-ink/75 uppercase leading-none">
+          {initials}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <Image
+      src={src}
+      alt=""
+      fill
+      placeholder="blur"
+      blurDataURL={BLUR_PLACEHOLDER}
+      sizes="80px"
+      className="object-cover object-center"
+      onError={() => setImageError(true)}
+    />
+  );
+}
+
 export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
   const { items, removeItem, updateQuantity, subtotalUSD, totalItems } = useCart();
   const [termsAccepted, setTermsAccepted] = useState(false);
@@ -310,25 +404,9 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
                       key={`${product.id}-${item.selectedSize}`}
                       className="py-4 first:pt-2 last:pb-2 flex gap-4 items-center"
                     >
-                      {/* Product Thumbnail */}
+                      {/* Product Thumbnail with Artistic Fallback */}
                       <div className="relative w-20 h-24 rounded-xl overflow-hidden bg-dba-paper border border-dba-rule/60 shrink-0 select-none">
-                        {imgSrc ? (
-                          <Image
-                            src={imgSrc}
-                            alt={product.media.mockups[0]?.alt[locale] || name}
-                            fill
-                            placeholder="blur"
-                            blurDataURL={BLUR_PLACEHOLDER}
-                            sizes="80px"
-                            className="object-cover object-center"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center bg-dba-paper text-dba-muted">
-                            <span className="font-mono text-[9px] uppercase tracking-wider">
-                              DBA
-                            </span>
-                          </div>
-                        )}
+                        <CartItemThumbnail src={imgSrc} name={name} />
                       </div>
 
                       {/* Product Details */}
