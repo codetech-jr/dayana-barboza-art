@@ -193,6 +193,28 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
             ${product.priceUSD} USD
           </span>
         </div>
+
+        {/* ── Media Preview Badge (4 photos · Video) ── */}
+        <div className="absolute bottom-3.5 right-3.5 z-10">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-body text-[11px] font-medium text-dba-ink bg-dba-white/90 border border-dba-rule/70 shadow-xs backdrop-blur-xs transition-transform duration-300 group-hover:scale-105">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-dba-accent shrink-0"
+              aria-hidden="true"
+            >
+              <path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.934a.5.5 0 0 0-.777-.416L16 11" />
+              <rect width="14" height="12" x="2" y="6" rx="2" />
+            </svg>
+            <span>{locale === 'es' ? '4 fotos · Video' : '4 photos · Video'}</span>
+          </span>
+        </div>
       </Link>
 
       {/* ── 2. Card Content Area ── */}
@@ -217,6 +239,24 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
           <p className="mt-2 font-body text-xs sm:text-sm text-dba-muted line-clamp-2 leading-relaxed">
             {productDescription}
           </p>
+
+          {/* Editorial Detail Link */}
+          <Link
+            href={`/${locale}/merch/${product.slug}`}
+            className="mt-3 inline-flex items-center gap-1.5 font-body text-xs font-medium text-dba-accent hover:underline group/link"
+          >
+            <span>
+              {locale === 'es'
+                ? 'Ver fotos, video y medidas'
+                : 'View photos, video & measurements'}
+            </span>
+            <span
+              className="transition-transform duration-300 group-hover/link:translate-x-1"
+              aria-hidden="true"
+            >
+              →
+            </span>
+          </Link>
         </div>
 
         {/* ── 3. Size Selector & Actions ── */}
