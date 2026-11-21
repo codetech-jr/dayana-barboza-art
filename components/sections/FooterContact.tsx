@@ -83,8 +83,7 @@ export function FooterContact({ dict, locale }: FooterContactProps) {
           aria-label="Social and contact links"
         >
           {[
-            { label: 'INSTAGRAM', href: 'https://instagram.com/dayanabarboza.art' },
-            { label: 'TIKTOK', href: 'https://tiktok.com/@dayanabarboza.art' },
+            { label: 'INSTAGRAM', href: 'https://www.instagram.com/amazing_project24' },
             {
               label: locale === 'es' ? 'CONTACTO' : 'CONTACT',
               href: buildWhatsAppUrl('footerIdea', locale),

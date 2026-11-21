@@ -168,8 +168,7 @@ export default async function LocaleLayout({
         jobTitle: 'Textile Artist & Hyperrealistic Painter',
         url: 'https://www.dayanabarboza.com',
         sameAs: [
-          'https://instagram.com/dayanabarboza.art',
-          'https://tiktok.com/@dayanabarboza.art',
+          'https://www.instagram.com/amazing_project24',
         ],
         description: dict.meta.description,
       },

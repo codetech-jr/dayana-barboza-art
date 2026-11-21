@@ -24,7 +24,7 @@ const STUDIO_REELS: readonly StudioReel[] = [
     id: 'reel-1',
     image: '/gallery/portrait/1.webp',
     platform: 'instagram',
-    link: 'https://instagram.com/dayanabarboza.art',
+    link: 'https://www.instagram.com/amazing_project24',
     alt: {
       es: 'Proceso de pintura hiperrealista — retrato en denim',
       en: 'Hyperrealistic painting process — portrait on denim',
@@ -33,8 +33,8 @@ const STUDIO_REELS: readonly StudioReel[] = [
   {
     id: 'reel-2',
     image: '/gallery/nature/2.webp',
-    platform: 'tiktok',
-    link: 'https://tiktok.com/@dayanabarboza.art',
+    platform: 'instagram',
+    link: 'https://www.instagram.com/amazing_project24',
     alt: {
       es: 'Capas de acrílico textil — naturaleza sobre denim',
       en: 'Textile acrylic layers — nature art on denim',
@@ -44,7 +44,7 @@ const STUDIO_REELS: readonly StudioReel[] = [
     id: 'reel-3',
     image: '/gallery/too-chic/1.webp',
     platform: 'instagram',
-    link: 'https://instagram.com/dayanabarboza.art',
+    link: 'https://www.instagram.com/amazing_project24',
     alt: {
       es: 'Resultado final — chaqueta intervenida terminada',
       en: 'Final piece — finished bespoke custom jacket',
@@ -53,8 +53,8 @@ const STUDIO_REELS: readonly StudioReel[] = [
   {
     id: 'reel-4',
     image: '/gallery/movie-inspo/1.webp',
-    platform: 'tiktok',
-    link: 'https://tiktok.com/@dayanabarboza.art',
+    platform: 'instagram',
+    link: 'https://www.instagram.com/amazing_project24',
     alt: {
       es: 'Art Party en vivo — creación en tiempo real',
       en: 'Live Art Party — creative gathering in real time',
@@ -218,7 +218,7 @@ export function StudioSocials({ locale }: StudioSocialsProps) {
         {/* ── Bottom CTA — outlined, subtle, centered ────────── */}
         <div className="mt-14 flex justify-center">
           <a
-            href="https://instagram.com/dayanabarboza.art"
+            href="https://www.instagram.com/amazing_project24"
             target="_blank"
             rel="noopener noreferrer"
             className="
