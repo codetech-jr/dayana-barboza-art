@@ -175,7 +175,7 @@ export function LegalPageLayout({
               The Amazing Project · Dayana Barboza Art
             </p>
             <p className="mt-0.5">
-              Richmond, Virginia · contact@dayanabarboza.art
+              Richmond, Virginia · contact@dayanabarboza.com
             </p>
           </div>
 

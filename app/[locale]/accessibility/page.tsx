@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${title} | Dayana Barboza Art`,
       description: metaDescription,
-      url: `https://dayanabarboza.art/${locale}/accessibility`,
+      url: `https://www.dayanabarboza.com/${locale}/accessibility`,
     },
   };
 }

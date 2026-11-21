@@ -50,7 +50,7 @@ export async function generateMetadata({
       : 'Dayana Barboza Art — Hand-Painted Denim Jackets | Wearable Art';
 
   return {
-    metadataBase: new URL('https://dayanabarboza.art'),
+    metadataBase: new URL('https://www.dayanabarboza.com'),
     title: {
       default: titleText,
       template: '%s | Dayana Barboza Art',
@@ -87,7 +87,7 @@ export async function generateMetadata({
       siteName: 'Dayana Barboza Art',
       locale: locale === 'es' ? 'es_US' : 'en_US',
       type: 'website',
-      url: `https://dayanabarboza.art/${locale}`,
+      url: `https://www.dayanabarboza.com/${locale}`,
       images: [
         {
           url: '/gallery/movie-inspo/1.webp',
@@ -149,6 +149,33 @@ export default async function LocaleLayout({
 
   const dict = await getDictionary(locale);
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': 'https://www.dayanabarboza.com/#website',
+        url: 'https://www.dayanabarboza.com',
+        name: 'Dayana Barboza Art',
+        description: dict.meta.description,
+        inLanguage: [locale === 'es' ? 'es-US' : 'en-US'],
+      },
+      {
+        '@type': 'Person',
+        '@id': 'https://www.dayanabarboza.com/#person',
+        name: 'Dayana Barboza',
+        alternateName: ['Dayana Barboza Art', 'Amazing Project'],
+        jobTitle: 'Textile Artist & Hyperrealistic Painter',
+        url: 'https://www.dayanabarboza.com',
+        sameAs: [
+          'https://instagram.com/dayanabarboza.art',
+          'https://tiktok.com/@dayanabarboza.art',
+        ],
+        description: dict.meta.description,
+      },
+    ],
+  };
+
   return (
     <html
       lang={locale}
@@ -159,6 +186,10 @@ export default async function LocaleLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body className="min-h-dvh flex flex-col bg-dba-white text-dba-ink font-body">
         <CartProvider>
