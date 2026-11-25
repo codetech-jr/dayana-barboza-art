@@ -17,8 +17,8 @@ export async function generateMetadata({
   if (!isValidLocale(locale)) return {};
 
   const dict = await getDictionary(locale);
-  const title = `${dict.merch.title} | Dayana Barboza Art`;
-  const description = dict.merch.eyebrow;
+  const title = dict.merch.title;
+  const description = dict.merch.subtitle || dict.merch.eyebrow;
 
   return {
     title,
@@ -31,7 +31,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title,
+      title: `${title} | Dayana Barboza Art`,
       description,
       images: [
         {

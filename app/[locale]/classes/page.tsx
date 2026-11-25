@@ -17,8 +17,8 @@ export async function generateMetadata({
 
   const title =
     locale === 'es'
-      ? 'Atelier de Pintura: Óleo, Acrílico & Arte Textil | Dayana Barboza Art'
-      : 'Painting Atelier: Oil, Acrylic & Textile Art | Dayana Barboza Art';
+      ? 'Atelier de Pintura: Óleo, Acrílico & Arte Textil'
+      : 'Painting Atelier: Oil, Acrylic & Textile Art';
   const description =
     locale === 'es'
       ? 'Formación de atelier guiada por Dayana Barboza. Dominio de óleo, acrílico y técnica textil, expediciones curatoriales a museos y sesiones plein air en Virginia.'
@@ -35,7 +35,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title,
+      title: `${title} | Dayana Barboza Art`,
       description,
       images: [
         {
