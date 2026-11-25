@@ -167,8 +167,9 @@ export async function POST(request: Request) {
     }
 
     // 4. Build Stripe Checkout Session
+    const origin = request.headers.get('origin');
     const siteUrl =
-      process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+      origin || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
     const stripeLineItems = lineItems.map(({ product, size, quantity }) => {
       const productName = product.name[typedLocale] || product.name.es;
@@ -190,6 +191,9 @@ export async function POST(request: Request) {
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items: stripeLineItems,
+      phone_number_collection: {
+        enabled: true,
+      },
       shipping_address_collection: {
         allowed_countries: ['US'],
       },

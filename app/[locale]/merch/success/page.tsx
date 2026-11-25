@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { LOCALES, type Locale } from '@/lib/i18n/config';
+import { ClearCartOnSuccess } from '@/components/cart';
 
 /**
  * ─────────────────────────────────────────────────────────────────────────────
@@ -86,6 +87,7 @@ export default async function MerchSuccessPage({
 
   return (
     <main className="min-h-screen bg-dba-white flex items-center justify-center px-6 py-20 sm:py-28">
+      <ClearCartOnSuccess />
       <div className="max-w-2xl w-full text-center space-y-8">
         {/* ── Success Icon ── */}
         <div className="mx-auto w-20 h-20 rounded-full bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center">
