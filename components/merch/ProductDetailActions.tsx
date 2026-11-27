@@ -23,13 +23,46 @@ export interface ProductDetailActionsProps {
 }
 
 /**
- * Editorial measurements guide (Chest width x Body length in cm)
+ * Official Comfort Colors® (Relaxed Fit) garment measurements
+ * Width / Length / Sleeve in inches and centimeters
  */
 const SIZE_GUIDE_TABLE = [
-  { size: 'S', chest: '50 cm', length: '70 cm' },
-  { size: 'M', chest: '54 cm', length: '73 cm' },
-  { size: 'L', chest: '58 cm', length: '76 cm' },
-  { size: 'XL', chest: '62 cm', length: '79 cm' },
+  {
+    size: 'S',
+    widthIn: '18.25"',
+    widthCm: '46.4 cm',
+    lengthIn: '26.625"',
+    lengthCm: '67.6 cm',
+    sleeveIn: '16.25"',
+    sleeveCm: '41.3 cm',
+  },
+  {
+    size: 'M',
+    widthIn: '20.25"',
+    widthCm: '51.4 cm',
+    lengthIn: '28"',
+    lengthCm: '71.1 cm',
+    sleeveIn: '17.75"',
+    sleeveCm: '45.1 cm',
+  },
+  {
+    size: 'L',
+    widthIn: '22"',
+    widthCm: '55.9 cm',
+    lengthIn: '29.375"',
+    lengthCm: '74.6 cm',
+    sleeveIn: '19"',
+    sleeveCm: '48.3 cm',
+  },
+  {
+    size: 'XL',
+    widthIn: '24"',
+    widthCm: '61.0 cm',
+    lengthIn: '30.75"',
+    lengthCm: '78.1 cm',
+    sleeveIn: '20.5"',
+    sleeveCm: '52.1 cm',
+  },
 ] as const;
 
 export function ProductDetailActions({
@@ -146,30 +179,87 @@ export function ProductDetailActions({
           })}
         </div>
 
-        {/* Expandable Size Guide Card */}
+        {/* Expandable Size Guide Card — Comfort Colors® Official Relaxed Fit */}
         {showSizeGuide && (
-          <div className="mt-4 p-4 rounded-2xl bg-dba-paper/80 border border-dba-rule/70 text-xs">
-            <div className="flex items-center justify-between mb-2">
-              <span className="font-display font-semibold text-dba-ink">
-                {locale === 'es' ? 'Dimensiones de la prenda (cm)' : 'Garment Dimensions (cm)'}
-              </span>
+          <div className="mt-4 p-4 sm:p-5 rounded-2xl bg-dba-paper/80 border border-dba-rule/70 text-xs">
+            <div className="flex items-start justify-between gap-2 pb-3 border-b border-dba-rule/50">
+              <div>
+                <span className="font-display font-semibold text-dba-ink block">
+                  {locale === 'es'
+                    ? 'Guía de Tallas · Comfort Colors®'
+                    : 'Size Guide · Comfort Colors®'}
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-wider text-dba-accent">
+                  {locale === 'es'
+                    ? 'Corte Relaxed Fit (Unisex)'
+                    : 'Relaxed Fit (Unisex)'}
+                </span>
+              </div>
               <button
                 type="button"
                 onClick={() => setShowSizeGuide(false)}
-                className="text-dba-muted hover:text-dba-ink p-1"
-                aria-label="Cerrar guía"
+                className="text-dba-muted hover:text-dba-ink p-1 -mt-1 -mr-1 transition-colors"
+                aria-label={locale === 'es' ? 'Cerrar guía' : 'Close guide'}
               >
                 ✕
               </button>
             </div>
-            <div className="grid grid-cols-4 gap-2 text-center pt-2 border-t border-dba-rule/50">
-              {SIZE_GUIDE_TABLE.map((row) => (
-                <div key={row.size} className="flex flex-col gap-0.5">
-                  <span className="font-mono font-bold text-dba-accent">{row.size}</span>
-                  <span className="text-dba-muted text-[10px]">Pecho: {row.chest}</span>
-                  <span className="text-dba-muted text-[10px]">Largo: {row.length}</span>
-                </div>
-              ))}
+
+            <div className="mt-3 overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-dba-rule/50 font-mono text-[10px] uppercase tracking-wider text-dba-muted">
+                    <th scope="col" className="py-2 pr-2 font-medium">
+                      {locale === 'es' ? 'Talla' : 'Size'}
+                    </th>
+                    <th scope="col" className="py-2 px-2 font-medium">
+                      {locale === 'es' ? 'Ancho' : 'Width'}
+                    </th>
+                    <th scope="col" className="py-2 px-2 font-medium">
+                      {locale === 'es' ? 'Largo' : 'Length'}
+                    </th>
+                    <th scope="col" className="py-2 pl-2 font-medium">
+                      {locale === 'es' ? 'Manga' : 'Sleeve'}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-dba-rule/40">
+                  {SIZE_GUIDE_TABLE.map((row) => (
+                    <tr key={row.size}>
+                      <th
+                        scope="row"
+                        className="py-2.5 pr-2 font-mono font-bold text-dba-accent align-top"
+                      >
+                        {row.size}
+                      </th>
+                      <td className="py-2.5 px-2 align-top">
+                        <span className="block font-mono font-medium text-dba-ink">
+                          {row.widthIn}
+                        </span>
+                        <span className="block text-[10px] text-dba-muted">
+                          {row.widthCm}
+                        </span>
+                      </td>
+                      <td className="py-2.5 px-2 align-top">
+                        <span className="block font-mono font-medium text-dba-ink">
+                          {row.lengthIn}
+                        </span>
+                        <span className="block text-[10px] text-dba-muted">
+                          {row.lengthCm}
+                        </span>
+                      </td>
+                      <td className="py-2.5 pl-2 align-top">
+                        <span className="block font-mono font-medium text-dba-ink">
+                          {row.sleeveIn}
+                        </span>
+                        <span className="block text-[10px] text-dba-muted">
+                          {row.sleeveCm}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         )}

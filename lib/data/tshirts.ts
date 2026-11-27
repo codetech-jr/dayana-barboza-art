@@ -49,15 +49,15 @@ function buildMockupImage(
   const isCleanGarment = index === 1;
 
   const altEs = isModelShot
-    ? `Modelo luciendo la franela "${name.es}" de Dayana Barboza Art`
+    ? `Modelo luciendo la franela "${name.es}" (Comfort Colors® Relaxed Fit) de Dayana Barboza Art`
     : isCleanGarment
-    ? `Vista limpia de la franela "${name.es}" sobre algodón de 240g`
+    ? `Vista limpia de la franela "${name.es}" en algodón Comfort Colors® 100% hilado en anillo`
     : `Vista adicional ${index + 1} de la franela "${name.es}" de Dayana Barboza Art`;
 
   const altEn = isModelShot
-    ? `Model wearing the "${name.en}" t-shirt by Dayana Barboza Art`
+    ? `Model wearing the "${name.en}" t-shirt (Comfort Colors® Relaxed Fit) by Dayana Barboza Art`
     : isCleanGarment
-    ? `Clean garment view of the "${name.en}" t-shirt on 240g cotton`
+    ? `Clean garment view of the "${name.en}" t-shirt on Comfort Colors® 100% ring-spun U.S. cotton`
     : `Additional view ${index + 1} of the "${name.en}" t-shirt by Dayana Barboza Art`;
 
   return {
@@ -114,8 +114,8 @@ export const TSHIRTS_CATALOG: readonly TShirtProduct[] = [
       en: 'Argenteuil',
     },
     description: {
-      es: 'Inspirada en los paseos soleados de Camille Monet en Argenteuil. Brisa luminosa, cielos impresionistas y algodón peinado de 240g con caída relajada.',
-      en: 'Inspired by Camille Monet’s sunlit walks in Argenteuil. Luminous breeze, Impressionist skies, and 240g combed cotton with a relaxed drape.',
+      es: 'Inspirada en los paseos soleados de Camille Monet en Argenteuil. Brisa luminosa, cielos impresionistas y algodón estadounidense 100% hilado en anillo (Comfort Colors® Relaxed Fit) con acabado teñido en prenda.',
+      en: 'Inspired by Camille Monet’s sunlit walks in Argenteuil. Luminous breeze, Impressionist skies, and Comfort Colors® 100% ring-spun U.S. cotton in a garment-dyed Relaxed Fit.',
     },
     badge: {
       code: 'coleccion_impresionista',
@@ -143,8 +143,8 @@ export const TSHIRTS_CATALOG: readonly TShirtProduct[] = [
       en: 'Blue Armchair',
     },
     description: {
-      es: 'Homenaje contemporáneo a Mary Cassatt (1878). Contrastes textiles de tartán, azul cobalto y actitud irreverente sobre jersey pesado de algodón orgánico.',
-      en: 'A contemporary homage to Mary Cassatt (1878). Textile tartan contrasts, cobalt blue, and effortless attitude on heavyweight organic cotton jersey.',
+      es: 'Homenaje contemporáneo a Mary Cassatt (1878). Contrastes textiles de tartán, azul cobalto y actitud irreverente sobre Comfort Colors® 100% algodón hilado en anillo, corte Relaxed Fit.',
+      en: 'A contemporary homage to Mary Cassatt (1878). Textile tartan contrasts, cobalt blue, and effortless attitude on Comfort Colors® 100% ring-spun U.S. cotton in Relaxed Fit.',
     },
     badge: {
       code: 'arte_de_autor',
@@ -169,12 +169,15 @@ export const TSHIRTS_CATALOG: readonly TShirtProduct[] = [
       en: 'Embroidery',
     },
     description: {
-      es: 'Camille au Métier (1875) reinterpretada como arte para vestir. Verdes esmeralda, calma íntima de taller y estampado de alta definición sobre algodón 240g.',
-      en: 'Camille au Métier (1875) reimagined as wearable art. Emerald greens, quiet atelier serenity, and high-definition print on 240g cotton.',
+      es: 'Camille au Métier (1875) reinterpretada como arte para vestir. Verdes esmeralda, calma íntima de taller y suavidad teñida en prenda sobre Comfort Colors® 100% algodón estadounidense.',
+      en: 'Camille au Métier (1875) reimagined as wearable art. Emerald greens, quiet atelier serenity, and garment-dyed softness on Comfort Colors® 100% ring-spun U.S. cotton.',
     },
     badge: {
-      code: 'algodon_240g',
-      label: { es: 'Algodón 240g', en: '240g Cotton' },
+      code: 'comfort_colors',
+      label: {
+        es: 'Comfort Colors · 100% Algodón',
+        en: 'Comfort Colors · 100% Cotton',
+      },
       variant: 'default',
     },
     photoFiles: [
@@ -198,8 +201,8 @@ export const TSHIRTS_CATALOG: readonly TShirtProduct[] = [
       en: 'Farmhouse',
     },
     description: {
-      es: 'Campos dorados de Arlés bajo el sol de Provenza (1888). Trazos cálidos de ocre y verde oliva sobre algodón peinado unisex de tacto ultrasuave.',
-      en: 'Golden fields of Arles under the Provençal sun (1888). Warm ochre and olive strokes on ultra-soft combed unisex cotton.',
+      es: 'Campos dorados de Arlés bajo el sol de Provenza (1888). Trazos cálidos de ocre y verde oliva sobre algodón Comfort Colors® unisex de corte Relaxed Fit y tacto vivido.',
+      en: 'Golden fields of Arles under the Provençal sun (1888). Warm ochre and olive strokes on Comfort Colors® unisex Relaxed Fit cotton with a lived-in feel.',
     },
     badge: {
       code: 'edicion_atelier',
@@ -224,8 +227,8 @@ export const TSHIRTS_CATALOG: readonly TShirtProduct[] = [
       en: 'Irises',
     },
     description: {
-      es: 'Inspirada en los lirios de Van Gogh (1889) con guiños al grabado japonés. Azul índigo, pétalos vibrantes y confección boxy fit de galería.',
-      en: 'Inspired by Van Gogh’s Irises (1889) with subtle nods to Japanese woodblock prints. Indigo blues, vibrant petals, and gallery-grade boxy fit.',
+      es: 'Inspirada en los lirios de Van Gogh (1889) con guiños al grabado japonés. Azul índigo, pétalos vibrantes y confección Comfort Colors® Relaxed Fit teñida en prenda.',
+      en: 'Inspired by Van Gogh’s Irises (1889) with subtle nods to Japanese woodblock prints. Indigo blues, vibrant petals, and garment-dyed Comfort Colors® Relaxed Fit.',
     },
     badge: {
       code: 'coleccion_impresionista',
@@ -253,8 +256,8 @@ export const TSHIRTS_CATALOG: readonly TShirtProduct[] = [
       en: 'Lady Camille',
     },
     description: {
-      es: 'La icónica mujer de la sombrilla de Claude Monet en clave editorial contemporánea. Minimalismo gráfico y algodón pesado pensado para durar.',
-      en: 'Claude Monet’s iconic Woman with a Parasol through a contemporary editorial lens. Graphic minimalism on heavyweight cotton built to last.',
+      es: 'La icónica mujer de la sombrilla de Claude Monet en clave editorial contemporánea. Minimalismo gráfico sobre algodón estadounidense 100% hilado en anillo (Comfort Colors®).',
+      en: 'Claude Monet’s iconic Woman with a Parasol through a contemporary editorial lens. Graphic minimalism on Comfort Colors® 100% ring-spun U.S. cotton.',
     },
     badge: {
       code: 'arte_de_autor',
@@ -282,12 +285,15 @@ export const TSHIRTS_CATALOG: readonly TShirtProduct[] = [
       en: 'Roses',
     },
     description: {
-      es: 'Rosas de Saint-Rémy (1890): pinceladas de verde menta y pétalos marfil con tipografía editorial. Pieza luminosa de algodón orgánico 240g.',
-      en: 'Roses of Saint-Rémy (1890): mint-green brushstrokes and ivory petals paired with editorial typography. A luminous 240g organic cotton piece.',
+      es: 'Rosas de Saint-Rémy (1890): pinceladas de verde menta y pétalos marfil con tipografía editorial. Prenda teñida en prenda Comfort Colors® en corte Relaxed Fit.',
+      en: 'Roses of Saint-Rémy (1890): mint-green brushstrokes and ivory petals paired with editorial typography. Garment-dyed Comfort Colors® Relaxed Fit tee.',
     },
     badge: {
-      code: 'algodon_240g',
-      label: { es: 'Algodón 240g', en: '240g Cotton' },
+      code: 'garment_dyed',
+      label: {
+        es: 'Garment-Dyed · Relaxed Fit',
+        en: 'Garment-Dyed · Relaxed Fit',
+      },
       variant: 'default',
     },
     photoFiles: [
@@ -310,8 +316,8 @@ export const TSHIRTS_CATALOG: readonly TShirtProduct[] = [
       en: 'Spill the Tea',
     },
     description: {
-      es: 'Guiño ingenioso a "The Tea" de Mary Cassatt (1880). Notas caligráficas, detalles en terracota y algodón peinado de alto gramaje con corte versátil.',
-      en: 'A witty nod to Mary Cassatt’s "The Tea" (1880). Calligraphic notes, terracotta accents, and heavyweight combed cotton in a versatile cut.',
+      es: 'Guiño ingenioso a "The Tea" de Mary Cassatt (1880). Notas caligráficas, detalles en terracota y algodón estadounidense 100% hilado en anillo Comfort Colors® Relaxed Fit.',
+      en: 'A witty nod to Mary Cassatt’s "The Tea" (1880). Calligraphic notes, terracotta accents, and Comfort Colors® 100% ring-spun U.S. cotton in Relaxed Fit.',
     },
     badge: {
       code: 'edicion_atelier',
@@ -336,8 +342,8 @@ export const TSHIRTS_CATALOG: readonly TShirtProduct[] = [
       en: 'Sunflowers',
     },
     description: {
-      es: 'Amarillos solares y textura vibrante inspirada en los girasoles eternos de Arlés. Corte oversized relajado sobre algodón de máxima suavidad.',
-      en: 'Solar yellows and vibrant texture inspired by the timeless sunflowers of Arles. Relaxed oversized cut on ultra-soft cotton.',
+      es: 'Amarillos solares y textura vibrante inspirada en los girasoles eternos de Arlés. Corte Comfort Colors® Relaxed Fit sobre algodón suave teñido en prenda.',
+      en: 'Solar yellows and vibrant texture inspired by the timeless sunflowers of Arles. Comfort Colors® Relaxed Fit on soft garment-dyed cotton.',
     },
     badge: {
       code: 'coleccion_impresionista',
@@ -391,12 +397,15 @@ export const TSHIRTS_CATALOG: readonly TShirtProduct[] = [
       en: 'The New Bedroom',
     },
     description: {
-      es: 'La habitación amarilla de Arlés (octubre de 1888) llevada al streetwear de autor. Calidez cromática, caligrafía sutil y algodón orgánico 240g.',
-      en: 'The yellow bedroom in Arles (October 1888) reimagined for signature streetwear. Chromatic warmth, subtle script, and 240g organic cotton.',
+      es: 'La habitación amarilla de Arlés (octubre de 1888) llevada al diseño de autor. Calidez cromática sobre prenda Comfort Colors® 100% algodón hilado en anillo, corte Relaxed Fit.',
+      en: 'The yellow bedroom in Arles (October 1888) reimagined as wearable art. Chromatic warmth on Comfort Colors® 100% ring-spun U.S. cotton in Relaxed Fit.',
     },
     badge: {
-      code: 'algodon_240g',
-      label: { es: 'Algodón 240g', en: '240g Cotton' },
+      code: 'comfort_colors',
+      label: {
+        es: 'Comfort Colors · 100% Algodón',
+        en: 'Comfort Colors · 100% Cotton',
+      },
       variant: 'default',
     },
     photoFiles: [

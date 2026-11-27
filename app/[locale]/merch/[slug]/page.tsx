@@ -177,30 +177,54 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               {productDescription}
             </p>
 
-            {/* Curated Textile Specs */}
-            <div className="py-4 border-y border-dba-rule/50 flex flex-col gap-2.5 text-xs font-body text-dba-muted">
-              <div className="flex items-center gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-dba-accent" />
+            {/* Comfort Colors® Official Textile Specs */}
+            <div className="py-4 border-y border-dba-rule/50 flex flex-col gap-3 text-xs font-body text-dba-muted leading-relaxed">
+              <div className="flex items-start gap-2.5">
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-dba-accent shrink-0" />
                 <span>
+                  <strong className="text-dba-ink font-medium">
+                    {locale === 'es' ? 'Marca y Tejido: ' : 'Brand & Fabric: '}
+                  </strong>
                   {locale === 'es'
-                    ? '100% Algodón Peinado Orgánico de Alto Gramaje (240 GSM)'
-                    : '100% Combed Organic Heavyweight Cotton (240 GSM)'}
+                    ? 'Comfort Colors® · 100% algodón estadounidense hilado en anillo (soft ring-spun U.S. cotton).'
+                    : 'Comfort Colors® · 100% soft ring-spun U.S. cotton.'}
                 </span>
               </div>
-              <div className="flex items-center gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-dba-accent" />
+              <div className="flex items-start gap-2.5">
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-dba-accent shrink-0" />
                 <span>
+                  <strong className="text-dba-ink font-medium">
+                    {locale === 'es'
+                      ? 'Acabado y Durabilidad: '
+                      : 'Finish & Durability: '}
+                  </strong>
                   {locale === 'es'
-                    ? 'Arte textil exclusivo con pigmentos y técnica mixta de autor'
-                    : 'Exclusive textile artwork crafted with signature mixed-media pigments'}
+                    ? 'Teñido en prenda (garment-dyed) para un tacto suave vivido y prácticamente cero encogimiento al lavar en casa.'
+                    : 'Garment-dyed for a soft, lived-in feel with virtually zero shrinkage when washed at home.'}
                 </span>
               </div>
-              <div className="flex items-center gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-dba-accent" />
+              <div className="flex items-start gap-2.5">
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-dba-accent shrink-0" />
                 <span>
+                  <strong className="text-dba-ink font-medium">
+                    {locale === 'es'
+                      ? 'Corte y Confección: '
+                      : 'Fit & Construction: '}
+                  </strong>
                   {locale === 'es'
-                    ? 'Corte contemporáneo unisex (Boxy tailored fit)'
-                    : 'Contemporary unisex tailored boxy fit'}
+                    ? 'Relaxed Fit sin costuras laterales, cuello acanalado clásico con doble pespunte, etiqueta de sarga (twill) y refuerzo de hombro a hombro.'
+                    : 'Seamless Relaxed Fit body, classic ribbed collar with topstitching, signature twill label, and shoulder-to-shoulder twill tape.'}
+                </span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-dba-accent shrink-0" />
+                <span>
+                  <strong className="text-dba-ink font-medium">
+                    {locale === 'es' ? 'Sostenibilidad: ' : 'Sustainability: '}
+                  </strong>
+                  {locale === 'es'
+                    ? 'Tintes de bajo impacto certificados OEKO-TEX® (libres de sal), miembro del U.S. Cotton Trust Protocol y empaque libre de bolsas plásticas (excepto color blanco).'
+                    : 'OEKO-TEX® certified low-impact salt-free dyes, U.S. Cotton Trust Protocol member, and plastic-bag-free packaging (except White).'}
                 </span>
               </div>
             </div>
