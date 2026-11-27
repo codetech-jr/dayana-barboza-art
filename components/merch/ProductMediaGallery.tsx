@@ -64,7 +64,7 @@ export function ProductMediaGallery({
   };
 
   return (
-    <div className="flex flex-col gap-4 sm:gap-6 select-none">
+    <div className="flex flex-col gap-5 sm:gap-6 select-none">
       {/* ── 1. Main High-Resolution Visor ── */}
       <div
         className="
@@ -168,7 +168,7 @@ export function ProductMediaGallery({
 
       {/* ── 2. Dynamic Thumbnail Strip (All Photos + All Videos) ── */}
       <div
-        className="flex items-center gap-2.5 sm:gap-3 overflow-x-auto pb-2 scrollbar-none"
+        className="flex items-center gap-3.5 sm:gap-4 overflow-x-auto px-2 py-2.5 -mx-2 scrollbar-none"
         role="tablist"
         aria-label={locale === 'es' ? 'Galería multimedia' : 'Media gallery'}
       >

@@ -124,7 +124,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         </div>
 
         {/* ── 2-Column Editorial Layout ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Media Gallery (Visor + Thumbnails) */}
           <div className="lg:col-span-7">
             <ProductMediaGallery
