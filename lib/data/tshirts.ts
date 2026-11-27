@@ -24,7 +24,7 @@ import {
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
-const PROVISIONAL_PRICE_USD = 48;
+const OFFICIAL_PRICE_USD = 30;
 const STANDARD_SIZES = ['S', 'M', 'L', 'XL'] as const;
 
 interface CatalogEntryInput {
@@ -91,7 +91,7 @@ function buildCatalogProduct(entry: CatalogEntryInput): TShirtProduct {
     slug: entry.slug,
     name: entry.name,
     description: entry.description,
-    priceUSD: PROVISIONAL_PRICE_USD,
+    priceUSD: OFFICIAL_PRICE_USD,
     badges: [entry.badge],
     status: 'disponible',
     sizes: STANDARD_SIZES,
