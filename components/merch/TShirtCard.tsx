@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useSyncExternalStore } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/lib/cart';
@@ -18,10 +18,27 @@ import type { Locale } from '@/lib/i18n/config';
  * - High-end Editorial Luxury aesthetic (warm paper surfaces, high-contrast serif, calm typography)
  * - Seamless size selection with validation feedback
  * - Reactive bag integration via `useCart`
- * - Dual-photo crossfade preview (front / back)
+ * - Smooth automatic crossfade between model shot and garment mockup (pauses on hover)
+ * - Respects `prefers-reduced-motion` via SSR-safe external store subscription
  * - Resilient fallback for unpopulated or missing mockup assets
  * ─────────────────────────────────────────────────────────────────────────────
  */
+
+function subscribeReducedMotion(callback: () => void): () => void {
+  if (typeof window === 'undefined') return () => {};
+  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  mediaQuery.addEventListener('change', callback);
+  return () => mediaQuery.removeEventListener('change', callback);
+}
+
+function getReducedMotionSnapshot(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function getReducedMotionServerSnapshot(): boolean {
+  return false;
+}
 
 export interface TShirtCardProps {
   product: TShirtProduct;
@@ -44,6 +61,14 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
   const [showSizeWarning, setShowSizeWarning] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [activePhotoIndex, setActivePhotoIndex] = useState<0 | 1>(0);
+
+  const prefersReducedMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotionSnapshot,
+    getReducedMotionServerSnapshot
+  );
 
   const isSoldOut = product.status === 'agotado';
   const isLimited = product.status === 'drop_limitado';
@@ -55,11 +80,41 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
   const primaryBadge = product.badges[0]?.label[locale];
 
   // Resolve mockups (stripping leading '/public' for Next.js public directory resolution)
-  const frontMockup = product.media.mockups[0];
-  const backMockup = product.media.mockups[1];
+  const mockups = product.media.mockups;
+  const frontMockup = mockups[0];
+  const backMockup = mockups[1];
 
   const frontSrc = frontMockup?.src?.replace(/^\/public/, '') || '';
   const backSrc = backMockup?.src?.replace(/^\/public/, '') || '';
+
+  const photosCount = mockups.length;
+  const videosCount = product.media.videoPreviews?.length
+    ? product.media.videoPreviews.length
+    : product.media.videoPreview
+    ? 1
+    : 0;
+
+  const hasMultipleMockups = Boolean(backSrc) && photosCount > 1;
+  const shouldAnimate =
+    hasMultipleMockups && !isHovered && !prefersReducedMotion && !imageError;
+
+  // Automatic smooth alternation every 2800ms; pauses cleanly on hover
+  useEffect(() => {
+    if (!shouldAnimate) return;
+
+    const intervalId = window.setInterval(() => {
+      setActivePhotoIndex((prev) => (prev === 0 ? 1 : 0));
+    }, 2800);
+
+    return () => window.clearInterval(intervalId);
+  }, [shouldAnimate]);
+
+  const displayIndex: 0 | 1 = prefersReducedMotion ? 0 : activePhotoIndex;
+
+  const mediaBadgeText =
+    locale === 'es'
+      ? `${photosCount} fotos · ${videosCount > 1 ? `${videosCount} videos` : 'Video'}`
+      : `${photosCount} photos · ${videosCount > 1 ? `${videosCount} videos` : 'Video'}`;
 
   const handleSelectSize = (size: TShirtSize) => {
     if (isSoldOut) return;
@@ -97,15 +152,17 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
       "
       aria-labelledby={`product-title-${product.id}`}
     >
-      {/* ── 1. Image Showcase Area with dual-photo crossfade ── */}
+      {/* ── 1. Image Showcase Area with automatic alternation (pauses on hover) ── */}
       <Link
         href={`/${locale}/merch/${product.slug}`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         className="block relative aspect-[4/5] w-full overflow-hidden bg-dba-paper/60 select-none"
         aria-label={`${productName} — ${locale === 'es' ? 'Ver detalle' : 'View details'}`}
       >
         {!imageError && frontSrc ? (
           <>
-            {/* Primary Front Shot */}
+            {/* Primary Model Shot (mockups[0]) */}
             <Image
               src={frontSrc}
               alt={frontMockup.alt[locale] || productName}
@@ -113,28 +170,26 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
               placeholder="blur"
               blurDataURL={BLUR_PLACEHOLDER}
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="
+              className={`
                 object-cover object-center
-                transition-all duration-700 ease-[var(--dba-ease)]
-                group-hover:scale-105
-                group-hover:opacity-0
-              "
+                transition-opacity duration-700 ease-[var(--dba-ease)]
+                ${displayIndex === 0 || !backSrc ? 'opacity-100' : 'opacity-0'}
+              `}
               onError={() => setImageError(true)}
             />
 
-            {/* Hover Back Shot (if available) */}
+            {/* Secondary Garment / Lookbook Shot (mockups[1]) */}
             {backSrc ? (
               <Image
                 src={backSrc}
-                alt={backMockup?.alt[locale] || `${productName} back view`}
+                alt={backMockup?.alt[locale] || `${productName} alternate view`}
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="
+                className={`
                   object-cover object-center
-                  opacity-0 transition-all duration-700 ease-[var(--dba-ease)]
-                  group-hover:scale-105
-                  group-hover:opacity-100
-                "
+                  transition-opacity duration-700 ease-[var(--dba-ease)]
+                  ${displayIndex === 1 ? 'opacity-100' : 'opacity-0'}
+                `}
                 aria-hidden="true"
               />
             ) : null}
@@ -194,7 +249,7 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
           </span>
         </div>
 
-        {/* ── Media Preview Badge (4 photos · Video) ── */}
+        {/* ── Dynamic Media Preview Badge ── */}
         <div className="absolute bottom-3.5 right-3.5 z-10">
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-body text-[11px] font-medium text-dba-ink bg-dba-white/90 border border-dba-rule/70 shadow-xs backdrop-blur-xs transition-transform duration-300 group-hover:scale-105">
             <svg
@@ -212,7 +267,7 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
               <path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.934a.5.5 0 0 0-.777-.416L16 11" />
               <rect width="14" height="12" x="2" y="6" rx="2" />
             </svg>
-            <span>{locale === 'es' ? '4 fotos · Video' : '4 photos · Video'}</span>
+            <span>{mediaBadgeText}</span>
           </span>
         </div>
       </Link>

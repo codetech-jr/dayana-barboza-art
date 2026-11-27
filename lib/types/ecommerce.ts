@@ -94,7 +94,7 @@ export const PRODUCT_STATUS_CONFIG: Readonly<Record<ProductStatus, ProductStatus
 } as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 3. PRODUCT MEDIA (4 MOCKUPS + 1 VIDEO PREVIEW)
+// 3. PRODUCT MEDIA (FLEXIBLE MOCKUP GALLERY + VIDEO PREVIEW(S))
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
@@ -119,26 +119,25 @@ export interface ProductVideoPreview {
 }
 
 /**
- * Exact 4-mockup tuple: guarantees editorial completeness.
+ * Non-empty immutable mockup gallery tuple: guarantees at least 1 primary
+ * image while supporting collections with 2 to 6+ photos.
  * Order convention:
- * 0: Front full view
- * 1: Back artwork view
- * 2: Close-up textile & brushstroke detail
- * 3: Lifestyle / model fit view
+ * 0: Primary model / editorial lookbook view
+ * 1: Clean flat garment mockup (or secondary model shot)
+ * 2..N: Additional detail / lifestyle angles
  */
-export type MockupTuple = readonly [
-  ProductMockupImage,
-  ProductMockupImage,
-  ProductMockupImage,
-  ProductMockupImage,
-];
+export type MockupTuple = readonly [ProductMockupImage, ...ProductMockupImage[]];
+
+/** Alias for flexible product mockup galleries */
+export type MockupGallery = MockupTuple;
 
 /**
- * Product media bundle consisting of exactly 4 mockup images and 1 video preview.
+ * Product media bundle consisting of a non-empty mockup gallery and 1+ video previews.
  */
 export interface ProductMedia {
   readonly mockups: MockupTuple;
   readonly videoPreview: ProductVideoPreview;
+  readonly videoPreviews?: readonly ProductVideoPreview[];
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

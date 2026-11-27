@@ -1,8 +1,12 @@
-import type {
-  TShirtProduct,
-  ProductStatus,
-  ProductMedia,
-  MockupTuple,
+import {
+  createTShirtProduct,
+  type LocalizedText,
+  type MockupTuple,
+  type ProductBadge,
+  type ProductMockupImage,
+  type ProductStatus,
+  type ProductVideoPreview,
+  type TShirtProduct,
 } from '@/lib/types/ecommerce';
 
 /**
@@ -10,560 +14,400 @@ import type {
  * MERCH BOUTIQUE — DAYANA BARBOZA T-SHIRTS CATALOG
  * ─────────────────────────────────────────────────────────────────────────────
  *
- * 11 realistic apparel pieces reflecting Dayana's artistic signature:
- * heavy-acrylic textures, hyperrealistic portraiture, Venezuelan natural
- * landscapes, and tropical Caribbean pigments.
+ * 11 curated Impressionist & Post-Impressionist inspired apparel pieces.
+ * All image and video paths map directly to real files in `/public/gallery/t-shirts/`.
  *
- * All image and video preview paths point to `/public/merch/[slug]/`.
+ * Ordering convention per piece:
+ * - mockups[0]: Primary model lookbook photograph
+ * - mockups[1]: Clean flat garment mockup (or secondary model view in Sunflowers)
+ * - mockups[2..N]: Additional angles & editorial lifestyle captures
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
-/**
- * Helper to construct a typed, accessible 4-mockup media bundle for a t-shirt design.
- */
-function createProductMedia(
-  slug: string,
-  nameEs: string,
-  nameEn: string,
-  detailFocusEs: string,
-  detailFocusEn: string
-): ProductMedia {
-  const basePath = `/public/merch/${slug}`;
+const PROVISIONAL_PRICE_USD = 48;
+const STANDARD_SIZES = ['S', 'M', 'L', 'XL'] as const;
 
-  const mockups: MockupTuple = [
-    {
-      src: `${basePath}/mockup-1-front.webp`,
-      alt: {
-        es: `Vista frontal de la franela "${nameEs}" sobre algodón pesado con arte textil de Dayana Barboza`,
-        en: `Front view of the "${nameEn}" t-shirt on heavyweight cotton featuring textile artwork by Dayana Barboza`,
-      },
-      width: 1200,
-      height: 1500,
-    },
-    {
-      src: `${basePath}/mockup-2-back.webp`,
-      alt: {
-        es: `Vista posterior de la franela "${nameEs}" mostrando la caída y el acabado de la prenda`,
-        en: `Back view of the "${nameEn}" t-shirt showing drape and premium tailoring finish`,
-      },
-      width: 1200,
-      height: 1500,
-    },
-    {
-      src: `${basePath}/mockup-3-detail.webp`,
-      alt: {
-        es: `Detalle en macro de la textura y pinceladas: ${detailFocusEs}`,
-        en: `Macro detail of texture and brushstrokes: ${detailFocusEn}`,
-      },
-      width: 1200,
-      height: 1500,
-    },
-    {
-      src: `${basePath}/mockup-4-lifestyle.webp`,
-      alt: {
-        es: `Modelo luciendo la franela "${nameEs}" en iluminación natural de atelier`,
-        en: `Model wearing the "${nameEn}" t-shirt in natural atelier lighting`,
-      },
-      width: 1200,
-      height: 1500,
-    },
-  ];
+interface CatalogEntryInput {
+  id: string;
+  slug: string;
+  folder: string;
+  name: LocalizedText;
+  description: LocalizedText;
+  badge: ProductBadge;
+  photoFiles: readonly [string, ...string[]];
+  videoFiles: readonly [string, ...string[]];
+}
+
+function buildMockupImage(
+  folder: string,
+  filename: string,
+  name: LocalizedText,
+  index: number
+): ProductMockupImage {
+  const src = `/gallery/t-shirts/${folder}/${filename}`;
+  const isModelShot = index === 0;
+  const isCleanGarment = index === 1;
+
+  const altEs = isModelShot
+    ? `Modelo luciendo la franela "${name.es}" de Dayana Barboza Art`
+    : isCleanGarment
+    ? `Vista limpia de la franela "${name.es}" sobre algodón de 240g`
+    : `Vista adicional ${index + 1} de la franela "${name.es}" de Dayana Barboza Art`;
+
+  const altEn = isModelShot
+    ? `Model wearing the "${name.en}" t-shirt by Dayana Barboza Art`
+    : isCleanGarment
+    ? `Clean garment view of the "${name.en}" t-shirt on 240g cotton`
+    : `Additional view ${index + 1} of the "${name.en}" t-shirt by Dayana Barboza Art`;
 
   return {
-    mockups,
-    videoPreview: {
-      src: `${basePath}/preview.mp4`,
-      poster: `${basePath}/mockup-1-front.webp`,
-      mimeType: 'video/mp4',
-      aspectRatio: '4/5',
-    },
+    src,
+    alt: { es: altEs, en: altEn },
+    width: 1200,
+    height: 1500,
   };
 }
 
+function buildCatalogProduct(entry: CatalogEntryInput): TShirtProduct {
+  const [firstPhoto, ...restPhotos] = entry.photoFiles;
+  const primaryPoster = `/gallery/t-shirts/${entry.folder}/${firstPhoto}`;
+
+  const mockups: MockupTuple = [
+    buildMockupImage(entry.folder, firstPhoto, entry.name, 0),
+    ...restPhotos.map((file, idx) =>
+      buildMockupImage(entry.folder, file, entry.name, idx + 1)
+    ),
+  ];
+
+  const videoPreviews: ProductVideoPreview[] = entry.videoFiles.map((videoFile) => ({
+    src: `/gallery/t-shirts/${entry.folder}/${videoFile}`,
+    poster: primaryPoster,
+    mimeType: 'video/mp4',
+    aspectRatio: '4/5',
+  }));
+
+  return createTShirtProduct({
+    id: entry.id,
+    slug: entry.slug,
+    name: entry.name,
+    description: entry.description,
+    priceUSD: PROVISIONAL_PRICE_USD,
+    badges: [entry.badge],
+    status: 'disponible',
+    sizes: STANDARD_SIZES,
+    media: {
+      mockups,
+      videoPreview: videoPreviews[0],
+      videoPreviews,
+    },
+  });
+}
+
 export const TSHIRTS_CATALOG: readonly TShirtProduct[] = [
-  // ─── 01. GUACAMAYA EN VUELO (Disponible) ──────────────────────────────────
-  {
-    id: 'tshirt-guacamaya-en-vuelo',
-    slug: 'guacamaya-en-vuelo',
+  // ─── 01. ARGENTEUIL ───────────────────────────────────────────────────────
+  buildCatalogProduct({
+    id: 'tshirt-argenteuil',
+    slug: 'argenteuil',
+    folder: 'Argenteuil',
     name: {
-      es: 'Guacamaya en Vuelo',
-      en: 'Scarlet Macaw in Flight',
-    },
-    nombre: {
-      es: 'Guacamaya en Vuelo',
-      en: 'Scarlet Macaw in Flight',
+      es: 'Argenteuil',
+      en: 'Argenteuil',
     },
     description: {
-      es: 'Pinceladas expresivas en acrílico pesado capturan el aleteo vibrante de la guacamaya caraqueña. Confeccionada en algodón orgánico peinado de 240 GSM con tacto ultrasuave.',
-      en: 'Expressive heavy-acrylic brushstrokes capture the vibrant flight of the Caracas scarlet macaw. Crafted in 240 GSM combed organic cotton with an ultra-soft hand feel.',
+      es: 'Inspirada en los paseos soleados de Camille Monet en Argenteuil. Brisa luminosa, cielos impresionistas y algodón peinado de 240g con caída relajada.',
+      en: 'Inspired by Camille Monet’s sunlit walks in Argenteuil. Luminous breeze, Impressionist skies, and 240g combed cotton with a relaxed drape.',
     },
-    descripcion: {
-      es: 'Pinceladas expresivas en acrílico pesado capturan el aleteo vibrante de la guacamaya caraqueña. Confeccionada en algodón orgánico peinado de 240 GSM con tacto ultrasuave.',
-      en: 'Expressive heavy-acrylic brushstrokes capture the vibrant flight of the Caracas scarlet macaw. Crafted in 240 GSM combed organic cotton with an ultra-soft hand feel.',
+    badge: {
+      code: 'coleccion_impresionista',
+      label: { es: 'Colección Impresionista', en: 'Impressionist Collection' },
+      variant: 'default',
     },
-    priceUSD: 48,
-    precioUSD: 48,
-    badges: [
-      {
-        code: 'arte_original',
-        label: {
-          es: 'Arte Original',
-          en: 'Original Artwork',
-        },
-        variant: 'default',
-      },
+    photoFiles: [
+      't-shirt-mockup-of-a-woman-doing-a-surf-hand-sign-m630_5_11zon.webp',
+      'Argenteuil - Mockup_1_11zon.webp',
+      'Argenteuil - Mockup (1)_2_11zon.webp',
+      'Argenteuil - Mockup (2)_3_11zon.webp',
+      'mockup-of-a-hand-holding-a-t-shirt-in-a-colorful-background-26735_4_11zon.webp',
+      'transparent-mockup-of-a-defiant-woman-wearing-a-unisex-t-shirt-m634_6_11zon.webp',
     ],
-    status: 'disponible',
-    sizes: ['S', 'M', 'L', 'XL'],
-    tallas: ['S', 'M', 'L', 'XL'],
-    media: createProductMedia(
-      'guacamaya-en-vuelo',
-      'Guacamaya en Vuelo',
-      'Scarlet Macaw in Flight',
-      'capas de rojo bermellón, azul cobalto y amarillo cadmio con relieve táctil',
-      'tactile relief layers of vermillion red, cobalt blue, and cadmium yellow'
-    ),
-  },
+    videoFiles: ['t-shirt-video-of-a-woman-posing-on-a-chair-22445.mp4'],
+  }),
 
-  // ─── 02. ÁVILA AL ATARDECER (Drop Limitado) ───────────────────────────────
-  {
-    id: 'tshirt-avila-al-atardecer',
-    slug: 'avila-al-atardecer',
+  // ─── 02. BLUE ARMCHAIR ────────────────────────────────────────────────────
+  buildCatalogProduct({
+    id: 'tshirt-blue-armchair',
+    slug: 'blue-armchair',
+    folder: 'Blue ArmChair',
     name: {
-      es: 'Ávila al Atardecer',
-      en: 'Sunset Ávila',
-    },
-    nombre: {
-      es: 'Ávila al Atardecer',
-      en: 'Sunset Ávila',
+      es: 'Blue Armchair',
+      en: 'Blue Armchair',
     },
     description: {
-      es: 'La silueta imponente del cerro Waraira Repano al caer la tarde, bañada en matices magenta, siena y lavanda. Tiraje limitado con numeración serigrafiada.',
-      en: 'The majestic silhouette of the Waraira Repano mountain at dusk, bathed in magenta, sienna, and lavender gradients. Limited release with silkscreened numbering.',
+      es: 'Homenaje contemporáneo a Mary Cassatt (1878). Contrastes textiles de tartán, azul cobalto y actitud irreverente sobre jersey pesado de algodón orgánico.',
+      en: 'A contemporary homage to Mary Cassatt (1878). Textile tartan contrasts, cobalt blue, and effortless attitude on heavyweight organic cotton jersey.',
     },
-    descripcion: {
-      es: 'La silueta imponente del cerro Waraira Repano al caer la tarde, bañada en matices magenta, siena y lavanda. Tiraje limitado con numeración serigrafiada.',
-      en: 'The majestic silhouette of the Waraira Repano mountain at dusk, bathed in magenta, sienna, and lavender gradients. Limited release with silkscreened numbering.',
+    badge: {
+      code: 'arte_de_autor',
+      label: { es: 'Arte de Autor', en: 'Signature Art' },
+      variant: 'default',
     },
-    priceUSD: 65,
-    precioUSD: 65,
-    badges: [
-      {
-        code: 'drop_exclusivo',
-        label: {
-          es: 'Drop Exclusivo',
-          en: 'Exclusive Drop',
-        },
-        variant: 'accent',
-      },
+    photoFiles: [
+      't-shirt-mockup-of-a-bold-woman-wearing-an-athleisure-outfit-32445.webp',
+      'Blue armchair - Mockup.webp',
+      'Blue armchair - Mockup (1).webp',
     ],
-    status: 'drop_limitado',
-    sizes: ['M', 'L'],
-    tallas: ['M', 'L'],
-    media: createProductMedia(
-      'avila-al-atardecer',
-      'Ávila al Atardecer',
-      'Sunset Ávila',
-      'degradé de espátula recreando la bruma montañosa y destellos ocres',
-      'palette-knife blend capturing mountain mist and golden ochre highlights'
-    ),
-  },
+    videoFiles: ['Blue-armchair-video.mp4'],
+  }),
 
-  // ─── 03. ORQUÍDEA SALVAJE (Disponible) ────────────────────────────────────
-  {
-    id: 'tshirt-orquidea-salvaje',
-    slug: 'orquidea-salvaje',
+  // ─── 03. EMBROIDERY ───────────────────────────────────────────────────────
+  buildCatalogProduct({
+    id: 'tshirt-embroidery',
+    slug: 'embroidery',
+    folder: 'Embroidery',
     name: {
-      es: 'Orquídea Salvaje',
-      en: 'Wild Orchid',
-    },
-    nombre: {
-      es: 'Orquídea Salvaje',
-      en: 'Wild Orchid',
+      es: 'Embroidery',
+      en: 'Embroidery',
     },
     description: {
-      es: 'La flor nacional venezolana despojada de artificios: trazos botánicos contemporáneos y salpicaduras sutiles de pigmento violeta y amatista sobre base marfil.',
-      en: 'The Venezuelan national flower reimagined: contemporary botanical strokes and subtle splatters of violet and amethyst pigments over an ivory base.',
+      es: 'Camille au Métier (1875) reinterpretada como arte para vestir. Verdes esmeralda, calma íntima de taller y estampado de alta definición sobre algodón 240g.',
+      en: 'Camille au Métier (1875) reimagined as wearable art. Emerald greens, quiet atelier serenity, and high-definition print on 240g cotton.',
     },
-    descripcion: {
-      es: 'La flor nacional venezolana despojada de artificios: trazos botánicos contemporáneos y salpicaduras sutiles de pigmento violeta y amatista sobre base marfil.',
-      en: 'The Venezuelan national flower reimagined: contemporary botanical strokes and subtle splatters of violet and amethyst pigments over an ivory base.',
+    badge: {
+      code: 'algodon_240g',
+      label: { es: 'Algodón 240g', en: '240g Cotton' },
+      variant: 'default',
     },
-    priceUSD: 42,
-    precioUSD: 42,
-    badges: [
-      {
-        code: 'edicion_limitada',
-        label: {
-          es: 'Edición Limitada',
-          en: 'Limited Edition',
-        },
-        variant: 'accent',
-      },
+    photoFiles: [
+      'mockup-featuring-a-girl-showing-her-t-shirt-18573-2.webp',
+      'Embroidery - Mockup_CMYK.webp',
+      'Embroidery - Mockup_CMYK (1).webp',
+      'monochromatic-t-shirt-of-a-woman-holding-some-roses-32784.webp',
     ],
-    status: 'disponible',
-    sizes: ['S', 'M', 'L'],
-    tallas: ['S', 'M', 'L'],
-    media: createProductMedia(
-      'orquidea-salvaje',
-      'Orquídea Salvaje',
-      'Wild Orchid',
-      'pétalos aterciopelados logrados con técnica de veladura acrílica',
-      'velvety petals created with delicate acrylic glazing techniques'
-    ),
-  },
+    videoFiles: [
+      't-shirt-video-of-a-woman-wearing-dark-glasses-in-stop-motion-22715.mp4',
+    ],
+  }),
 
-  // ─── 04. TURQUESA LOS ROQUES (Disponible) ─────────────────────────────────
-  {
-    id: 'tshirt-turquesa-los-roques',
-    slug: 'turquesa-los-roques',
+  // ─── 04. FARMHOUSE ────────────────────────────────────────────────────────
+  buildCatalogProduct({
+    id: 'tshirt-farmhouse',
+    slug: 'farmhouse',
+    folder: 'Farmhouse',
     name: {
-      es: 'Turquesa Los Roques',
-      en: 'Los Roques Turquoise',
-    },
-    nombre: {
-      es: 'Turquesa Los Roques',
-      en: 'Los Roques Turquoise',
+      es: 'Farmhouse',
+      en: 'Farmhouse',
     },
     description: {
-      es: 'Inspirada en la claridad hipnótica del archipiélago caribeño. Transiciones de verde agua a cian profundo plasmadas con pinceladas en barrido gestual.',
-      en: 'Inspired by the hypnotic clarity of the Caribbean coral atoll. Seamless seafoam to deep cyan transitions applied with bold gestual sweeps.',
+      es: 'Campos dorados de Arlés bajo el sol de Provenza (1888). Trazos cálidos de ocre y verde oliva sobre algodón peinado unisex de tacto ultrasuave.',
+      en: 'Golden fields of Arles under the Provençal sun (1888). Warm ochre and olive strokes on ultra-soft combed unisex cotton.',
     },
-    descripcion: {
-      es: 'Inspirada en la claridad hipnótica del archipiélago caribeño. Transiciones de verde agua a cian profundo plasmadas con pinceladas en barrido gestual.',
-      en: 'Inspired by the hypnotic clarity of the Caribbean coral atoll. Seamless seafoam to deep cyan transitions applied with bold gestual sweeps.',
+    badge: {
+      code: 'edicion_atelier',
+      label: { es: 'Edición Atelier', en: 'Atelier Edition' },
+      variant: 'default',
     },
-    priceUSD: 45,
-    precioUSD: 45,
-    badges: [
-      {
-        code: 'color_temporada',
-        label: {
-          es: 'Color de Temporada',
-          en: 'Seasonal Color',
-        },
-        variant: 'default',
-      },
+    photoFiles: [
+      'FarmHouse - Mockup (1).webp',
+      'FarmHouse - Mockup.webp',
+      'FarmHouse - Mockup (2).webp',
     ],
-    status: 'disponible',
-    sizes: ['S', 'M', 'XL'],
-    tallas: ['S', 'M', 'XL'],
-    media: createProductMedia(
-      'turquesa-los-roques',
-      'Turquesa Los Roques',
-      'Los Roques Turquoise',
-      'efecto de agua traslúcida y espuma blanca mediante acrílico texturizado',
-      'translucent water ripple effect and white spray using textured acrylics'
-    ),
-  },
+    videoFiles: ['t-shirt-video-of-a-woman-celebrating-spring-32717.mp4'],
+  }),
 
-  // ─── 05. CACAO & ORO TEXTIL (Drop Limitado) ───────────────────────────────
-  {
-    id: 'tshirt-cacao-y-oro-textil',
-    slug: 'cacao-y-oro-textil',
+  // ─── 05. IRISES ───────────────────────────────────────────────────────────
+  buildCatalogProduct({
+    id: 'tshirt-irises',
+    slug: 'irises',
+    folder: 'Irises',
     name: {
-      es: 'Cacao & Oro Textil',
-      en: 'Cacao & Textile Gold',
-    },
-    nombre: {
-      es: 'Cacao & Oro Textil',
-      en: 'Cacao & Textile Gold',
+      es: 'Irises',
+      en: 'Irises',
     },
     description: {
-      es: 'Homenaje a los granos de cacao criollo de Chuao. Ricos marrones tierra combinados con toques de mica dorada resistente al lavado y corte oversized boxy fit.',
-      en: 'Homage to the Venezuelan heirloom Chuao cocoa beans. Deep earthy browns accented with washable gold mica shimmer in a relaxed oversized boxy silhouette.',
+      es: 'Inspirada en los lirios de Van Gogh (1889) con guiños al grabado japonés. Azul índigo, pétalos vibrantes y confección boxy fit de galería.',
+      en: 'Inspired by Van Gogh’s Irises (1889) with subtle nods to Japanese woodblock prints. Indigo blues, vibrant petals, and gallery-grade boxy fit.',
     },
-    descripcion: {
-      es: 'Homenaje a los granos de cacao criollo de Chuao. Ricos marrones tierra combinados con toques de mica dorada resistente al lavado y corte oversized boxy fit.',
-      en: 'Homage to the Venezuelan heirloom Chuao cocoa beans. Deep earthy browns accented with washable gold mica shimmer in a relaxed oversized boxy silhouette.',
+    badge: {
+      code: 'coleccion_impresionista',
+      label: { es: 'Colección Impresionista', en: 'Impressionist Collection' },
+      variant: 'default',
     },
-    priceUSD: 72,
-    precioUSD: 72,
-    badges: [
-      {
-        code: 'edicion_coleccionista',
-        label: {
-          es: 'Edición Coleccionista',
-          en: "Collector's Edition",
-        },
-        variant: 'accent',
-      },
+    photoFiles: [
+      't-shirt-mockup-featuring-a-woman-leaning-on-a-vintage-van-2259-el1.webp',
+      'Irises - Mockup.webp',
+      'Irises - Mockup (1).webp',
+      'Irises - Mockup (2).webp',
+      'studio-t-shirt-mockup-of-a-woman-enjoying-some-music-45060-r-el2.webp',
+      't-shirt-mockup-of-a-woman-taking-a-selfie-in-a-studio-45063-r-el2-2.webp',
     ],
-    status: 'drop_limitado',
-    sizes: ['L', 'XL'],
-    tallas: ['L', 'XL'],
-    media: createProductMedia(
-      'cacao-y-oro-textil',
-      'Cacao & Oro Textil',
-      'Cacao & Textile Gold',
-      'destellos de pan de oro textil y pigmento de cáscara de cacao tostado',
-      'metallic textile gold foil accents interwoven with roasted cocoa hues'
-    ),
-  },
+    videoFiles: ['t-shirt-video-of-a-happy-young-woman-with-big-hair-3652v.mp4'],
+  }),
 
-  // ─── 06. MIRADA CARIBEÑA (Disponible) ─────────────────────────────────────
-  {
-    id: 'tshirt-mirada-caribena',
-    slug: 'mirada-caribena',
+  // ─── 06. LADY CAMILLE ─────────────────────────────────────────────────────
+  buildCatalogProduct({
+    id: 'tshirt-lady-camille',
+    slug: 'lady-camille',
+    folder: 'Lady Camille',
     name: {
-      es: 'Mirada Caribeña',
-      en: 'Caribbean Gaze',
-    },
-    nombre: {
-      es: 'Mirada Caribeña',
-      en: 'Caribbean Gaze',
+      es: 'Lady Camille',
+      en: 'Lady Camille',
     },
     description: {
-      es: 'Retrato hiperrealista a media escala que conjuga fuerza expresiva, luces cálidas de sol tropical y la técnica de retrato insignia de Dayana sobre denim y tela.',
-      en: 'Mid-scale hyperrealistic portraiture merging fierce expression, warm tropical sunlight reflections, and Dayana’s signature portrait technique.',
+      es: 'La icónica mujer de la sombrilla de Claude Monet en clave editorial contemporánea. Minimalismo gráfico y algodón pesado pensado para durar.',
+      en: 'Claude Monet’s iconic Woman with a Parasol through a contemporary editorial lens. Graphic minimalism on heavyweight cotton built to last.',
     },
-    descripcion: {
-      es: 'Retrato hiperrealista a media escala que conjuga fuerza expresiva, luces cálidas de sol tropical y la técnica de retrato insignia de Dayana sobre denim y tela.',
-      en: 'Mid-scale hyperrealistic portraiture merging fierce expression, warm tropical sunlight reflections, and Dayana’s signature portrait technique.',
+    badge: {
+      code: 'arte_de_autor',
+      label: { es: 'Arte de Autor', en: 'Signature Art' },
+      variant: 'default',
     },
-    priceUSD: 55,
-    precioUSD: 55,
-    badges: [
-      {
-        code: 'arte_original',
-        label: {
-          es: 'Arte Original',
-          en: 'Original Artwork',
-        },
-        variant: 'default',
-      },
+    photoFiles: [
+      'tee-mockup-of-a-smiling-woman-standing-in-front-of-a-red-structure-26649.webp',
+      'Lady Camille - Mockup.webp',
+      'Lady Camille - Mockup (1).webp',
+      'basic-t-shirt-mockup-featuring-a-serious-woman-with-sunglasses-with-her-hands-in-her-pockets-m26378-2.webp',
     ],
-    status: 'disponible',
-    sizes: ['S', 'M', 'L', 'XL'],
-    tallas: ['S', 'M', 'L', 'XL'],
-    media: createProductMedia(
-      'mirada-caribena',
-      'Mirada Caribeña',
-      'Caribbean Gaze',
-      'definición hiperrealista del iris y sombras cálidas de tono piel caribeña',
-      'hyperrealistic iris definition and warm tropical sun-kissed skin shadows'
-    ),
-  },
+    videoFiles: [
+      'bella-canvas-t-shirt-video-featuring-a-smiling-woman-enjoying-her-time-with-friends-in-a-sports-bar-8624v.mp4',
+    ],
+  }),
 
-  // ─── 07. TRÓPICO NEÓN (Disponible) ────────────────────────────────────────
-  {
-    id: 'tshirt-tropico-neon',
-    slug: 'tropico-neon',
+  // ─── 07. ROSES ────────────────────────────────────────────────────────────
+  buildCatalogProduct({
+    id: 'tshirt-roses',
+    slug: 'roses',
+    folder: 'Roses',
     name: {
-      es: 'Trópico Neón',
-      en: 'Neon Tropics',
-    },
-    nombre: {
-      es: 'Trópico Neón',
-      en: 'Neon Tropics',
+      es: 'Roses',
+      en: 'Roses',
     },
     description: {
-      es: 'Exploración botánica con tintes de arte pop urbano. Hojas de costilla de Adán y heliconias delineadas con pigmentos verde esmeralda y destellos flúor.',
-      en: 'Botanical exploration fused with urban pop art. Monstera leaves and heliconias outlined with emerald green pigments and vibrant fluoro sparks.',
+      es: 'Rosas de Saint-Rémy (1890): pinceladas de verde menta y pétalos marfil con tipografía editorial. Pieza luminosa de algodón orgánico 240g.',
+      en: 'Roses of Saint-Rémy (1890): mint-green brushstrokes and ivory petals paired with editorial typography. A luminous 240g organic cotton piece.',
     },
-    descripcion: {
-      es: 'Exploración botánica con tintes de arte pop urbano. Hojas de costilla de Adán y heliconias delineadas con pigmentos verde esmeralda y destellos flúor.',
-      en: 'Botanical exploration fused with urban pop art. Monstera leaves and heliconias outlined with emerald green pigments and vibrant fluoro sparks.',
+    badge: {
+      code: 'algodon_240g',
+      label: { es: 'Algodón 240g', en: '240g Cotton' },
+      variant: 'default',
     },
-    priceUSD: 38,
-    precioUSD: 38,
-    badges: [
-      {
-        code: 'diseno_autor',
-        label: {
-          es: 'Diseño de Autor',
-          en: 'Signature Design',
-        },
-        variant: 'default',
-      },
+    photoFiles: [
+      'athleisure-t-shirt-mockup-of-a-woman-with-sunglasses-32446.webp',
+      'Untitled Project - Mockup_CMYK (1).webp',
+      't-shirt-mockup-featuring-a-tattooed-woman-with-sunglasses-2258-el1.webp',
     ],
-    status: 'disponible',
-    sizes: ['M', 'L', 'XL'],
-    tallas: ['M', 'L', 'XL'],
-    media: createProductMedia(
-      'tropico-neon',
-      'Trópico Neón',
-      'Neon Tropics',
-      'trazos gráficos fluorescentes que contrastan sobre la silueta botánica',
-      'fluorescent graphic lines providing contrast over botanical silhouettes'
-    ),
-  },
+    videoFiles: [
+      'stop-motion-video-of-a-woman-with-a-t-shirt-posing-in-the-street-22716.mp4',
+    ],
+  }),
 
-  // ─── 08. SOLSTICIO EN PARAGUANÁ (Disponible) ──────────────────────────────
-  {
-    id: 'tshirt-solsticio-en-paraguana',
-    slug: 'solsticio-en-paraguana',
+  // ─── 08. SPILL THE TEA ────────────────────────────────────────────────────
+  buildCatalogProduct({
+    id: 'tshirt-spill-the-tea',
+    slug: 'spill-the-tea',
+    folder: 'Spill the Tea',
     name: {
-      es: 'Solsticio en Paraguaná',
-      en: 'Paraguaná Solstice',
-    },
-    nombre: {
-      es: 'Solsticio en Paraguaná',
-      en: 'Paraguaná Solstice',
+      es: 'Spill the Tea',
+      en: 'Spill the Tea',
     },
     description: {
-      es: 'Dunas moldeadas por el viento y horizontes áridos. Una paleta minimalista de terracota, caliza y siena tostada que evoca el desierto costero venezolano.',
-      en: 'Wind-sculpted sand dunes and arid horizons. A minimalist palette of terracotta, limestone, and burnt sienna evoking the Venezuelan coastal desert.',
+      es: 'Guiño ingenioso a "The Tea" de Mary Cassatt (1880). Notas caligráficas, detalles en terracota y algodón peinado de alto gramaje con corte versátil.',
+      en: 'A witty nod to Mary Cassatt’s "The Tea" (1880). Calligraphic notes, terracotta accents, and heavyweight combed cotton in a versatile cut.',
     },
-    descripcion: {
-      es: 'Dunas moldeadas por el viento y horizontes áridos. Una paleta minimalista de terracota, caliza y siena tostada que evoca el desierto costero venezolano.',
-      en: 'Wind-sculpted sand dunes and arid horizons. A minimalist palette of terracotta, limestone, and burnt sienna evoking the Venezuelan coastal desert.',
+    badge: {
+      code: 'edicion_atelier',
+      label: { es: 'Edición Atelier', en: 'Atelier Edition' },
+      variant: 'default',
     },
-    priceUSD: 46,
-    precioUSD: 46,
-    badges: [
-      {
-        code: 'algodon_premium',
-        label: {
-          es: 'Algodón Premium',
-          en: 'Premium Cotton',
-        },
-        variant: 'default',
-      },
+    photoFiles: [
+      'Spill-the-Tea-Mockup_1.webp',
+      'Spill-the-Tea-Mockup.webp',
+      'Spill-the-Tea-Mockup-_1_.webp',
     ],
-    status: 'disponible',
-    sizes: ['S', 'M'],
-    tallas: ['S', 'M'],
-    media: createProductMedia(
-      'solsticio-en-paraguana',
-      'Solsticio en Paraguaná',
-      'Paraguaná Solstice',
-      'ondulaciones de arena texturizadas con pigmentos minerales terrosos',
-      'sand ripples textured with raw earthy mineral pigments'
-    ),
-  },
+    videoFiles: ['Spill-the-Tea-AI-Video-board.mp4'],
+  }),
 
-  // ─── 09. PINCELADA LIBRE NO. 7 (Drop Limitado) ────────────────────────────
-  {
-    id: 'tshirt-pincelada-libre-no-7',
-    slug: 'pincelada-libre-no-7',
+  // ─── 09. SUNFLOWERS ───────────────────────────────────────────────────────
+  buildCatalogProduct({
+    id: 'tshirt-sunflowers',
+    slug: 'sunflowers',
+    folder: 'Sunflowers',
     name: {
-      es: 'Pincelada Libre No. 7',
-      en: 'Free Brushstroke No. 7',
-    },
-    nombre: {
-      es: 'Pincelada Libre No. 7',
-      en: 'Free Brushstroke No. 7',
+      es: 'Sunflowers',
+      en: 'Sunflowers',
     },
     description: {
-      es: 'Abstracción gestual directa desde la paleta de Dayana. Manchas espontáneas, goteos intencionados y fuerza matérica pura sobre jersey de algodón grueso.',
-      en: 'Direct gestural abstraction from Dayana’s mixing palette. Spontaneous color pools, intentional drips, and raw tactile depth on heavyweight cotton jersey.',
+      es: 'Amarillos solares y textura vibrante inspirada en los girasoles eternos de Arlés. Corte oversized relajado sobre algodón de máxima suavidad.',
+      en: 'Solar yellows and vibrant texture inspired by the timeless sunflowers of Arles. Relaxed oversized cut on ultra-soft cotton.',
     },
-    descripcion: {
-      es: 'Abstracción gestual directa desde la paleta de Dayana. Manchas espontáneas, goteos intencionados y fuerza matérica pura sobre jersey de algodón grueso.',
-      en: 'Direct gestural abstraction from Dayana’s mixing palette. Spontaneous color pools, intentional drips, and raw tactile depth on heavyweight cotton jersey.',
+    badge: {
+      code: 'coleccion_impresionista',
+      label: { es: 'Colección Impresionista', en: 'Impressionist Collection' },
+      variant: 'default',
     },
-    priceUSD: 68,
-    precioUSD: 68,
-    badges: [
-      {
-        code: 'pieza_numerada',
-        label: {
-          es: 'Pieza Numerada',
-          en: 'Numbered Piece',
-        },
-        variant: 'accent',
-      },
+    photoFiles: [
+      't-shirt-mockup-of-a-smiling-woman-in-the-woods-30614.webp',
+      't-shirt-mockup-of-a-woman-lying-on-the-grass-with-her-dog-30660-2.webp',
     ],
-    status: 'drop_limitado',
-    sizes: ['S', 'L'],
-    tallas: ['S', 'L'],
-    media: createProductMedia(
-      'pincelada-libre-no-7',
-      'Pincelada Libre No. 7',
-      'Free Brushstroke No. 7',
-      'relieve tridimensional de empaste acrílico con bordes desgarrados',
-      'three-dimensional impasto acrylic relief with raw organic edges'
-    ),
-  },
+    videoFiles: [
+      'Sunflowers-AI-Video-board.mp4',
+      'oversized-t-shirt-video-featuring-a-woman-walking-in-a-studio-8852v.mp4',
+    ],
+  }),
 
-  // ─── 10. CAFEPALES DE MÉRIDA (Disponible) ─────────────────────────────────
-  {
-    id: 'tshirt-cafetales-de-merida',
-    slug: 'cafetales-de-merida',
+  // ─── 10. THE IMPRESSIONIST ────────────────────────────────────────────────
+  buildCatalogProduct({
+    id: 'tshirt-the-impressionist',
+    slug: 'the-impressionist',
+    folder: 'The Impressionist',
     name: {
-      es: 'Cafetales de Mérida',
-      en: 'Mérida Coffee Highlands',
-    },
-    nombre: {
-      es: 'Cafetales de Mérida',
-      en: 'Mérida Coffee Highlands',
+      es: 'The Impressionist',
+      en: 'The Impressionist',
     },
     description: {
-      es: 'El verde profundo de la vegetación andina y el rojo carmín de los frutos maduros de café bajo la niebla de montaña. Composición serena, estética y orgánica.',
-      en: 'The deep forest green of Andean mist and the carmine red of ripe coffee cherries in high-altitude plantations. A serene, organic, and grounded aesthetic.',
+      es: 'Tributo al amanecer de 1874 que dio nombre al movimiento impresionista. Azules brumosos, acentos magenta y diseño editorial de colección.',
+      en: 'Tribute to the 1874 sunrise that gave Impressionism its name. Misty blues, magenta accents, and collector-grade editorial graphic design.',
     },
-    descripcion: {
-      es: 'El verde profundo de la vegetación andina y el rojo carmín de los frutos maduros de café bajo la niebla de montaña. Composición serena, estética y orgánica.',
-      en: 'The deep forest green of Andean mist and the carmine red of ripe coffee cherries in high-altitude plantations. A serene, organic, and grounded aesthetic.',
+    badge: {
+      code: 'arte_de_autor',
+      label: { es: 'Arte de Autor', en: 'Signature Art' },
+      variant: 'default',
     },
-    priceUSD: 52,
-    precioUSD: 52,
-    badges: [
-      {
-        code: 'serie_andes',
-        label: {
-          es: 'Serie Andes',
-          en: 'Andes Series',
-        },
-        variant: 'default',
-      },
+    photoFiles: [
+      'The Impressionist - Mockup (1).webp',
+      'The Impressionist - Mockup 2.webp',
+      'smiling-girl-wearing-a-t-shirt-mockup-while-using-roller-skates-a18540.webp',
+      'young-girl-wearing-a-t-shirt-mockup-sitting-on-a-photo-studio-a20884.webp',
     ],
-    status: 'disponible',
-    sizes: ['S', 'M', 'L', 'XL'],
-    tallas: ['S', 'M', 'L', 'XL'],
-    media: createProductMedia(
-      'cafetales-de-merida',
-      'Cafetales de Mérida',
-      'Mérida Coffee Highlands',
-      'tonos musgo y cereza aplicados con esponja y pincel fino para detalles botánicos',
-      'moss and cherry tones applied with sponge and fine liner for botanical accents'
-    ),
-  },
+    videoFiles: ['selfie-t-shirt-video-of-a-woman-drinking-a-milkshake-17115.mp4'],
+  }),
 
-  // ─── 11. RELÁMPAGO DEL CATATUMBO (Agotado) ────────────────────────────────
-  {
-    id: 'tshirt-relampago-del-catatumbo',
-    slug: 'relampago-del-catatumbo',
+  // ─── 11. THE NEW BEDROOM ──────────────────────────────────────────────────
+  buildCatalogProduct({
+    id: 'tshirt-the-new-bedroom',
+    slug: 'the-new-bedroom',
+    folder: 'The New Bedroom',
     name: {
-      es: 'Relámpago del Catatumbo',
-      en: 'Catatumbo Lightning',
-    },
-    nombre: {
-      es: 'Relámpago del Catatumbo',
-      en: 'Catatumbo Lightning',
+      es: 'The New Bedroom',
+      en: 'The New Bedroom',
     },
     description: {
-      es: 'Homenaje a la tormenta eterna del Lago de Maracaibo. Claroscuro eléctrico de alto contraste con destellos blanco frío sobre lienzo negro profundo. Pieza de colección sold-out.',
-      en: 'Tribute to Lake Maracaibo’s perpetual electrical storm. High-contrast electric chiaroscuro with icy white lightning bolts on deep midnight black jersey. Sold-out archival piece.',
+      es: 'La habitación amarilla de Arlés (octubre de 1888) llevada al streetwear de autor. Calidez cromática, caligrafía sutil y algodón orgánico 240g.',
+      en: 'The yellow bedroom in Arles (October 1888) reimagined for signature streetwear. Chromatic warmth, subtle script, and 240g organic cotton.',
     },
-    descripcion: {
-      es: 'Homenaje a la tormenta eterna del Lago de Maracaibo. Claroscuro eléctrico de alto contraste con destellos blanco frío sobre lienzo negro profundo. Pieza de colección sold-out.',
-      en: 'Tribute to Lake Maracaibo’s perpetual electrical storm. High-contrast electric chiaroscuro with icy white lightning bolts on deep midnight black jersey. Sold-out archival piece.',
+    badge: {
+      code: 'algodon_240g',
+      label: { es: 'Algodón 240g', en: '240g Cotton' },
+      variant: 'default',
     },
-    priceUSD: 60,
-    precioUSD: 60,
-    badges: [
-      {
-        code: 'pieza_archivo',
-        label: {
-          es: 'Pieza de Archivo',
-          en: 'Archive Piece',
-        },
-        variant: 'muted',
-      },
+    photoFiles: [
+      'the-new-bedroom-Mockup-_1_.webp',
+      'the-new-bedroom-tshirt.webp',
+      'the-new-bedroom-Mockup-_2_.webp',
     ],
-    status: 'agotado',
-    sizes: ['M', 'L'],
-    tallas: ['M', 'L'],
-    media: createProductMedia(
-      'relampago-del-catatumbo',
-      'Relámpago del Catatumbo',
-      'Catatumbo Lightning',
-      'destellos luminosos fotoluminiscentes y degradados de gris humo en alto contraste',
-      'photoluminescent lightning arcs and smoky grey gradients in stark chiaroscuro'
-    ),
-  },
+    videoFiles: [
+      'bella-canvas-t-shirt-video-of-a-woman-with-a-boho-style-7718v.mp4',
+    ],
+  }),
 ] as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
