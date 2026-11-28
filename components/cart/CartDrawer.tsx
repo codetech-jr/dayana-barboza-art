@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@/lib/cart';
 import { BLUR_PLACEHOLDER } from '@/lib/data/gallery';
+import { calculateShippingUSD, type ShippingZone } from '@/lib/shipping';
 import type { Dictionary } from '@/lib/types/dictionary';
 import type { Locale } from '@/lib/i18n/config';
 import type { CartItem } from '@/lib/types/ecommerce';
@@ -50,6 +51,8 @@ export interface CartDrawerProps {
 function buildWhatsAppCheckoutUrl(
   items: readonly CartItem[],
   subtotal: number,
+  shippingZone: ShippingZone,
+  shippingUSD: number,
   locale: Locale
 ): string {
   const isEs = locale === 'es';
@@ -65,16 +68,36 @@ function buildWhatsAppCheckoutUrl(
         item.product.name[locale] || item.product.nombre?.[locale] || item.product.slug;
       const unitPrice = item.product.priceUSD ?? item.product.precioUSD ?? 0;
       const itemTotal = unitPrice * item.quantity;
-      return `• ${item.quantity}x ${name} (Talla ${item.selectedSize}) — $${itemTotal} USD`;
+      return `• ${item.quantity}x ${name} (Talla ${item.selectedSize}) — $${itemTotal.toFixed(2)} USD`;
     })
     .join('\n');
 
+  const zoneLabel =
+    shippingZone === 'us'
+      ? isEs
+        ? 'EE. UU.'
+        : 'U.S.'
+      : isEs
+      ? 'Internacional'
+      : 'International';
+
+  const subtotalLabel = isEs ? 'Subtotal' : 'Subtotal';
+  const shippingLabel = isEs
+    ? `Envío (${zoneLabel})`
+    : `Shipping (${zoneLabel})`;
   const totalLabel = isEs ? 'Total estimado' : 'Estimated total';
+  const estimatedTotal = subtotal + shippingUSD;
+
   const outro = isEs
     ? '¿Cómo podemos coordinar el pago y la entrega?'
     : 'How can we proceed with payment and shipping?';
 
-  const fullMessage = `${intro}\n\n${itemsList}\n\n${totalLabel}: $${subtotal} USD\n\n${outro}`;
+  const fullMessage =
+    `${intro}\n\n${itemsList}\n\n` +
+    `${subtotalLabel}: $${subtotal.toFixed(2)} USD\n` +
+    `${shippingLabel}: $${shippingUSD.toFixed(2)} USD\n` +
+    `${totalLabel}: $${estimatedTotal.toFixed(2)} USD\n\n${outro}`;
+
   return `https://wa.me/${phone}?text=${encodeURIComponent(fullMessage)}`;
 }
 
@@ -174,6 +197,7 @@ function CartItemThumbnail({ src, name }: CartItemThumbnailProps) {
 
 export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
   const { items, removeItem, updateQuantity, subtotalUSD, totalItems } = useCart();
+  const [shippingZone, setShippingZone] = useState<ShippingZone>('us');
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [showFallback, setShowFallback] = useState(false);
@@ -187,6 +211,12 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
       setShowFallback(false);
     }
   }
+
+  const usRate = calculateShippingUSD('us', totalItems);
+  const intlRate = calculateShippingUSD('international', totalItems);
+  const shippingUSD =
+    items.length > 0 ? calculateShippingUSD(shippingZone, totalItems) : 0;
+  const estimatedTotalUSD = subtotalUSD + shippingUSD;
 
   /**
    * Initiates Stripe Checkout by calling the secure server endpoint.
@@ -209,6 +239,7 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
             quantity: item.quantity,
           })),
           locale,
+          shippingZone,
         }),
       });
 
@@ -261,7 +292,15 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
   if (!isMounted) return null;
 
   const checkoutUrl =
-    items.length > 0 ? buildWhatsAppCheckoutUrl(items, subtotalUSD, locale) : '#';
+    items.length > 0
+      ? buildWhatsAppCheckoutUrl(
+          items,
+          subtotalUSD,
+          shippingZone,
+          shippingUSD,
+          locale
+        )
+      : '#';
 
   const drawerContent = (
     <AnimatePresence>
@@ -507,17 +546,90 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
               </div>
             )}
 
-            {/* ── Footer: Subtotal & Checkout Actions ── */}
+            {/* ── Footer: Shipping Zone, Breakdown & Checkout Actions ── */}
             {items.length > 0 && (
               <div className="px-6 py-5 border-t border-dba-rule/70 bg-dba-cream/25 space-y-4">
-                {/* Subtotal row */}
-                <div className="flex items-center justify-between">
-                  <span className="font-body text-sm text-dba-muted">
-                    {dict.bagSubtotal}
+                {/* Shipping Zone Selector */}
+                <div className="space-y-1.5">
+                  <span className="block font-body text-[11px] uppercase tracking-wider text-dba-muted font-medium">
+                    {locale === 'es' ? 'Destino de envío' : 'Shipping destination'}
                   </span>
-                  <span className="font-mono font-bold text-xl text-dba-ink">
-                    ${subtotalUSD} USD
-                  </span>
+                  <div
+                    role="radiogroup"
+                    aria-label={
+                      locale === 'es' ? 'Zona de envío' : 'Shipping zone'
+                    }
+                    className="grid grid-cols-2 gap-2"
+                  >
+                    <button
+                      type="button"
+                      role="radio"
+                      aria-checked={shippingZone === 'us'}
+                      onClick={() => setShippingZone('us')}
+                      className={`
+                        px-3 py-2 rounded-full font-body text-xs font-medium
+                        border transition-all duration-300 ease-[var(--dba-ease)]
+                        focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dba-accent
+                        ${
+                          shippingZone === 'us'
+                            ? 'bg-dba-ink text-dba-white border-dba-ink shadow-xs'
+                            : 'bg-dba-white/80 text-dba-ink border-dba-rule hover:border-dba-accent/60'
+                        }
+                      `}
+                    >
+                      {locale === 'es'
+                        ? `🇺🇸 EE. UU. ($${usRate.toFixed(2)})`
+                        : `🇺🇸 U.S. ($${usRate.toFixed(2)})`}
+                    </button>
+                    <button
+                      type="button"
+                      role="radio"
+                      aria-checked={shippingZone === 'international'}
+                      onClick={() => setShippingZone('international')}
+                      className={`
+                        px-3 py-2 rounded-full font-body text-xs font-medium
+                        border transition-all duration-300 ease-[var(--dba-ease)]
+                        focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dba-accent
+                        ${
+                          shippingZone === 'international'
+                            ? 'bg-dba-ink text-dba-white border-dba-ink shadow-xs'
+                            : 'bg-dba-white/80 text-dba-ink border-dba-rule hover:border-dba-accent/60'
+                        }
+                      `}
+                    >
+                      {locale === 'es'
+                        ? `🌎 Internacional ($${intlRate.toFixed(2)})`
+                        : `🌎 International ($${intlRate.toFixed(2)})`}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Price Breakdown */}
+                <div className="space-y-1.5 pt-1">
+                  <div className="flex items-center justify-between text-xs sm:text-sm">
+                    <span className="font-body text-dba-muted">
+                      {dict.bagSubtotal}
+                    </span>
+                    <span className="font-mono text-dba-ink">
+                      ${subtotalUSD.toFixed(2)} USD
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs sm:text-sm">
+                    <span className="font-body text-dba-muted">
+                      {locale === 'es' ? 'Envío' : 'Shipping'}
+                    </span>
+                    <span className="font-mono text-dba-ink">
+                      ${shippingUSD.toFixed(2)} USD
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between pt-2 border-t border-dba-rule/50">
+                    <span className="font-body text-sm font-medium text-dba-ink">
+                      {locale === 'es' ? 'Total estimado' : 'Estimated total'}
+                    </span>
+                    <span className="font-mono font-bold text-xl text-dba-ink">
+                      ${estimatedTotalUSD.toFixed(2)} USD
+                    </span>
+                  </div>
                 </div>
 
                 {/* Terms and Returns Acceptance Checkbox */}

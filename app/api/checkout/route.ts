@@ -3,6 +3,12 @@ import { stripe } from '@/lib/stripe';
 import { TSHIRTS_CATALOG } from '@/lib/data/tshirts';
 import { isValidTShirtSize } from '@/lib/types/ecommerce';
 import { isValidLocale, DEFAULT_LOCALE } from '@/lib/i18n/config';
+import {
+  calculateShippingCents,
+  INTERNATIONAL_ALLOWED_COUNTRIES,
+  isValidShippingZone,
+  type ShippingZone,
+} from '@/lib/shipping';
 import type { Locale } from '@/lib/i18n/config';
 import type { TShirtProduct, TShirtSize } from '@/lib/types/ecommerce';
 
@@ -31,6 +37,7 @@ interface CheckoutLineItem {
 interface CheckoutRequestBody {
   items: CheckoutLineItem[];
   locale: string;
+  shippingZone: ShippingZone;
 }
 
 // ── Validation helpers ─────────────────────────────────────────────────────
@@ -42,7 +49,7 @@ function validateRequestBody(
     return { valid: false, error: 'Request body must be a JSON object.' };
   }
 
-  const { items, locale } = body as Record<string, unknown>;
+  const { items, locale, shippingZone } = body as Record<string, unknown>;
 
   if (!Array.isArray(items) || items.length === 0) {
     return { valid: false, error: 'Items array is required and must not be empty.' };
@@ -50,6 +57,17 @@ function validateRequestBody(
 
   if (items.length > 50) {
     return { valid: false, error: 'Too many items in a single order (max 50).' };
+  }
+
+  let resolvedShippingZone: ShippingZone = 'us';
+  if (shippingZone !== undefined) {
+    if (!isValidShippingZone(shippingZone)) {
+      return {
+        valid: false,
+        error: '"shippingZone" must be "us" or "international".',
+      };
+    }
+    resolvedShippingZone = shippingZone;
   }
 
   const resolvedLocale =
@@ -91,6 +109,7 @@ function validateRequestBody(
     data: {
       items: items as CheckoutLineItem[],
       locale: resolvedLocale,
+      shippingZone: resolvedShippingZone,
     },
   };
 }
@@ -116,7 +135,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: validation.error }, { status: 400 });
     }
 
-    const { items, locale } = validation.data;
+    const { items, locale, shippingZone } = validation.data;
     const typedLocale = locale as Locale;
 
     // 3. Resolve products from server-side catalog (NEVER trust client prices)
@@ -166,7 +185,10 @@ export async function POST(request: Request) {
       lineItems.push({ product, size, quantity: item.quantity });
     }
 
-    // 4. Build Stripe Checkout Session
+    // 4. Calculate server-verified shipping and build Stripe Checkout Session
+    const totalQuantity = lineItems.reduce((sum, item) => sum + item.quantity, 0);
+    const shippingAmountCents = calculateShippingCents(shippingZone, totalQuantity);
+
     const origin = request.headers.get('origin');
     const siteUrl =
       origin || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
@@ -195,8 +217,35 @@ export async function POST(request: Request) {
         enabled: true,
       },
       shipping_address_collection: {
-        allowed_countries: ['US'],
+        allowed_countries:
+          shippingZone === 'us' ? ['US'] : [...INTERNATIONAL_ALLOWED_COUNTRIES],
       },
+      shipping_options: [
+        {
+          shipping_rate_data: {
+            type: 'fixed_amount',
+            fixed_amount: { amount: shippingAmountCents, currency: 'usd' },
+            display_name:
+              shippingZone === 'us'
+                ? typedLocale === 'es'
+                  ? 'Envío Nacional (EE. UU.)'
+                  : 'US Standard Shipping'
+                : typedLocale === 'es'
+                ? 'Envío Internacional'
+                : 'International Shipping',
+            delivery_estimate:
+              shippingZone === 'us'
+                ? {
+                    minimum: { unit: 'business_day', value: 3 },
+                    maximum: { unit: 'business_day', value: 5 },
+                  }
+                : {
+                    minimum: { unit: 'business_day', value: 7 },
+                    maximum: { unit: 'business_day', value: 15 },
+                  },
+          },
+        },
+      ],
       success_url: `${siteUrl}/${typedLocale}/merch/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteUrl}/${typedLocale}/merch?canceled=true`,
     });

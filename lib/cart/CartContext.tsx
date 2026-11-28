@@ -24,7 +24,7 @@ import type { CartItem, TShirtProduct, TShirtSize } from '@/lib/types/ecommerce'
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
-const CART_STORAGE_KEY = 'dba_cart:v2';
+const CART_STORAGE_KEY = 'dba_cart:v3';
 
 export interface CartContextValue {
   items: CartItem[];
