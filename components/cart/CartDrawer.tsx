@@ -336,11 +336,11 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
             "
           >
             {/* ── Header ── */}
-            <div className="flex items-center justify-between px-6 py-5 border-b border-dba-rule/60 bg-dba-cream/30">
+            <div className="flex items-center justify-between px-5 py-3.5 border-b border-dba-rule/60 bg-dba-cream/30 shrink-0">
               <div className="flex items-center gap-2.5">
                 <h2
                   id="cart-drawer-title"
-                  className="font-display font-semibold text-dba-ink text-xl sm:text-2xl tracking-tight"
+                  className="font-display font-semibold text-dba-ink text-lg sm:text-xl tracking-tight"
                 >
                   {dict.bagTitle}
                 </h2>
@@ -357,17 +357,17 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
                 onClick={onClose}
                 aria-label="Cerrar bolsa"
                 className="
-                  w-9 h-9 rounded-full
+                  w-8 h-8 rounded-full
                   flex items-center justify-center
                   bg-dba-paper/70 hover:bg-dba-paper text-dba-ink
                   border border-dba-rule
-                  transition-all duration-300 ease-[var(--dba-ease)]
+                  transition-colors duration-200
                   focus-visible:outline-2 focus-visible:outline-dba-accent
                 "
               >
                 <svg
-                  width="18"
-                  height="18"
+                  width="16"
+                  height="16"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -429,85 +429,87 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
                 </button>
               </div>
             ) : (
-              <div className="flex-1 overflow-y-auto px-6 py-4 divide-y divide-dba-rule/50">
+              <div className="flex-1 min-h-0 overflow-y-auto px-5 py-2 divide-y divide-dba-rule/50">
                 {items.map((item) => {
                   const product = item.product;
                   const name =
                     product.name[locale] || product.nombre?.[locale] || product.slug;
                   const price = product.priceUSD ?? product.precioUSD ?? 0;
+                  const lineTotal = price * item.quantity;
                   const rawSrc = product.media.mockups[0]?.src || '';
                   const imgSrc = rawSrc.replace(/^\/public/, '');
 
                   return (
                     <div
                       key={`${product.id}-${item.selectedSize}`}
-                      className="py-4 first:pt-2 last:pb-2 flex gap-4 items-center"
+                      className="py-2.5 flex gap-3.5 items-center"
                     >
-                      {/* Product Thumbnail with Artistic Fallback */}
-                      <div className="relative w-20 h-24 rounded-xl overflow-hidden bg-dba-paper border border-dba-rule/60 shrink-0 select-none">
+                      {/* Compact Product Thumbnail with Artistic Fallback */}
+                      <div className="relative w-14 h-16 rounded-lg overflow-hidden bg-dba-paper border border-dba-rule/60 shrink-0 select-none">
                         <CartItemThumbnail src={imgSrc} name={name} />
                       </div>
 
-                      {/* Product Details */}
+                      {/* Compact 2-Row Product Details */}
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-display font-semibold text-dba-ink text-sm sm:text-base leading-tight truncate">
-                          {name}
-                        </h4>
-
-                        {/* Size Pill */}
-                        <div className="mt-1 flex items-center gap-2">
-                          <span className="inline-flex items-center px-2 py-0.5 rounded-md font-mono text-[11px] font-medium bg-dba-paper text-dba-ink border border-dba-rule/70">
-                            Talla: {item.selectedSize}
-                          </span>
-                          <span className="font-mono text-xs text-dba-muted">
-                            ${price} USD
+                        <div className="flex items-baseline justify-between gap-2">
+                          <h4 className="font-display font-semibold text-dba-ink text-sm leading-tight truncate">
+                            {name}
+                          </h4>
+                          <span className="font-mono text-xs font-semibold text-dba-ink shrink-0">
+                            ${lineTotal} USD
                           </span>
                         </div>
 
-                        {/* Quantity Controls & Remove */}
-                        <div className="mt-3 flex items-center justify-between">
-                          <div className="inline-flex items-center border border-dba-rule rounded-full bg-dba-paper/40 p-0.5">
-                            <button
-                              type="button"
-                              onClick={() =>
-                                updateQuantity(
-                                  product.id,
-                                  item.selectedSize,
-                                  item.quantity - 1
-                                )
-                              }
-                              aria-label="Disminuir cantidad"
-                              className="
-                                w-6 h-6 rounded-full
-                                flex items-center justify-center
-                                text-dba-ink hover:bg-dba-paper
-                                transition-colors
-                              "
-                            >
-                              -
-                            </button>
-                            <span className="w-6 text-center font-mono text-xs font-semibold text-dba-ink">
-                              {item.quantity}
+                        {/* Size, Quantity Controls & Remove inline */}
+                        <div className="mt-1.5 flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-2">
+                            <span className="inline-flex items-center px-1.5 py-0.5 rounded font-mono text-[10px] font-medium bg-dba-paper text-dba-ink border border-dba-rule/70">
+                              {locale === 'es' ? 'Talla' : 'Size'}: {item.selectedSize}
                             </span>
-                            <button
-                              type="button"
-                              onClick={() =>
-                                updateQuantity(
-                                  product.id,
-                                  item.selectedSize,
-                                  item.quantity + 1
-                                )
-                              }
-                              aria-label="Aumentar cantidad"
-                              className="
-                                w-6 h-6 rounded-full
-                                flex items-center justify-center
-                                text-dba-ink hover:bg-dba-paper
-                                transition-colors
-                              "
-                            >
-                              +
-                            </button>
+
+                            <div className="inline-flex items-center border border-dba-rule rounded-full bg-dba-paper/40 p-0.5">
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  updateQuantity(
+                                    product.id,
+                                    item.selectedSize,
+                                    item.quantity - 1
+                                  )
+                                }
+                                aria-label="Disminuir cantidad"
+                                className="
+                                  w-5 h-5 rounded-full
+                                  flex items-center justify-center
+                                  text-xs text-dba-ink hover:bg-dba-paper
+                                  transition-colors
+                                "
+                              >
+                                -
+                              </button>
+                              <span className="w-5 text-center font-mono text-[11px] font-semibold text-dba-ink">
+                                {item.quantity}
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  updateQuantity(
+                                    product.id,
+                                    item.selectedSize,
+                                    item.quantity + 1
+                                  )
+                                }
+                                aria-label="Aumentar cantidad"
+                                className="
+                                  w-5 h-5 rounded-full
+                                  flex items-center justify-center
+                                  text-xs text-dba-ink hover:bg-dba-paper
+                                  transition-colors
+                                "
+                              >
+                                +
+                              </button>
+                            </div>
                           </div>
 
                           {/* Remove Button with ✕ icon */}
@@ -517,14 +519,14 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
                             aria-label={`${dict.bagRemove} ${name}`}
                             className="
                               inline-flex items-center gap-1
-                              font-body text-xs text-dba-muted hover:text-dba-accent
+                              font-body text-[11px] text-dba-muted hover:text-dba-accent
                               transition-colors underline-offset-2 hover:underline
-                              p-1 -mr-1
+                              p-1 -mr-1 shrink-0
                             "
                           >
                             <svg
-                              width="12"
-                              height="12"
+                              width="11"
+                              height="11"
                               viewBox="0 0 24 24"
                               fill="none"
                               stroke="currentColor"
@@ -548,10 +550,10 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
 
             {/* ── Footer: Shipping Zone, Breakdown & Checkout Actions ── */}
             {items.length > 0 && (
-              <div className="px-6 py-5 border-t border-dba-rule/70 bg-dba-cream/25 space-y-4">
+              <div className="px-5 py-3.5 border-t border-dba-rule/70 bg-dba-cream/25 space-y-2.5 shrink-0">
                 {/* Shipping Zone Selector */}
-                <div className="space-y-1.5">
-                  <span className="block font-body text-[11px] uppercase tracking-wider text-dba-muted font-medium">
+                <div className="space-y-1">
+                  <span className="block font-body text-[10px] uppercase tracking-wider text-dba-muted font-medium">
                     {locale === 'es' ? 'Destino de envío' : 'Shipping destination'}
                   </span>
                   <div
@@ -567,8 +569,8 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
                       aria-checked={shippingZone === 'us'}
                       onClick={() => setShippingZone('us')}
                       className={`
-                        px-3 py-2 rounded-full font-body text-xs font-medium
-                        border transition-all duration-300 ease-[var(--dba-ease)]
+                        px-2.5 py-1.5 rounded-full font-body text-[11px] sm:text-xs font-medium
+                        border transition-colors duration-200
                         focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dba-accent
                         ${
                           shippingZone === 'us'
@@ -587,8 +589,8 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
                       aria-checked={shippingZone === 'international'}
                       onClick={() => setShippingZone('international')}
                       className={`
-                        px-3 py-2 rounded-full font-body text-xs font-medium
-                        border transition-all duration-300 ease-[var(--dba-ease)]
+                        px-2.5 py-1.5 rounded-full font-body text-[11px] sm:text-xs font-medium
+                        border transition-colors duration-200
                         focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dba-accent
                         ${
                           shippingZone === 'international'
@@ -605,43 +607,35 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
                 </div>
 
                 {/* Price Breakdown */}
-                <div className="space-y-1.5 pt-1">
-                  <div className="flex items-center justify-between text-xs sm:text-sm">
-                    <span className="font-body text-dba-muted">
-                      {dict.bagSubtotal}
+                <div className="space-y-1 text-xs">
+                  <div className="flex items-center justify-between text-dba-muted">
+                    <span className="font-body">
+                      {dict.bagSubtotal} · {locale === 'es' ? 'Envío' : 'Shipping'}
                     </span>
                     <span className="font-mono text-dba-ink">
-                      ${subtotalUSD.toFixed(2)} USD
+                      ${subtotalUSD.toFixed(2)} + ${shippingUSD.toFixed(2)} USD
                     </span>
                   </div>
-                  <div className="flex items-center justify-between text-xs sm:text-sm">
-                    <span className="font-body text-dba-muted">
-                      {locale === 'es' ? 'Envío' : 'Shipping'}
-                    </span>
-                    <span className="font-mono text-dba-ink">
-                      ${shippingUSD.toFixed(2)} USD
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between pt-2 border-t border-dba-rule/50">
+                  <div className="flex items-center justify-between pt-1.5 border-t border-dba-rule/50">
                     <span className="font-body text-sm font-medium text-dba-ink">
                       {locale === 'es' ? 'Total estimado' : 'Estimated total'}
                     </span>
-                    <span className="font-mono font-bold text-xl text-dba-ink">
+                    <span className="font-mono font-bold text-lg text-dba-ink">
                       ${estimatedTotalUSD.toFixed(2)} USD
                     </span>
                   </div>
                 </div>
 
                 {/* Terms and Returns Acceptance Checkbox */}
-                <label className="flex items-start gap-2 cursor-pointer group mt-4">
+                <label className="flex items-start gap-2 cursor-pointer group">
                   <input
                     type="checkbox"
                     checked={termsAccepted}
                     onChange={(e) => setTermsAccepted(e.target.checked)}
-                    className="mt-0.5 h-4 w-4 shrink-0 accent-dba-ink cursor-pointer"
+                    className="mt-0.5 h-3.5 w-3.5 shrink-0 accent-dba-ink cursor-pointer"
                     aria-required="true"
                   />
-                  <span className="font-body text-xs text-dba-muted leading-snug">
+                  <span className="font-body text-[11px] text-dba-muted leading-snug">
                     {locale === 'es' ? (
                       <>
                         He leído y acepto los{' '}
@@ -697,7 +691,7 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
                     disabled={items.length === 0 || !termsAccepted || isCheckingOut}
                     onClick={handleStripeCheckout}
                     className="
-                      w-full h-12 px-6
+                      w-full h-10 sm:h-11 px-6
                       inline-flex items-center justify-center
                       rounded-full font-body text-sm font-medium tracking-wide
                       bg-dba-accent text-dba-white
@@ -737,8 +731,8 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
                     ) : (
                       <>
                         <svg
-                          width="18"
-                          height="18"
+                          width="17"
+                          height="17"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
@@ -803,54 +797,56 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
                   )}
                 </div>
 
-                {/* Continue Shopping button */}
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="
-                    w-full py-2
-                    font-body text-xs text-dba-muted hover:text-dba-ink
-                    text-center transition-colors
-                  "
-                >
-                  {dict.bagContinue}
-                </button>
+                {/* Continue Shopping button + Trust Strip */}
+                <div className="space-y-1.5">
+                  <button
+                    type="button"
+                    onClick={onClose}
+                    className="
+                      w-full py-0.5
+                      font-body text-xs text-dba-muted hover:text-dba-ink
+                      text-center transition-colors
+                    "
+                  >
+                    {dict.bagContinue}
+                  </button>
 
-                {/* Trust Badges: 100% secure payment & 14-day returns */}
-                <div className="pt-2 border-t border-dba-rule/40 flex items-center justify-center gap-6 text-[11px] text-dba-muted">
-                  <span className="inline-flex items-center gap-1.5">
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                    </svg>
-                    {dict.securePayment}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-                    </svg>
-                    {dict.returnsPolicy}
-                  </span>
+                  {/* Trust Badges: 100% secure payment & 14-day returns */}
+                  <div className="pt-1.5 border-t border-dba-rule/40 flex items-center justify-center gap-4 sm:gap-6 text-[10px] text-dba-muted">
+                    <span className="inline-flex items-center gap-1">
+                      <svg
+                        width="11"
+                        height="11"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                      </svg>
+                      {dict.securePayment}
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <svg
+                        width="11"
+                        height="11"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                      </svg>
+                      {dict.returnsPolicy}
+                    </span>
+                  </div>
                 </div>
               </div>
             )}
