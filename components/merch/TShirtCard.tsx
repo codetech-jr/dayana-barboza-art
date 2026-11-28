@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useSyncExternalStore } from 'react';
+import React, { useState, useEffect, useRef, useSyncExternalStore } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/lib/cart';
@@ -57,11 +57,14 @@ export interface TShirtCardProps {
 
 export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
   const { addItem } = useCart();
+  const cardRef = useRef<HTMLElement | null>(null);
   const [selectedSize, setSelectedSize] = useState<TShirtSize | null>(null);
   const [showSizeWarning, setShowSizeWarning] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [imageError, setImageError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const [hasEnteredView, setHasEnteredView] = useState(false);
   const [activePhotoIndex, setActivePhotoIndex] = useState<0 | 1>(0);
 
   const prefersReducedMotion = useSyncExternalStore(
@@ -69,6 +72,26 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
     getReducedMotionSnapshot,
     getReducedMotionServerSnapshot
   );
+
+  // Only animate and load secondary image when card approaches/is inside viewport
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const visible = entry.isIntersecting;
+        setIsInView(visible);
+        if (visible) {
+          setHasEnteredView(true);
+        }
+      },
+      { rootMargin: '120px 0px' }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const isSoldOut = product.status === 'agotado';
   const isLimited = product.status === 'drop_limitado';
@@ -96,7 +119,11 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
 
   const hasMultipleMockups = Boolean(backSrc) && photosCount > 1;
   const shouldAnimate =
-    hasMultipleMockups && !isHovered && !prefersReducedMotion && !imageError;
+    hasMultipleMockups &&
+    isInView &&
+    !isHovered &&
+    !prefersReducedMotion &&
+    !imageError;
 
   // Automatic smooth alternation every 2800ms; pauses cleanly on hover
   useEffect(() => {
@@ -141,12 +168,13 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
 
   return (
     <article
+      ref={cardRef}
       className="
         group relative flex flex-col justify-between
         rounded-2xl sm:rounded-3xl
         bg-dba-white border border-dba-rule/70
         overflow-hidden
-        transition-all duration-500 ease-[var(--dba-ease)]
+        transition-[transform,box-shadow] duration-300 ease-[var(--dba-ease)]
         hover:shadow-[0_16px_44px_oklch(15%_0.01_80/0.07)]
         hover:-translate-y-1
       "
@@ -178,8 +206,8 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
               onError={() => setImageError(true)}
             />
 
-            {/* Secondary Garment / Lookbook Shot (mockups[1]) */}
-            {backSrc ? (
+            {/* Secondary Garment / Lookbook Shot (mockups[1]) — mounted lazily on viewport approach */}
+            {backSrc && hasEnteredView ? (
               <Image
                 src={backSrc}
                 alt={backMockup?.alt[locale] || `${productName} alternate view`}
@@ -236,7 +264,7 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
               {dict.statusLimited}
             </span>
           ) : primaryBadge ? (
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] uppercase tracking-[0.16em] font-semibold bg-dba-white/90 text-dba-ink border border-dba-rule/70 shadow-xs backdrop-blur-xs">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] uppercase tracking-[0.16em] font-semibold bg-dba-white/95 text-dba-ink border border-dba-rule/70 shadow-xs">
               {primaryBadge}
             </span>
           ) : null}
@@ -244,14 +272,14 @@ export function TShirtCard({ product, dict, locale }: TShirtCardProps) {
 
         {/* ── Price Tag Overlay ── */}
         <div className="absolute top-3.5 right-3.5 z-10">
-          <span className="inline-flex items-center px-3 py-1 rounded-full font-mono text-xs font-semibold text-dba-ink bg-dba-white/95 border border-dba-rule/80 shadow-xs backdrop-blur-xs">
+          <span className="inline-flex items-center px-3 py-1 rounded-full font-mono text-xs font-semibold text-dba-ink bg-dba-white/95 border border-dba-rule/80 shadow-xs">
             ${product.priceUSD} USD
           </span>
         </div>
 
         {/* ── Dynamic Media Preview Badge ── */}
         <div className="absolute bottom-3.5 right-3.5 z-10">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-body text-[11px] font-medium text-dba-ink bg-dba-white/90 border border-dba-rule/70 shadow-xs backdrop-blur-xs transition-transform duration-300 group-hover:scale-105">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-body text-[11px] font-medium text-dba-ink bg-dba-white/95 border border-dba-rule/70 shadow-xs transition-transform duration-300 group-hover:scale-105">
             <svg
               width="12"
               height="12"

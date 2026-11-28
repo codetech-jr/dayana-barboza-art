@@ -311,14 +311,14 @@ export function CartDrawer({ isOpen, onClose, dict, locale }: CartDrawerProps) {
           aria-modal="true"
           aria-labelledby="cart-drawer-title"
         >
-          {/* ── 1. Backdrop Overlay ── */}
+          {/* ── 1. Backdrop Overlay (solid translucent scrim avoids GPU re-blur lag) ── */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
             onClick={onClose}
-            className="fixed inset-0 bg-dba-ink/40 backdrop-blur-xs select-none"
+            className="fixed inset-0 bg-dba-ink/50 select-none"
             aria-hidden="true"
           />
 

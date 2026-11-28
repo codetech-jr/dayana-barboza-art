@@ -71,8 +71,8 @@ export function Nav({ dict, locale }: NavProps) {
           mx-auto w-[calc(100%-2rem)] max-w-5xl
           rounded-full
           border border-dba-rule
-          bg-[oklch(100%_0_0/0.7)]
-          backdrop-blur-[16px] backdrop-saturate-[1.4]
+          bg-[oklch(100%_0_0/0.86)]
+          backdrop-blur-md
           px-5 py-2
           md:px-8 md:py-2.5
           transition-shadow duration-500
